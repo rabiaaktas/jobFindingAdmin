@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e6421a42d2e042ccbd570e9bb7a6a7cf" Name="Diagram1">
+        <EntityTypeShape EntityType="akdenizjobfindingModel.business_stream" Width="1.5" PointX="6" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.company" Width="1.5" PointX="8.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.job_location" Width="1.5" PointX="8.25" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.job_post" Width="1.5" PointX="10.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.job_post_activity" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.job_type" Width="1.5" PointX="8.25" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.languages" Width="1.5" PointX="6" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_account" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_education" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_experinence_detail" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_language_skill" Width="1.5" PointX="8.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_log" Width="1.5" PointX="5.25" PointY="16.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_student" Width="1.5" PointX="8.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_teacher" Width="1.5" PointX="5.25" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_type" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
+        <AssociationConnector Association="akdenizjobfindingModel.company_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.user_student_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.job_post_ibfk_3" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.job_post_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.job_post_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.job_post_activity_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.user_language_skill_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.user_account_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.user_education_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.user_experinence_detail_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.user_language_skill_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.user_log_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.user_student_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.user_teacher_ibfk_1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

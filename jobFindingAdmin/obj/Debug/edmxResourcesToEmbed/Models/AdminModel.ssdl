@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="akdenizjobfindingModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="business_stream">
+    <Key>
+      <PropertyRef Name="businessId" />
+    </Key>
+    <Property Name="businessId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="businessName" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="company">
+    <Key>
+      <PropertyRef Name="companyId" />
+    </Key>
+    <Property Name="companyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="companyName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="businessID" Type="int" Nullable="false" />
+    <Property Name="foundationYear" Type="varchar" MaxLength="4" />
+    <Property Name="companyAddress" Type="varchar" MaxLength="1000" />
+    <Property Name="webSiteUrl" Type="varchar" MaxLength="500" />
+    <Property Name="companyEmail" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="companyPassword" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="companyInfo" Type="varchar" MaxLength="1000" />
+    <Property Name="companyPhone" Type="varchar" MaxLength="11" />
+    <Property Name="companyLogo" Type="blob" Nullable="false" />
+    <Property Name="registrationCompanyDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="job_location">
+    <Key>
+      <PropertyRef Name="jobLocationId" />
+    </Key>
+    <Property Name="jobLocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="country" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="city" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="streetAddress" Type="varchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="job_post">
+    <Key>
+      <PropertyRef Name="jobPostId" />
+    </Key>
+    <Property Name="jobPostId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="jobTypeID" Type="int" Nullable="false" />
+    <Property Name="companyID" Type="int" Nullable="false" />
+    <Property Name="isCompanyNameHidden" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="postCreatedDate" Type="date" Nullable="false" />
+    <Property Name="jobDescription" Type="text" Nullable="false" />
+    <Property Name="jobLocationID" Type="int" Nullable="false" />
+    <Property Name="isActivePost" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="jobPostTitle" Type="varchar" MaxLength="10000" Nullable="false" />
+    <Property Name="department" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="experienceStatus" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="educationInfo" Type="varchar" MaxLength="10000" Nullable="false" />
+    <Property Name="militaryStiation" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="job_post_activity">
+    <Key>
+      <PropertyRef Name="userAccountID" />
+    </Key>
+    <Property Name="userAccountID" Type="int" Nullable="false" />
+    <Property Name="jobPostID" Type="int" Nullable="false" />
+    <Property Name="applyDate" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="job_type">
+    <Key>
+      <PropertyRef Name="jobTypeId" />
+    </Key>
+    <Property Name="jobTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="jobTypeName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="languages">
+    <Key>
+      <PropertyRef Name="languageId" />
+    </Key>
+    <Property Name="languageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="languageName" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_account">
+    <Key>
+      <PropertyRef Name="userAccountId" />
+    </Key>
+    <Property Name="userAccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userTypeID" Type="int" Nullable="false" />
+    <Property Name="userEmail" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="userPassword" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="userIsActive" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="userIsConfirmed" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="userImage" Type="blob" />
+    <Property Name="userRegistrationDate" Type="date" Nullable="false" />
+    <Property Name="userBday" Type="date" />
+    <Property Name="userPhone" Type="varchar" MaxLength="11" />
+    <Property Name="userAddress" Type="varchar" MaxLength="10000" />
+  </EntityType>
+  <EntityType Name="user_education">
+    <Key>
+      <PropertyRef Name="userAccountId" />
+    </Key>
+    <Property Name="userAccountId" Type="int" Nullable="false" />
+    <Property Name="degreeName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="universityName" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="startingDate" Type="varchar" MaxLength="4" Nullable="false" />
+    <Property Name="endingDate" Type="varchar" MaxLength="4" />
+    <Property Name="GANO" Type="double" />
+    <Property Name="GANOINT" Type="int" Nullable="false" />
+    <Property Name="department" Type="varchar" MaxLength="1000" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_experinence_detail">
+    <Key>
+      <PropertyRef Name="userAccountID" />
+    </Key>
+    <Property Name="userAccountID" Type="int" Nullable="false" />
+    <Property Name="isCurrentJob" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="startDate" Type="date" Nullable="false" />
+    <Property Name="endDate" Type="date" Nullable="false" />
+    <Property Name="jobTitle" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="companyName" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="1000" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_language_skill">
+    <Key>
+      <PropertyRef Name="userAccountID" />
+    </Key>
+    <Property Name="userAccountID" Type="int" Nullable="false" />
+    <Property Name="languageID" Type="int" Nullable="false" />
+    <Property Name="level" Type="varchar" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_log">
+    <Key>
+      <PropertyRef Name="userAccountID" />
+    </Key>
+    <Property Name="userAccountID" Type="int" Nullable="false" />
+    <Property Name="loginDate" Type="date" Nullable="false" />
+    <Property Name="loginIp" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_student">
+    <Key>
+      <PropertyRef Name="userAccountID" />
+    </Key>
+    <Property Name="userAccountID" Type="int" Nullable="false" />
+    <Property Name="stufirstName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="stulastName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="intrestedSectorId" Type="int" />
+    <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="user_teacher">
+    <Key>
+      <PropertyRef Name="userAccountID" />
+    </Key>
+    <Property Name="userAccountID" Type="int" Nullable="false" />
+    <Property Name="teacfirstName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="teaclastName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="degree" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="interestAreas" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="user_type">
+    <Key>
+      <PropertyRef Name="userTypeId" />
+    </Key>
+    <Property Name="userTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_type_name" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <Association Name="company_ibfk_1">
+    <End Role="business_stream" Type="Self.business_stream" Multiplicity="1" />
+    <End Role="company" Type="Self.company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="business_stream">
+        <PropertyRef Name="businessId" />
+      </Principal>
+      <Dependent Role="company">
+        <PropertyRef Name="businessID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="job_post_activity_ibfk_1">
+    <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
+    <End Role="job_post_activity" Type="Self.job_post_activity" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="user_account">
+        <PropertyRef Name="userAccountId" />
+      </Principal>
+      <Dependent Role="job_post_activity">
+        <PropertyRef Name="userAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="job_post_ibfk_1">
+    <End Role="job_type" Type="Self.job_type" Multiplicity="1" />
+    <End Role="job_post" Type="Self.job_post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="job_type">
+        <PropertyRef Name="jobTypeId" />
+      </Principal>
+      <Dependent Role="job_post">
+        <PropertyRef Name="jobTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="job_post_ibfk_2">
+    <End Role="job_location" Type="Self.job_location" Multiplicity="1" />
+    <End Role="job_post" Type="Self.job_post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="job_location">
+        <PropertyRef Name="jobLocationId" />
+      </Principal>
+      <Dependent Role="job_post">
+        <PropertyRef Name="jobLocationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="job_post_ibfk_3">
+    <End Role="company" Type="Self.company" Multiplicity="1" />
+    <End Role="job_post" Type="Self.job_post" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="company">
+        <PropertyRef Name="companyId" />
+      </Principal>
+      <Dependent Role="job_post">
+        <PropertyRef Name="companyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_account_ibfk_1">
+    <End Role="user_type" Type="Self.user_type" Multiplicity="1" />
+    <End Role="user_account" Type="Self.user_account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_type">
+        <PropertyRef Name="userTypeId" />
+      </Principal>
+      <Dependent Role="user_account">
+        <PropertyRef Name="userTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_education_ibfk_1">
+    <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
+    <End Role="user_education" Type="Self.user_education" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="user_account">
+        <PropertyRef Name="userAccountId" />
+      </Principal>
+      <Dependent Role="user_education">
+        <PropertyRef Name="userAccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_experinence_detail_ibfk_1">
+    <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
+    <End Role="user_experinence_detail" Type="Self.user_experinence_detail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="user_account">
+        <PropertyRef Name="userAccountId" />
+      </Principal>
+      <Dependent Role="user_experinence_detail">
+        <PropertyRef Name="userAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_language_skill_ibfk_1">
+    <End Role="languages" Type="Self.languages" Multiplicity="1" />
+    <End Role="user_language_skill" Type="Self.user_language_skill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="languages">
+        <PropertyRef Name="languageId" />
+      </Principal>
+      <Dependent Role="user_language_skill">
+        <PropertyRef Name="languageID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_language_skill_ibfk_2">
+    <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
+    <End Role="user_language_skill" Type="Self.user_language_skill" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="user_account">
+        <PropertyRef Name="userAccountId" />
+      </Principal>
+      <Dependent Role="user_language_skill">
+        <PropertyRef Name="userAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_log_ibfk_1">
+    <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
+    <End Role="user_log" Type="Self.user_log" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="user_account">
+        <PropertyRef Name="userAccountId" />
+      </Principal>
+      <Dependent Role="user_log">
+        <PropertyRef Name="userAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_student_ibfk_1">
+    <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
+    <End Role="user_student" Type="Self.user_student" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="user_account">
+        <PropertyRef Name="userAccountId" />
+      </Principal>
+      <Dependent Role="user_student">
+        <PropertyRef Name="userAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_student_ibfk_2">
+    <End Role="business_stream" Type="Self.business_stream" Multiplicity="0..1" />
+    <End Role="user_student" Type="Self.user_student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="business_stream">
+        <PropertyRef Name="businessId" />
+      </Principal>
+      <Dependent Role="user_student">
+        <PropertyRef Name="intrestedSectorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_teacher_ibfk_1">
+    <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
+    <End Role="user_teacher" Type="Self.user_teacher" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="user_account">
+        <PropertyRef Name="userAccountId" />
+      </Principal>
+      <Dependent Role="user_teacher">
+        <PropertyRef Name="userAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="akdenizjobfindingModelStoreContainer">
+    <EntitySet Name="business_stream" EntityType="Self.business_stream" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="company" EntityType="Self.company" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="job_location" EntityType="Self.job_location" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="job_post" EntityType="Self.job_post" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="job_post_activity" EntityType="Self.job_post_activity" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="job_type" EntityType="Self.job_type" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="languages" EntityType="Self.languages" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="user_account" EntityType="Self.user_account" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="user_education" EntityType="Self.user_education" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="user_experinence_detail" EntityType="Self.user_experinence_detail" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="user_language_skill" EntityType="Self.user_language_skill" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="user_log" EntityType="Self.user_log" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="user_student" EntityType="Self.user_student" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="user_teacher" EntityType="Self.user_teacher" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="user_type" EntityType="Self.user_type" Schema="akdenizjobfinding" store:Type="Tables" />
+    <AssociationSet Name="company_ibfk_1" Association="Self.company_ibfk_1">
+      <End Role="business_stream" EntitySet="business_stream" />
+      <End Role="company" EntitySet="company" />
+    </AssociationSet>
+    <AssociationSet Name="job_post_activity_ibfk_1" Association="Self.job_post_activity_ibfk_1">
+      <End Role="user_account" EntitySet="user_account" />
+      <End Role="job_post_activity" EntitySet="job_post_activity" />
+    </AssociationSet>
+    <AssociationSet Name="job_post_ibfk_1" Association="Self.job_post_ibfk_1">
+      <End Role="job_type" EntitySet="job_type" />
+      <End Role="job_post" EntitySet="job_post" />
+    </AssociationSet>
+    <AssociationSet Name="job_post_ibfk_2" Association="Self.job_post_ibfk_2">
+      <End Role="job_location" EntitySet="job_location" />
+      <End Role="job_post" EntitySet="job_post" />
+    </AssociationSet>
+    <AssociationSet Name="job_post_ibfk_3" Association="Self.job_post_ibfk_3">
+      <End Role="company" EntitySet="company" />
+      <End Role="job_post" EntitySet="job_post" />
+    </AssociationSet>
+    <AssociationSet Name="user_account_ibfk_1" Association="Self.user_account_ibfk_1">
+      <End Role="user_type" EntitySet="user_type" />
+      <End Role="user_account" EntitySet="user_account" />
+    </AssociationSet>
+    <AssociationSet Name="user_education_ibfk_1" Association="Self.user_education_ibfk_1">
+      <End Role="user_account" EntitySet="user_account" />
+      <End Role="user_education" EntitySet="user_education" />
+    </AssociationSet>
+    <AssociationSet Name="user_experinence_detail_ibfk_1" Association="Self.user_experinence_detail_ibfk_1">
+      <End Role="user_account" EntitySet="user_account" />
+      <End Role="user_experinence_detail" EntitySet="user_experinence_detail" />
+    </AssociationSet>
+    <AssociationSet Name="user_language_skill_ibfk_1" Association="Self.user_language_skill_ibfk_1">
+      <End Role="languages" EntitySet="languages" />
+      <End Role="user_language_skill" EntitySet="user_language_skill" />
+    </AssociationSet>
+    <AssociationSet Name="user_language_skill_ibfk_2" Association="Self.user_language_skill_ibfk_2">
+      <End Role="user_account" EntitySet="user_account" />
+      <End Role="user_language_skill" EntitySet="user_language_skill" />
+    </AssociationSet>
+    <AssociationSet Name="user_log_ibfk_1" Association="Self.user_log_ibfk_1">
+      <End Role="user_account" EntitySet="user_account" />
+      <End Role="user_log" EntitySet="user_log" />
+    </AssociationSet>
+    <AssociationSet Name="user_student_ibfk_1" Association="Self.user_student_ibfk_1">
+      <End Role="user_account" EntitySet="user_account" />
+      <End Role="user_student" EntitySet="user_student" />
+    </AssociationSet>
+    <AssociationSet Name="user_student_ibfk_2" Association="Self.user_student_ibfk_2">
+      <End Role="business_stream" EntitySet="business_stream" />
+      <End Role="user_student" EntitySet="user_student" />
+    </AssociationSet>
+    <AssociationSet Name="user_teacher_ibfk_1" Association="Self.user_teacher_ibfk_1">
+      <End Role="user_account" EntitySet="user_account" />
+      <End Role="user_teacher" EntitySet="user_teacher" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
