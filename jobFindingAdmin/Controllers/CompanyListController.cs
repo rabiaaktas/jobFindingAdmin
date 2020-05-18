@@ -34,7 +34,8 @@ namespace jobFindingAdmin.Controllers
                 int recordsTotal = 0;
 
                 var custData = from co in db.company join bs in db.business_stream on co.businessID equals bs.businessId
-                               select new { co.companyId, co.companyName, co.companyEmail, bs.businessId, bs.businessName, co.companyPhone, co.companyAddress, co.webSiteUrl };
+                               select new { co.companyId, co.companyName, co.companyEmail, bs.businessId, bs.businessName, co.isCompanyActive };
+
                 if(!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir))){
                     custData = custData.OrderBy(sortColumn + " " + sortColumnDir);
                 }
@@ -56,6 +57,32 @@ namespace jobFindingAdmin.Controllers
                 throw;
             }
 
+        }
+
+        [HttpPost]
+        public ActionResult Details(int? id)
+        {
+            return PartialView(db.company.FirstOrDefault(x => x.companyId == id));
+        }
+
+        [HttpPost]
+        public JsonResult companyDeactivate(company company)
+        {
+            var selected = db.company.Where(x => x.companyId == company.companyId).FirstOrDefault();
+            selected.isCompanyActive = "0";
+            db.SaveChanges();
+            return Json(JsonRequestBehavior.AllowGet);
+
+
+        }
+
+        [HttpPost]
+        public JsonResult companyActivate(company company)
+        {
+            var selected = db.company.Where(x => x.companyId == company.companyId).FirstOrDefault();
+            selected.isCompanyActive = "1";
+            db.SaveChanges();
+            return Json(JsonRequestBehavior.AllowGet);
         }
     }
 }

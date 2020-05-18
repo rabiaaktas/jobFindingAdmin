@@ -14,6 +14,11 @@ namespace jobFindingAdmin.Models
     
     public partial class job_post
     {
+        public job_post()
+        {
+            this.job_post_activity = new HashSet<job_post_activity>();
+        }
+    
         public int jobPostId { get; set; }
         public int jobTypeID { get; set; }
         public int companyID { get; set; }
@@ -30,6 +35,7 @@ namespace jobFindingAdmin.Models
     
         public virtual company company { get; set; }
         public virtual job_location job_location { get; set; }
+        public virtual ICollection<job_post_activity> job_post_activity { get; set; }
         public virtual job_type job_type { get; set; }
     }
 }

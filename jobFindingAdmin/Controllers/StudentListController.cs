@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using jobFindingAdmin.Models;
@@ -37,7 +38,8 @@ namespace jobFindingAdmin.Controllers
                 var custData = from ua in db.user_account
                                join st in db.user_student on ua.userAccountId equals st.userAccountID
                                join ustype in db.user_type on ua.userTypeID equals ustype.userTypeId
-                               select new { ua.userAccountId, ua.userEmail, st.stufirstName, st.stulastName, ua.userBday, ua.userPhone, ua.userAddress, ua.userIsActive, ua.userIsConfirmed, ustype.userTypeId, ustype.user_type_name };
+                               where ua.userTypeID == 2
+                               select new { ua.userAccountId, ua.userEmail, ua.firstName, ua.lastName, ua.userPhone, ua.userIsActive, ua.userIsConfirmed, ustype.userTypeId, ustype.user_type_name };
                 if(!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                 {
                     custData = custData.OrderBy(sortColumn + " " + sortColumnDir);
@@ -46,7 +48,7 @@ namespace jobFindingAdmin.Controllers
                 if (!string.IsNullOrEmpty(searchValue))
                 {
                     var lengthofSearch = searchValue.Length;
-                    custData = custData.Where(x => x.stufirstName.Substring(0, lengthofSearch).Equals(searchValue) || x.stulastName.Substring(0,lengthofSearch).Equals(searchValue) || x.userEmail.Substring(0,lengthofSearch).Equals(searchValue));
+                    custData = custData.Where(x => x.firstName.Substring(0, lengthofSearch).Equals(searchValue) || x.lastName.Substring(0,lengthofSearch).Equals(searchValue) || x.userEmail.Substring(0,lengthofSearch).Equals(searchValue));
                 }
 
                 recordsTotal = custData.Count();
@@ -60,6 +62,47 @@ namespace jobFindingAdmin.Controllers
             {
                 throw;
             }
+        }
+
+        [HttpPost]
+        public JsonResult userDeactivate(user_account user)
+        {
+            var selectedUser = db.user_account.Where(x => x.userAccountId == user.userAccountId).FirstOrDefault();
+            selectedUser.userIsActive = "0";
+            db.SaveChanges();
+            return Json(JsonRequestBehavior.AllowGet);
+
+           
+        }
+
+        [HttpPost]
+        public JsonResult userActivate(user_account user)
+        {
+            var selectedUser = db.user_account.Where(x => x.userAccountId == user.userAccountId).FirstOrDefault();
+            selectedUser.userIsActive = "1";
+            db.SaveChanges();
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult changeUserRole(user_account user)
+        {
+            var selectedUser = db.user_account.Where(x => x.userAccountId == user.userAccountId).FirstOrDefault();
+            var type = user.userTypeID;
+            selectedUser.userTypeID = type;
+            db.SaveChanges();
+            var student = db.user_student.Where(x => x.userAccountID == selectedUser.userAccountId).FirstOrDefault();
+            db.user_student.Remove(student);
+            db.SaveChanges();
+            if (user.userTypeID != 1)
+            {
+                var userT = new user_teacher();
+                userT.userAccountID = selectedUser.userAccountId;
+                db.user_teacher.Add(userT);
+                db.SaveChanges();
+            }
+            db.SaveChanges();
+            return Json(JsonRequestBehavior.AllowGet);
         }
     }
 }

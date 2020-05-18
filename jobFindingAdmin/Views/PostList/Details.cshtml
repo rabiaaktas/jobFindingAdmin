@@ -1,0 +1,28 @@
+﻿@model jobFindingAdmin.Models.job_post
+
+<div class="col-md-12">
+    <div>
+        <label class="font-weight-bold" for="name">Firma Adı:</label>
+        <p id="name">@Model.company.companyName</p>
+        <label class="font-weight-bold">İlan Başlığı:</label>
+        <p>@Model.jobPostTitle</p>
+        <label class="font-weight-bold">Departman:</label>
+        <p>@Model.department</p>
+        <label class="font-weight-bold">Şehir</label>
+        <p>@Model.job_location.city</p>
+        <label class="font-weight-bold">Adres:</label>
+        <p>@Model.job_location.streetAddress</p>
+        <label class="font-weight-bold">İş türü:</label>
+        <p>@Model.job_type.jobTypeName</p>
+        <label class="font-weight-bold">Başvuran Sayısı:</label>
+        <p>@ViewBag.Count</p>
+        <label class="font-weight-bold">Açıklama :</label>
+        <p>@Model.jobDescription</p>
+        <label class="font-weight-bold">Eğitim :</label>
+        <p>@Model.educationInfo</p>
+        <label class="font-weight-bold">Askerlik Durumu:</label>
+        <p>@Model.militaryStiation</p>
+
+
+    </div>
+</div>

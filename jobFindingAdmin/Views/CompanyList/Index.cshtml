@@ -4,63 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script>
 
-        $(document).ready(function () {
-            $("#companyTable").DataTable({
-
-                "processing": true, // for show progress bar
-                "serverSide": true, // for process server side
-                "filter": true, // this is for disable filter (search box)
-                "orderMulti": false, // for disable multiple column at once
-                //"pageLength": 5,
-                "paging": true,
-
-                "ajax": {
-                    "url": "/CompanyList/LoadCompanyTable",
-                    "type": "POST",
-                    "datatype": "json"
-                },
-
-                "columnDefs":
-                [{
-                    "targets": [0],
-                    "visible": false,
-                    "searchable": false
-                    },
-                    {
-                        "targets": [3],
-                        "visible": false,
-                        "searchable": false
-                    },
-                
-               ],
-
-                "columns": [
-                      { "title": "Firma ID", "data": "companyId", "name": "companyId", "autowidth": true },
-                      { "title": "Firma Adı", "data": "companyName", "name": "companyName", "autowidth": true },
-                      { "title": "Firma Mail", "data": "companyEmail", "name": "companyEmail", "autowidth": true },
-                      { "title": "Sektör ID", "data": "businessId", "name": "businessId", "autowidth": true },
-                      { "title":"Sektör Adı", "data": "businessName", "name": "businessName", "autowidth": true },
-                      { "title": "Telefon", "data": "companyPhone", "name": "companyPhone", "autowidth": true },
-                      { "title": "Adres", "data": "companyAddress", "name": "companyAddress", "autowidth": true },
-                      { "title": "Web Sitesi", "data": "webSiteUrl", "name": "webSiteUrl",  "autowidth": true },
-                      
-                      //{
-                      //    "render": function (data, type, full, meta)
-                      //    { return '<a class="btn btn-info" href="/demo/edit/' + full.customerıd + '">edit</a>'; }
-                      //},
-                      // {
-                      //     data: null, render: function (data, type, row) {
-                      //         return "<a href='#' class='btn btn-danger' onclick=deletedata('" + row.customerıd + "'); >delete</a>";
-                      //     }
-                      // },
-
-                ]
-
-            });
-        });
-</script>
 
 <div class="container">
     <br />
@@ -73,12 +17,204 @@
                     <th>Firma Mail</th>
                     <th>Sektör ID</th>
                     <th>Sektör Adı</th>
-                    <th>Telefon</th>
-                    <th>Adres</th>
-                    <th>Web Sitesi</th>
+                    <th>Aktif Mi?</th>
+                    <th>Detaylar</th>
                 </tr>
             </thead>
         </table>
     </div>
 </div>
 
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h class="modal-title text-muted">Detaylar</h>
+            </div>
+            <form>
+               <div class="modal-body">
+                  
+               </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="activateCompany" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h class="modal-title text-muted">Detaylar</h>
+            </div>
+            <form>
+                <div class="form-group m-3">
+                    <label>Aktive etmek istediğinize emin misiniz ? </label>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-sm" onclick="activate()">
+                    <i class="fas fa-user"></i> Aktifleştir
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deactivateCompany" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h class="modal-title text-muted">Detaylar</h>
+            </div>
+            <form>
+                <div class="form-group m-3">
+                    <label>Aktivasyonu kaldırmak istediğinize emin misiniz? </label>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-sm" onclick="deactivate()">
+                    <i class="fas fa-user-slash"></i> Kaldır
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#companyTable").DataTable({
+
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            //"pageLength": 5,
+            "paging": true,
+
+            "ajax": {
+                "url": "/CompanyList/LoadCompanyTable",
+                "type": "POST",
+                "datatype": "json"
+            },
+
+            "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [3],
+                    "visible": false,
+                    "searchable": false
+                },
+                //{
+                //    "targets": [6],
+                //    "render": function (data, type, row) {
+                //        return '<a href="' + data + '">' + data + '</a > ';    
+                //    },
+                //},
+                    {
+                        "targets": [5],
+                        "searchable": false,
+                        "render": function (data, type, row) {
+                            var id = row.companyId;
+                            if (data == 0) {
+                                return '</button><button type="submit" class="open-activateCompany btn btn-success btn-sm float-center ml-1" data-id="' + id + '" > <i class="fas fa-user"></i> Aktif Et </button > ';
+                            }
+                            return '</button><button type="submit" data-id="' + id + '" class="open-deactivateCompany btn btn-sm btn-danger float-center ml-1" ><i class="fas fa-user-slash"></i> Kaldır</button>';
+
+                        },
+                    },
+                ],
+
+            "columns": [
+                { "title": "Firma ID", "data": "companyId", "name": "companyId", "autowidth": true },
+                { "title": "Firma Adı", "data": "companyName", "name": "companyName", "autowidth": true },
+                { "title": "Firma Mail", "data": "companyEmail", "name": "companyEmail", "autowidth": true },
+                { "title": "Sektör ID", "data": "businessId", "name": "businessId", "autowidth": true },
+                { "title": "Sektör Adı", "data": "businessName", "name": "businessName", "autowidth": true },
+                { "title": "Aktif Mi?", "data": "isCompanyActive", "name": "isCompanyActive", "autowidth": true },
+                
+                {
+                    "render": function (data, type, full, meta) {
+                        return '<a class="detailButton btn btn-info btn-sm float-center ml-1 text-white" data-target="/CompanyList/Details/' + full.companyId + '"><i class="fas fa-info-circle"></i> Detaylar</a>';
+                    }
+                },
+                
+
+            ]
+
+        });
+    });
+    $(document).on('click', '.detailButton', function () {
+        var url = $(this).data("target");
+        $.post(url, function (data) { })
+            .done(function (data) {
+            $("#detailModal .modal-body").html(data);
+            $("#detailModal").modal('show');
+        }).fail(function (data) {
+            $("#detailModal .modal-body").text("Error");
+            $("#detailModal").modal('show');
+        })
+    });
+    $(document).on('click', '.open-activateCompany', function () {
+        id = $(this).data('id');
+        $('#activateCompany').modal('show');
+    });
+    $(document).on('click', '.open-deactivateCompany', function () {
+        id = $(this).data('id');
+        $('#deactivateCompany').modal('show');
+    });
+    var id = ""
+    function activate() {
+        var company = new Object();
+        company.companyId = id;
+        console.log(company.companyId);
+        company.isCompanyActive = "1";
+        $.ajax({
+            type: "POST",
+            url: "/CompanyList/companyActivate",
+            dataType: "json",
+            data: JSON.stringify(company),
+            contentType: "application/json; charset=utf-8",
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        }).then(function () {
+            $('#companyTable').DataTable().ajax.reload();
+            $('#activateCompany').modal('hide');
+        })
+    }
+    function deactivate() {
+        var company = new Object();
+        company.companyId = id;
+        console.log(company.companyId);
+        company.isCompanyActive = "0";
+        $.ajax({
+            type: "POST",
+            url: "/CompanyList/companyDeactivate",
+            dataType: "json",
+            data: JSON.stringify(company),
+            contentType: "application/json; charset=utf-8",
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        }).then(function () {
+            $('#companyTable').DataTable().ajax.reload();
+            $('#deactivateCompany').modal('hide');
+        })
+    }
+</script>

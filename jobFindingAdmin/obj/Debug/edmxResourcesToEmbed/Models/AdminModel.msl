@@ -24,6 +24,7 @@
           <ScalarProperty Name="companyPhone" ColumnName="companyPhone" />
           <ScalarProperty Name="companyLogo" ColumnName="companyLogo" />
           <ScalarProperty Name="registrationCompanyDate" ColumnName="registrationCompanyDate" />
+          <ScalarProperty Name="isCompanyActive" ColumnName="isCompanyActive" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -87,6 +88,8 @@
           <ScalarProperty Name="userAccountId" ColumnName="userAccountId" />
           <ScalarProperty Name="userTypeID" ColumnName="userTypeID" />
           <ScalarProperty Name="userEmail" ColumnName="userEmail" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
           <ScalarProperty Name="userPassword" ColumnName="userPassword" />
           <ScalarProperty Name="userIsActive" ColumnName="userIsActive" />
           <ScalarProperty Name="userIsConfirmed" ColumnName="userIsConfirmed" />
@@ -147,8 +150,6 @@
       <EntityTypeMapping TypeName="akdenizjobfindingModel.user_student">
         <MappingFragment StoreEntitySet="user_student">
           <ScalarProperty Name="userAccountID" ColumnName="userAccountID" />
-          <ScalarProperty Name="stufirstName" ColumnName="stufirstName" />
-          <ScalarProperty Name="stulastName" ColumnName="stulastName" />
           <ScalarProperty Name="intrestedSectorId" ColumnName="intrestedSectorId" />
           <ScalarProperty Name="status" ColumnName="status" />
         </MappingFragment>
@@ -158,8 +159,6 @@
       <EntityTypeMapping TypeName="akdenizjobfindingModel.user_teacher">
         <MappingFragment StoreEntitySet="user_teacher">
           <ScalarProperty Name="userAccountID" ColumnName="userAccountID" />
-          <ScalarProperty Name="teacfirstName" ColumnName="teacfirstName" />
-          <ScalarProperty Name="teaclastName" ColumnName="teaclastName" />
           <ScalarProperty Name="degree" ColumnName="degree" />
           <ScalarProperty Name="interestAreas" ColumnName="interestAreas" />
         </MappingFragment>

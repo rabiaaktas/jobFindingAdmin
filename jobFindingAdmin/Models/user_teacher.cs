@@ -15,8 +15,6 @@ namespace jobFindingAdmin.Models
     public partial class user_teacher
     {
         public int userAccountID { get; set; }
-        public string teacfirstName { get; set; }
-        public string teaclastName { get; set; }
         public string degree { get; set; }
         public string interestAreas { get; set; }
     

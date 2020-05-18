@@ -31,6 +31,7 @@ namespace jobFindingAdmin.Models
         public string companyPhone { get; set; }
         public byte[] companyLogo { get; set; }
         public System.DateTime registrationCompanyDate { get; set; }
+        public string isCompanyActive { get; set; }
     
         public virtual business_stream business_stream { get; set; }
         public virtual ICollection<job_post> job_post { get; set; }

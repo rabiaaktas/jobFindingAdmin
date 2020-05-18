@@ -21,8 +21,9 @@
     <Property Name="companyPassword" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="companyInfo" Type="varchar" MaxLength="1000" />
     <Property Name="companyPhone" Type="varchar" MaxLength="11" />
-    <Property Name="companyLogo" Type="blob" Nullable="false" />
+    <Property Name="companyLogo" Type="blob" />
     <Property Name="registrationCompanyDate" Type="date" Nullable="false" />
+    <Property Name="isCompanyActive" Type="varchar" MaxLength="1" Nullable="false" />
   </EntityType>
   <EntityType Name="job_location">
     <Key>
@@ -57,7 +58,7 @@
     </Key>
     <Property Name="userAccountID" Type="int" Nullable="false" />
     <Property Name="jobPostID" Type="int" Nullable="false" />
-    <Property Name="applyDate" Type="int" Nullable="false" />
+    <Property Name="applyDate" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="job_type">
     <Key>
@@ -80,7 +81,9 @@
     <Property Name="userAccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userTypeID" Type="int" Nullable="false" />
     <Property Name="userEmail" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="userPassword" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="userPassword" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="userIsActive" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="userIsConfirmed" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="userImage" Type="blob" />
@@ -135,19 +138,15 @@
       <PropertyRef Name="userAccountID" />
     </Key>
     <Property Name="userAccountID" Type="int" Nullable="false" />
-    <Property Name="stufirstName" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="stulastName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="intrestedSectorId" Type="int" />
-    <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="user_teacher">
     <Key>
       <PropertyRef Name="userAccountID" />
     </Key>
     <Property Name="userAccountID" Type="int" Nullable="false" />
-    <Property Name="teacfirstName" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="teaclastName" Type="varchar" MaxLength="100" Nullable="false" />
-    <Property Name="degree" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="degree" Type="varchar" MaxLength="50" />
     <Property Name="interestAreas" Type="varchar" MaxLength="1000" />
   </EntityType>
   <EntityType Name="user_type">
@@ -178,6 +177,18 @@
       </Principal>
       <Dependent Role="job_post_activity">
         <PropertyRef Name="userAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="job_post_activity_ibfk_2">
+    <End Role="job_post" Type="Self.job_post" Multiplicity="1" />
+    <End Role="job_post_activity" Type="Self.job_post_activity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="job_post">
+        <PropertyRef Name="jobPostId" />
+      </Principal>
+      <Dependent Role="job_post_activity">
+        <PropertyRef Name="jobPostID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -347,6 +358,10 @@
     </AssociationSet>
     <AssociationSet Name="job_post_activity_ibfk_1" Association="Self.job_post_activity_ibfk_1">
       <End Role="user_account" EntitySet="user_account" />
+      <End Role="job_post_activity" EntitySet="job_post_activity" />
+    </AssociationSet>
+    <AssociationSet Name="job_post_activity_ibfk_2" Association="Self.job_post_activity_ibfk_2">
+      <End Role="job_post" EntitySet="job_post" />
       <End Role="job_post_activity" EntitySet="job_post_activity" />
     </AssociationSet>
     <AssociationSet Name="job_post_ibfk_1" Association="Self.job_post_ibfk_1">

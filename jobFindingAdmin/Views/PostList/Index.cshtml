@@ -5,60 +5,7 @@
 }
 
 
-<script>
 
-        $(document).ready(function () {
-            $("#postTable").DataTable({
-
-                "processing": true, // for show progress bar
-                "serverSide": true, // for process server side
-                "filter": true, // this is for disable filter (search box)
-                "orderMulti": false, // for disable multiple column at once
-                //"pageLength": 5,
-                "paging": true,
-
-                "ajax": {
-                    "url": "/PostList/LoadPostList",
-                    "type": "POST",
-                    "datatype": "json"
-                },
-
-                "columnDefs":
-                [{
-                    "targets": [0],
-                    "visible": false,
-                    "searchable": false
-                    },
-                    
-                
-               ],
-
-                "columns": [
-                      { "title": "Post ID", "data": "jobPostId", "name": "jobPostId", "autowidth": true },
-                      { "title": "Firma Adı", "data": "companyName", "name": "companyName", "autowidth": true },
-                      { "title": "İlan Başlığı", "data": "jobPostTitle", "name": "jobPostTitle", "autowidth": true },
-                      { "title": "Tarih", "data": "postCreatedDate", "name": "postCreatedDate", "autowidth": true },
-                      { "title":"Departman", "data": "department", "name": "department", "autowidth": true },
-                      { "title": "İş Tipi", "data": "jobTypeName", "name": "jobTypeName", "autowidth": true },
-                      { "title": "Şehir", "data": "country", "name": "country", "autowidth": true },
-                      { "title": "Adres", "data": "streetAddress", "name": "streetAddress", "autowidth": true },
-                      { "title": "Aktif Mi?", "data": "isActivePost", "name": "isActivePost", "autowidth": true },
-                      
-                      //{
-                      //    "render": function (data, type, full, meta)
-                      //    { return '<a class="btn btn-info" href="/demo/edit/' + full.customerıd + '">edit</a>'; }
-                      //},
-                      // {
-                      //     data: null, render: function (data, type, row) {
-                      //         return "<a href='#' class='btn btn-danger' onclick=deletedata('" + row.customerıd + "'); >delete</a>";
-                      //     }
-                      // },
-
-                ]
-
-            });
-        });
-</script>
 
 <div class="container">
     <br />
@@ -71,13 +18,230 @@
                     <th>İlan Başlığı</th>
                     <th>Tarih</th>
                     <th>Departman</th>
-                    <th>İş Tipi</th>
                     <th>Şehir</th>
-                    <th>Adres</th>
                     <th>Aktif Mi?</th>
+                    <th>Detaylar</th>
+                    <th>Başvuranlar</th>
                 </tr>
             </thead>
         </table>
     </div>
 </div>
 
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h class="modal-title text-muted">Detaylar</h>
+            </div>
+            <form>
+                <div class="modal-body">
+
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h class="modal-title text-muted">Kullanıcı Aktivasyonunu Kaldır</h>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form>
+                <div class="form-group m-3">
+                    <label>Aktivasyonu kaldırmak istediğinize emin misiniz? </label>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-sm" onclick="deactivate()">
+                    <i class="fas fa-user-slash"></i> Kaldır
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="activateModal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h class="modal-title text-muted">Kullanıcıyı Aktifleştir</h>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form>
+                <div class="form-group m-3">
+                    <label>Aktive etmek istediğinize emin misiniz ? </label>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-sm" onclick="activate()">
+                    <i class="fas fa-user"></i> Aktifleştir
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function ToJavaScriptDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+        return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+    }
+
+    $(document).ready(function () {
+        $("#postTable").DataTable({
+
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            //"pageLength": 5,
+            "paging": true,
+
+            "ajax": {
+                "url": "/PostList/LoadPostList",
+                "type": "POST",
+                "datatype": "json"
+            },
+
+            "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [3],
+                    "render": function (data, type, row) {
+                        return ToJavaScriptDate(row.postCreatedDate);
+                    },
+                },
+                {
+                    "targets": [6],
+                    "searchable": false,
+                    "render": function (data, type, row) {
+                        var id = row.jobPostId;
+                        if (data == 0) {
+                            return '</button><button type="submit" class="open-activatePost btn btn-success btn-sm float-center ml-1" data-id="' + id + '" > <i class="fas fa-user"></i> Aktif Et </button > ';
+                        }
+                        return '</button><button type="submit" data-id="' + id + '" class="open-deactivatePost btn btn-sm btn-danger float-center ml-1" ><i class="fas fa-user-slash"></i> Kaldır</button>';
+
+                    },
+                },
+                {
+                    "targets": [7],
+                    "searchable": false,
+                    "render": function (data, type, row) {
+                        var id = row.jobPostId;
+                        return '<a class="detailButton btn btn-info btn-sm float-center ml-1 text-white" data-target="/PostList/Details/' + id + '"><i class="fas fa-info-circle"></i> Detaylar</a>';
+                    },
+                },
+                {
+                    "targets": [8],
+                    "searchable": false,
+                    "render": function (data, type, row) {
+                        var id = row.jobPostId;
+                        return '<a class="btn btn-info btn-sm float-center ml-1" href="/PostList/GetApplicants/' + id + '"> <i class="fas fa-clipboard-list"></i> Başvuranlar</a>';
+                    },
+                },
+
+                ],
+
+            "columns": [
+                { "title": "Post ID", "data": "jobPostId", "name": "jobPostId", "autowidth": true },
+                { "title": "Firma Adı", "data": "companyName", "name": "companyName", "autowidth": true },
+                { "title": "İlan Başlığı", "data": "jobPostTitle", "name": "jobPostTitle", "autowidth": true },
+                { "title": "Tarih", "data": "postCreatedDate", "name": "postCreatedDate", "autowidth": true },
+                { "title": "Departman", "data": "department", "name": "department", "autowidth": true },
+                { "title": "Şehir", "data": "city", "name": "city", "autowidth": true },
+                { "title": "Aktif Mi?", "data": "isActivePost", "name": "isActivePost", "autowidth": true },
+
+                //{
+                //    "render": function (data, type, full, meta)
+                //    { return '<a class="btn btn-info" href="/demo/edit/' + full.customerıd + '">edit</a>'; }
+                //},
+                // {<
+                //     data: null, render: function (data, type, row) {
+                //         return "<a href='#' class='btn btn-danger' onclick=deletedata('" + row.customerıd + "'); >delete</a>";
+                //     }
+                // },
+
+            ]
+
+        });
+    });
+    $(document).on('click', '.open-activatePost', function () {
+        id = $(this).data('id');
+        $('#activateModal').modal('show');
+    });
+    $(document).on('click', '.open-deactivatePost', function () {
+        id = $(this).data('id');
+        $('#deactivateModal').modal('show');
+    });
+    $(document).on('click', '.detailButton', function () {
+        var url = $(this).data('target');
+        $.post(url, function (data) { })
+            .done(function (data) {
+                $('#detailModal .modal-body').html(data);
+                $('#detailModal').modal('show');
+            })
+            .fail(function (data) {
+                $('#detailModal .modal-body').text("Error");
+                $('#detailModal').modal('show');
+            })
+    });
+    var id = " "
+    function activate() {
+        var post = new Object();
+        post.jobPostId = id;
+        post.isActivePost = "1";
+        $.ajax({
+            type: "POST",
+            url: "/PostList/postActivate",
+            data: JSON.stringify(post),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            },
+        }).then(function () {
+            $('#postTable').DataTable().ajax.reload();
+            $('#activateModal').modal('hide');
+        });
+    }
+
+    function deactivate() {
+        var post = new Object();
+        post.jobPostId = id;
+        post.isActivePost = "0";
+        $.ajax({
+            type: "POST",
+            url: "/PostList/postDeactivate",
+            data: JSON.stringify(post),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            },
+        }).then(function () {
+            $('#postTable').DataTable().ajax.reload();
+            $('#deactivateModal').modal('hide');
+        });
+    }
+</script>

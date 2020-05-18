@@ -16,8 +16,9 @@ namespace jobFindingAdmin.Models
     {
         public int userAccountID { get; set; }
         public int jobPostID { get; set; }
-        public int applyDate { get; set; }
+        public System.DateTime applyDate { get; set; }
     
+        public virtual job_post job_post { get; set; }
         public virtual user_account user_account { get; set; }
     }
 }

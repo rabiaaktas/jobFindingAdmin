@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "GetApplicants";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <br />
+    <div style="width:90%; margin:0 auto;">
+        <table id="userTable" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Kullanıcı ID</th>
+                    <th>E-mail</th>
+                    <th>Adı</th>
+                    <th>Soyadı</th>
+                    <th>Başvuru Tarihi</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<script>
+    var routeId = @ViewContext.RouteData.Values["id"].ToString();
+
+    function ToJavaScriptDate(value) {
+        var pattern = /Date\(([^)]+)\)/;
+        var results = pattern.exec(value);
+        var dt = new Date(parseFloat(results[1]));
+        return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
+    }
+
+    $(document).ready(function () {
+        $("#userTable").DataTable({
+
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            //"pageLength": 5,
+            "paging": true,
+
+            "ajax": {
+                "url": "/PostList/LoadApplicants/" + routeId,
+                "type": "POST",
+                "datatype": "json",
+                "error": function (request, status, error) {
+                    console.log(request);
+                },
+            },
+
+            "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [4],
+                    "render": function (data, type, row) {
+                        return ToJavaScriptDate(row.applyDate);
+                    },
+                },
+                ],
+
+            "columns": [
+                { "title": "Kullanıcı ID", "data": "userAccountID", "name": "userAccountID", "autowidth": true },
+                { "title": "E-mail", "data": "userEmail", "name": "userEmail", "autowidth": true },
+                { "title": "Adı", "data": "firstName", "name": "firstName", "autowidth": true },
+                { "title": "Soyadı", "data": "lastName", "name": "lastName", "autowidth": true },
+                { "title": "Başvuru Tarihi", "data": "applyDate", "name": "applyDate", "autowidth": true },
+
+
+            ]
+
+
+        });
+    });
+
+</script>
+

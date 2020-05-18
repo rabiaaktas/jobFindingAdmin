@@ -26,8 +26,9 @@
           <Property Name="companyPassword" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="companyInfo" Type="varchar" MaxLength="1000" />
           <Property Name="companyPhone" Type="varchar" MaxLength="11" />
-          <Property Name="companyLogo" Type="blob" Nullable="false" />
+          <Property Name="companyLogo" Type="blob" />
           <Property Name="registrationCompanyDate" Type="date" Nullable="false" />
+          <Property Name="isCompanyActive" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="job_location">
           <Key>
@@ -62,7 +63,7 @@
           </Key>
           <Property Name="userAccountID" Type="int" Nullable="false" />
           <Property Name="jobPostID" Type="int" Nullable="false" />
-          <Property Name="applyDate" Type="int" Nullable="false" />
+          <Property Name="applyDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="job_type">
           <Key>
@@ -85,7 +86,9 @@
           <Property Name="userAccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userTypeID" Type="int" Nullable="false" />
           <Property Name="userEmail" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="userPassword" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="userPassword" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="userIsActive" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="userIsConfirmed" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="userImage" Type="blob" />
@@ -140,19 +143,15 @@
             <PropertyRef Name="userAccountID" />
           </Key>
           <Property Name="userAccountID" Type="int" Nullable="false" />
-          <Property Name="stufirstName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="stulastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="intrestedSectorId" Type="int" />
-          <Property Name="status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="user_teacher">
           <Key>
             <PropertyRef Name="userAccountID" />
           </Key>
           <Property Name="userAccountID" Type="int" Nullable="false" />
-          <Property Name="teacfirstName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="teaclastName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="degree" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="degree" Type="varchar" MaxLength="50" />
           <Property Name="interestAreas" Type="varchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="user_type">
@@ -183,6 +182,18 @@
             </Principal>
             <Dependent Role="job_post_activity">
               <PropertyRef Name="userAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_post_activity_ibfk_2">
+          <End Role="job_post" Type="Self.job_post" Multiplicity="1" />
+          <End Role="job_post_activity" Type="Self.job_post_activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="job_post">
+              <PropertyRef Name="jobPostId" />
+            </Principal>
+            <Dependent Role="job_post_activity">
+              <PropertyRef Name="jobPostID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -354,6 +365,10 @@
             <End Role="user_account" EntitySet="user_account" />
             <End Role="job_post_activity" EntitySet="job_post_activity" />
           </AssociationSet>
+          <AssociationSet Name="job_post_activity_ibfk_2" Association="Self.job_post_activity_ibfk_2">
+            <End Role="job_post" EntitySet="job_post" />
+            <End Role="job_post_activity" EntitySet="job_post_activity" />
+          </AssociationSet>
           <AssociationSet Name="job_post_ibfk_1" Association="Self.job_post_ibfk_1">
             <End Role="job_type" EntitySet="job_type" />
             <End Role="job_post" EntitySet="job_post" />
@@ -431,8 +446,9 @@
           <Property Name="companyPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="companyInfo" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="companyPhone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Name="companyLogo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="companyLogo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="registrationCompanyDate" Type="DateTime" Nullable="false" />
+          <Property Name="isCompanyActive" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="business_stream" Relationship="Self.company_ibfk_1" FromRole="company" ToRole="business_stream" />
           <NavigationProperty Name="job_post" Relationship="Self.job_post_ibfk_3" FromRole="company" ToRole="job_post" />
         </EntityType>
@@ -465,6 +481,7 @@
           <Property Name="militaryStiation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="company" Relationship="Self.job_post_ibfk_3" FromRole="job_post" ToRole="company" />
           <NavigationProperty Name="job_location" Relationship="Self.job_post_ibfk_2" FromRole="job_post" ToRole="job_location" />
+          <NavigationProperty Name="job_post_activity" Relationship="Self.job_post_activity_ibfk_2" FromRole="job_post" ToRole="job_post_activity" />
           <NavigationProperty Name="job_type" Relationship="Self.job_post_ibfk_1" FromRole="job_post" ToRole="job_type" />
         </EntityType>
         <EntityType Name="job_post_activity">
@@ -473,7 +490,8 @@
           </Key>
           <Property Name="userAccountID" Type="Int32" Nullable="false" />
           <Property Name="jobPostID" Type="Int32" Nullable="false" />
-          <Property Name="applyDate" Type="Int32" Nullable="false" />
+          <Property Name="applyDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="job_post" Relationship="Self.job_post_activity_ibfk_2" FromRole="job_post_activity" ToRole="job_post" />
           <NavigationProperty Name="user_account" Relationship="Self.job_post_activity_ibfk_1" FromRole="job_post_activity" ToRole="user_account" />
         </EntityType>
         <EntityType Name="job_type">
@@ -499,7 +517,9 @@
           <Property Name="userAccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="userTypeID" Type="Int32" Nullable="false" />
           <Property Name="userEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="userPassword" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="firstName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userPassword" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="userIsActive" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="userIsConfirmed" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="userImage" Type="Binary" MaxLength="Max" FixedLength="false" />
@@ -567,10 +587,8 @@
             <PropertyRef Name="userAccountID" />
           </Key>
           <Property Name="userAccountID" Type="Int32" Nullable="false" />
-          <Property Name="stufirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="stulastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="intrestedSectorId" Type="Int32" />
-          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="business_stream" Relationship="Self.user_student_ibfk_2" FromRole="user_student" ToRole="business_stream" />
           <NavigationProperty Name="user_account" Relationship="Self.user_student_ibfk_1" FromRole="user_student" ToRole="user_account" />
         </EntityType>
@@ -579,9 +597,7 @@
             <PropertyRef Name="userAccountID" />
           </Key>
           <Property Name="userAccountID" Type="Int32" Nullable="false" />
-          <Property Name="teacfirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="teaclastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="degree" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="degree" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="interestAreas" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="user_account" Relationship="Self.user_teacher_ibfk_1" FromRole="user_teacher" ToRole="user_account" />
         </EntityType>
@@ -638,6 +654,18 @@
             </Principal>
             <Dependent Role="job_post">
               <PropertyRef Name="jobLocationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="job_post_activity_ibfk_2">
+          <End Role="job_post" Type="Self.job_post" Multiplicity="1" />
+          <End Role="job_post_activity" Type="Self.job_post_activity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="job_post">
+              <PropertyRef Name="jobPostId" />
+            </Principal>
+            <Dependent Role="job_post_activity">
+              <PropertyRef Name="jobPostID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -793,6 +821,10 @@
             <End Role="job_location" EntitySet="job_location" />
             <End Role="job_post" EntitySet="job_post" />
           </AssociationSet>
+          <AssociationSet Name="job_post_activity_ibfk_2" Association="Self.job_post_activity_ibfk_2">
+            <End Role="job_post" EntitySet="job_post" />
+            <End Role="job_post_activity" EntitySet="job_post_activity" />
+          </AssociationSet>
           <AssociationSet Name="job_post_ibfk_1" Association="Self.job_post_ibfk_1">
             <End Role="job_type" EntitySet="job_type" />
             <End Role="job_post" EntitySet="job_post" />
@@ -863,6 +895,7 @@
                 <ScalarProperty Name="companyPhone" ColumnName="companyPhone" />
                 <ScalarProperty Name="companyLogo" ColumnName="companyLogo" />
                 <ScalarProperty Name="registrationCompanyDate" ColumnName="registrationCompanyDate" />
+                <ScalarProperty Name="isCompanyActive" ColumnName="isCompanyActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -926,6 +959,8 @@
                 <ScalarProperty Name="userAccountId" ColumnName="userAccountId" />
                 <ScalarProperty Name="userTypeID" ColumnName="userTypeID" />
                 <ScalarProperty Name="userEmail" ColumnName="userEmail" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
                 <ScalarProperty Name="userPassword" ColumnName="userPassword" />
                 <ScalarProperty Name="userIsActive" ColumnName="userIsActive" />
                 <ScalarProperty Name="userIsConfirmed" ColumnName="userIsConfirmed" />
@@ -986,8 +1021,6 @@
             <EntityTypeMapping TypeName="akdenizjobfindingModel.user_student">
               <MappingFragment StoreEntitySet="user_student">
                 <ScalarProperty Name="userAccountID" ColumnName="userAccountID" />
-                <ScalarProperty Name="stufirstName" ColumnName="stufirstName" />
-                <ScalarProperty Name="stulastName" ColumnName="stulastName" />
                 <ScalarProperty Name="intrestedSectorId" ColumnName="intrestedSectorId" />
                 <ScalarProperty Name="status" ColumnName="status" />
               </MappingFragment>
@@ -997,8 +1030,6 @@
             <EntityTypeMapping TypeName="akdenizjobfindingModel.user_teacher">
               <MappingFragment StoreEntitySet="user_teacher">
                 <ScalarProperty Name="userAccountID" ColumnName="userAccountID" />
-                <ScalarProperty Name="teacfirstName" ColumnName="teacfirstName" />
-                <ScalarProperty Name="teaclastName" ColumnName="teaclastName" />
                 <ScalarProperty Name="degree" ColumnName="degree" />
                 <ScalarProperty Name="interestAreas" ColumnName="interestAreas" />
               </MappingFragment>

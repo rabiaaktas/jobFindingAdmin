@@ -4,74 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<script>
 
-        $(document).ready(function () {
-            $("#userTTable").DataTable({
-
-                "processing": false, // for show progress bar
-                "serverSide": true, // for process server side
-                "filter": true, // this is for disable filter (search box)
-                "orderMulti": false, // for disable multiple column at once
-                //"pageLength": 5,
-                "paging": true,
-
-                "ajax": {
-                    "url": "/StudentList/LoadTableData",
-                    "type": "POST",
-                    "datatype": "json"
-                },
-
-                "columnDefs":
-                [{
-                    "targets": [0],
-                    "visible": false,
-                    "searchable": false
-                },
-                {
-                    "targets": [7],
-                    "searchable": false,
-                    "orderable": false
-                },
-                {
-                    "targets": [8],
-                    "searchable": false,
-                    "orderable": false
-                },
-                {
-                    "targets": [9],
-                    "searchable": false,
-                    "visible": false,
-                    "orderable": false
-                }],
-
-                "columns": [
-                      { "title": "Kullanıcı ID", "data": "userAccountId", "name": "userAccountId", "autowidth": true },
-                      { "title": "E-mail", "data": "userEmail", "name": "userEmail", "autowidth": true },
-                      { "title": "Adı", "data": "stufirstName",  "name": "stufirstName", "autowidth": true },
-                      { "title": "Soyadı", "data": "stulastName", "name": "stulastName", "autowidth": true },
-                      { "title": "Doğum Tarihi", "data": "userBday", "name": "userBday", "autowidth": true },
-                      { "title": "Telefon", "data": "userPhone", "name": "userPhone", "autowidth": true },
-                      { "title": "Adres", "data": "userAddress", "name": "userAddress", "autowidth": true },
-                      { "title": "Active/Deactive", "data": "userIsActive", "name": "userIsActive", "autowidth": true },
-                      { "title": "E-mail Onay", "data": "userIsConfirmed", "name": "userIsConfirmed", "autowidth": true },
-                      { "title": "Rol Id", "data": "userTypeId", "name": "userTypeId", "autowidth": true },
-                      { "title": "Rol Değiştirme", "data": "user_type_name", "name": "user_type_name", "autowidth": true },
-                      //{
-                      //    "render": function (data, type, full, meta)
-                      //    { return '<a class="btn btn-info" href="/demo/edit/' + full.customerıd + '">edit</a>'; }
-                      //},
-                      // {
-                      //     data: null, render: function (data, type, row) {
-                      //         return "<a href='#' class='btn btn-danger' onclick=deletedata('" + row.customerıd + "'); >delete</a>";
-                      //     }
-                      // },
-
-                ]
-
-            });
-        });
-</script>
 
 <div class="container">
     <br />
@@ -83,9 +16,7 @@
                     <th>E-mail</th>
                     <th>Adı</th>
                     <th>Soyadı</th>
-                    <th>Doğum Tarihi</th>
                     <th>Telefon</th>
-                    <th>Adres</th>
                     <th>Active/Deactive</th>
                     <th>E-mail Onay</th>
                     <th>Rol Id</th>
@@ -96,3 +27,237 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="deactivateModal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h class="modal-title text-muted">Kullanıcı Aktivasyonunu Kaldır</h>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form>
+                <div class="form-group m-3">
+                    <label>Kullanıcı aktivasyonunu kaldırmak istediğinize emin misiniz? </label>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-sm" onclick="deactivateUser()">
+                    <i class="fas fa-user-slash"></i> Kaldır
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="activateModal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h class="modal-title text-muted">Kullanıcıyı Aktifleştir</h>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form>
+                <div class="form-group m-3">
+                    <label>Kullanıcıyı aktive etmek istediğinize emin misiniz ? </label>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-sm" onclick="activateUser()">
+                    <i class="fas fa-user"></i> Aktifleştir
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changeRole" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h class="modal-title text-muted">Kullanıcı Rolünü Değiştir</h>
+            </div>
+            <form>
+                <div class="form-group m-3">
+                    <label for="roleSelect">Değiştirmek istediğiniz rolü seçiniz : </label>
+                    <select id="roleSelect" class="form-control form-control-sm">
+                        <option value="1">Admin</option>
+                        <option value="2">Öğrenci</option>
+                    </select>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button class="btn btn-success btn-sm" onclick="changeUserRole()">
+                    Değiştir
+                </button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#userTTable").DataTable({
+
+            "processing": false, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            //"pageLength": 5,
+            "paging": true,
+
+            "ajax": {
+                "url": "/TeacherList/LoadTeacData",
+                "type": "POST",
+                "datatype": "json"
+            },
+
+            "columnDefs":
+                [{
+                    "targets": [0],
+                    "visible": false,
+                    "searchable": false
+                },
+                {
+                    "targets": [5],
+                    "searchable": false,
+                    "orderable": false,
+                    "render": function (data, type, row) {
+                        var id = row.userAccountId;
+                        if (data == 0) {
+                            return '</button><button type="submit" data-id="' + id + '" class="open-activateModal btn btn-sm btn-success float-center ml-1"> <i class="fas fa-user"></i> Aktif Et</button>';
+                        }
+                        return '</button><button type="submit" data-id="' + id + '" class="open-deactivateModal btn btn-sm btn-danger float-center ml-1" data-toggle="modal" data-target="#dataDeactivate"><i class="fas fa-user-slash"></i> Kaldır</button>';
+                    },
+                },
+                {
+                    "targets": [6],
+                    "searchable": false,
+                    "orderable": false,
+                    "render": function (data, type, row) {
+                        var id = row.userAccountId;
+                        if (data == 0) {
+                            return '</button><button type="submit" data-id="' + id + '" class=" btn btn-sm btn-success float-center ml-1"> <i class="fas fa-envelope"></i> Mail Gönder</button>';
+                        }
+                        return '</button><button type="submit" data-id="' + id + '" class="btn btn-sm btn-info float-center ml-1"> <i class="fas fa-envelope-open-text"></i> Onaylandı</button>';
+                    },
+                },
+                {
+                    "targets": [7],
+                    "searchable": false,
+                    "orderable": false,
+                    "visible": false
+                },
+                {
+                    "targets": [8],
+                    "searchable": false,
+                    "orderable": false,
+                    "render": function (data, type, row) {
+                        var id = row.userAccountId;
+                        return '</button><button type="submit" data-id="' + id + '" class = "open-roleChangeModal btn btn-sm btn-warning float-center ml-1 text-white"> <i class="fas fa-recycle"></i> Rol Değiştir </button>';
+                    },
+                }],
+
+            "columns": [
+                { "title": "Kullanıcı ID", "data": "userAccountId", "name": "userAccountId", "autowidth": true },
+                { "title": "E-mail", "data": "userEmail", "name": "userEmail", "autowidth": true },
+                { "title": "Adı", "data": "firstName", "name": "firstName", "autowidth": true },
+                { "title": "Soyadı", "data": "lastName", "name": "lastName", "autowidth": true },
+                { "title": "Telefon", "data": "userPhone", "name": "userPhone", "autowidth": true },
+                { "title": "Aktif Mi?", "data": "userIsActive", "name": "userIsActive", "autowidth": true },
+                { "title": "E-mail Onay", "data": "userIsConfirmed", "name": "userIsConfirmed", "autowidth": true },
+                { "title": "Rol Id", "data": "userTypeId", "name": "userTypeId", "autowidth": true },
+                { "title": "Rol Değiştirme", "data": "user_type_name", "name": "user_type_name", "autowidth": true },
+
+            ]
+
+        });
+    });
+    $(document).on("click", ".open-deactivateModal", function () {
+        id = $(this).data('id');
+        $('#deactivateModal').modal('show');
+
+    });
+    $(document).on("click", ".open-activateModal", function () {
+        id = $(this).data('id');
+        console.log(id);
+        $('#activateModal').modal('show');
+    });
+    $(document).on("click", ".open-roleChangeModal", function () {
+        id = $(this).data('id');
+        console.log(id);
+        $('#changeRole').modal('show');
+    });
+
+    var id = ""
+    function deactivateUser() {
+        var user = new Object();
+        user.userAccountId = id;
+        console.log(id);
+        $.ajax({
+            type: "POST",
+            url: "/TeacherList/userDeactivate",
+            data: JSON.stringify(user),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+
+        }).then(function () {
+            $("#userTTable").DataTable().ajax.reload();
+            $("#deactivateModal").modal('hide');
+        });
+    }
+
+    function activateUser() {
+        var user = new Object();
+        user.userAccountId = id;
+        console.log(id);
+        $.ajax({
+            type: "POST",
+            url: "/TeacherList/userActivate",
+            data: JSON.stringify(user),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        }).then(function () {
+            $("#userTTable").DataTable().ajax.reload();
+            $("#activateModal").modal('hide');
+        });
+    }
+
+    function changeUserRole() {
+        var user = new Object();
+        user.userAccountId = id;
+        user.userTypeID = $('#roleSelect').val();
+        console.log(user.userTypeID);
+        $.ajax({
+            type: "POST",
+            url: "/TeacherList/changeUserRole",
+            data: JSON.stringify(user),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        }).then(function () {
+            $('#userTTable').DataTable().ajax.reload();
+            $('#changeRole').modal('hide');
+        });
+    }
+</script>

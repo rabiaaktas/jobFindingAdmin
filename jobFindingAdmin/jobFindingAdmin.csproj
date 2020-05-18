@@ -146,6 +146,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dataTables.bootstrap4.min.js" />
     <Content Include="Scripts\dataTables.tableTools.min.js" />
+    <Content Include="Scripts\datetime.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -244,6 +245,9 @@
     <Content Include="Views\TeacherList\Index.cshtml" />
     <Content Include="Views\CompanyList\Index.cshtml" />
     <Content Include="Views\PostList\Index.cshtml" />
+    <Content Include="Views\CompanyList\Details.cshtml" />
+    <Content Include="Views\PostList\Details.cshtml" />
+    <Content Include="Views\PostList\GetApplicants.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

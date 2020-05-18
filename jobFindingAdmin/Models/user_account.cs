@@ -17,6 +17,8 @@ namespace jobFindingAdmin.Models
         public int userAccountId { get; set; }
         public int userTypeID { get; set; }
         public string userEmail { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
         public string userPassword { get; set; }
         public string userIsActive { get; set; }
         public string userIsConfirmed { get; set; }

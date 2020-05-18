@@ -1,0 +1,23 @@
+﻿@model jobFindingAdmin.Models.company
+
+<div class="col-md-12">
+    <div>
+        <label class="font-weight-bold" for="name">Firma Adı:</label>
+        <p id="name">@Model.companyName</p>
+        <label class="font-weight-bold" for="bs">İş Alanı :</label>
+        <p id="bs">@Model.business_stream.businessName</p>
+        <label class="font-weight-bold" for="year">Kuruluş Yılı :</label>
+        <p id="year">@Model.foundationYear</p>
+        <label class="font-weight-bold" for="address">Adresi :</label>
+        <p id="address">@Model.companyAddress</p>
+        <label class="font-weight-bold" for="web">Web Sitesi :</label>
+        <p id="web">@Model.webSiteUrl</p>
+        <label class="font-weight-bold" for="email">E-mail :</label>
+        <p id="email">@Model.companyEmail</p>
+        <label class="font-weight-bold" for="info">Bilgiler :</label>
+        <p id="info">@Model.companyInfo</p>
+        <label class="font-weight-bold" for="phone">Telefon :</label>
+        <p id="phone">@Model.companyEmail</p>
+
+    </div>
+</div>
