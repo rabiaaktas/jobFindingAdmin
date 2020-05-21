@@ -11,7 +11,13 @@ namespace jobFindingAdmin.Controllers
     {
         private AdminEntities db = new AdminEntities();
         // GET: Home
+        [UserCheck]
         public ActionResult Index()
+        {
+            return View();
+        }
+        
+        public ActionResult Login()
         {
             return View();
         }

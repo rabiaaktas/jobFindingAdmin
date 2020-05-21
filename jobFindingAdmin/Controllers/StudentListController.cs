@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using jobFindingAdmin.Models;
@@ -102,6 +103,24 @@ namespace jobFindingAdmin.Controllers
                 db.SaveChanges();
             }
             db.SaveChanges();
+            return Json(JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SendEmail(user_account user)
+        {
+            var selected = db.user_account.FirstOrDefault(x => x.userAccountId == user.userAccountId);
+            var email = selected.userEmail;
+            SmtpClient sc = new SmtpClient();
+            sc.Port = 587;
+            sc.Host = "";
+            sc.EnableSsl = false;
+            sc.Credentials = new NetworkCredential("rabia-aktas-98@hotmail.com ", "");
+            MailMessage mail = new MailMessage();
+            mail.To.Add(email);
+            mail.Subject = "Kullanıcı Email Aktivasyonu";
+            mail.IsBodyHtml = false;
+            mail.Body = "";
             return Json(JsonRequestBehavior.AllowGet);
         }
     }

@@ -1,11 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "CompanyPostList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
-
 
 <div class="container">
     <br />
@@ -132,7 +129,7 @@
             },
 
             "ajax": {
-                "url": "/PostList/LoadPostList",
+                "url": "/PostList/LoadCompanyPostList/" + @ViewContext.RouteData.Values["id"],
                 "type": "POST",
                 "datatype": "json"
             },
@@ -268,3 +265,5 @@
         });
     }
 </script>
+
+

@@ -19,6 +19,7 @@
                     <th>Sektör Adı</th>
                     <th>Aktif Mi?</th>
                     <th>Detaylar</th>
+                    <th>İlanları Görüntüle</th>
                 </tr>
             </thead>
         </table>
@@ -96,6 +97,29 @@
             "orderMulti": false, // for disable multiple column at once
             //"pageLength": 5,
             "paging": true,
+            "language": {
+                "sEmptyTable": "Tabloda mevcut veri yok",
+                "sInfo": "_START_ ile _END_ arası _TOTAL_ adet sonuç gösteriliyor.",
+                "sInfoEmpty": "0 ile 0 arası 0 adet sonuç gösteriliyor.",
+                "sInfoFiltered": "",
+                "sInfoPostFix": "",
+                "sInfoThousands": ",",
+                "sLengthMenu": "Sayfa başına _MENU_ adet sonuç göster.",
+                "sLoadingRecords": "Yükleniyor...",
+                "sProcessing": "İşlem sürüyor...",
+                "sSearch": "Arama:",
+                "sZeroRecords": "Arama sonucu bulunamadı.",
+                "oPaginate": {
+                    "sFirst": "İlk",
+                    "sLast": "Son",
+                    "sNext": "Önceki",
+                    "sPrevious": "Sonraki"
+                },
+                "oAria": {
+                    "sSortAscending": ": Sütunu artan olarak sırala",
+                    "sSortDescending": ": Sütunu azalan olarak sırala"
+                }
+            },
 
             "ajax": {
                 "url": "/CompanyList/LoadCompanyTable",
@@ -131,6 +155,14 @@
                             return '</button><button type="submit" data-id="' + id + '" class="open-deactivateCompany btn btn-sm btn-danger float-center ml-1" ><i class="fas fa-user-slash"></i> Kaldır</button>';
 
                         },
+                    },
+                    {
+                        "targets": [7],
+                        "searchable": false,
+                        "render": function (data, type, row) {
+                            var id = row.companyId;
+                            return '<a  href="/PostList/CompanyPostList/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" > İlanları Gör</a>';
+                        }
                     },
                 ],
 

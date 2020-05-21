@@ -94,6 +94,25 @@
     </div> 
 </div>
 
+<div class="modal fade" id="sendedModal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h class="modal-title text-muted">Mail</h>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form>
+                <div class="form-group m-3">
+                    <label>Mail Gönderildi. </label>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
         $("#userTable").DataTable({
@@ -104,6 +123,29 @@
             "orderMulti": false, // for disable multiple column at once
             //"pageLength": 5,
             "paging": true,
+            "language": {
+                "sEmptyTable": "Tabloda mevcut veri yok",
+                "sInfo": "_START_ ile _END_ arası _TOTAL_ adet sonuç gösteriliyor.",
+                "sInfoEmpty": "0 ile 0 arası 0 adet sonuç gösteriliyor.",
+                "sInfoFiltered": "",
+                "sInfoPostFix": "",
+                "sInfoThousands": ",",
+                "sLengthMenu": "Sayfa başına _MENU_ adet sonuç göster.",
+                "sLoadingRecords": "Yükleniyor...",
+                "sProcessing": "İşlem sürüyor...",
+                "sSearch": "Arama:",
+                "sZeroRecords": "Arama sonucu bulunamadı.",
+                "oPaginate": {
+                    "sFirst": "İlk",
+                    "sLast": "Son",
+                    "sNext": "Önceki",
+                    "sPrevious": "Sonraki"
+                },
+                "oAria": {
+                    "sSortAscending": ": Sütunu artan olarak sırala",
+                    "sSortDescending": ": Sütunu azalan olarak sırala"
+                }
+            },
 
             "ajax": {
                 "url": "/StudentList/LoadTableData",
@@ -139,7 +181,7 @@
                     "render": function (data, type, row) {
                         var id = row.userAccountId;
                         if (data == 0) {
-                            return '</button><button type="submit" data-id="' + id + '" class=" btn btn-sm btn-success float-center ml-1"><i class="fas fa-envelope"></i> Mail Gönder </button>';
+                            return '</button><button type="submit" data-id="' + id + '" class="sendActivationMail btn btn-sm btn-success float-center ml-1"><i class="fas fa-envelope"></i> Mail Gönder </button>';
                         }
                         return '</button><button type="submit" data-id="' + id + '" class="btn btn-sm btn-info float-center ml-1"> <i class="fas fa-envelope-open-text"></i> Onaylandı</button>';
                     },
@@ -190,6 +232,28 @@
         id = $(this).data('id');
         console.log(id);
         $('#changeRole').modal('show');
+    });
+    $(document).on('click', '.sendActivationMail', function () {
+        id = $(this).data('id');
+        var user = new Object();
+        user.userAccountId = id;
+        $.ajax({
+            type: "POST",
+            url: "/StudentList/SendEmail",
+            data: JSON.stringify(user),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        }).then(function () {
+            $('#sendedModal').modal('show');
+            $('#userTable').DataTable().ajax.reload();
+        });
+       
     });
     var id = ""
     function deactivateUser() {

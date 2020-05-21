@@ -76,3 +76,12 @@ C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\MySql.Data.Entit
 C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\MySql.Web.xml
 C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\obj\Debug\jobFindingAdmin.csprojAssemblyReference.cache
 C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\System.Linq.Dynamic.dll
+C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\Microsoft.Owin.dll
+C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\Microsoft.Owin.Security.dll
+C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\Microsoft.Owin.Security.OAuth.dll
+C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\Newtonsoft.Json.dll
+C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\Owin.dll
+C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\Microsoft.Owin.xml
+C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\Microsoft.Owin.Security.xml
+C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\Microsoft.Owin.Security.OAuth.xml
+C:\Users\rabia\source\repos\jobFindingAdmin\jobFindingAdmin\bin\Newtonsoft.Json.xml
