@@ -12,12 +12,13 @@ namespace jobFindingAdmin.Controllers
     {
         private AdminEntities db = new AdminEntities();
         // GET: CompanyList
-        //[Authorize]
+        [UserCheck]
         public ActionResult Index()
         {
             return View();
         }
 
+        [UserCheck]
         public ActionResult LoadCompanyTable()
         {
             try
@@ -59,12 +60,14 @@ namespace jobFindingAdmin.Controllers
 
         }
 
+        [UserCheck]
         [HttpPost]
         public ActionResult Details(int? id)
         {
             return PartialView(db.company.FirstOrDefault(x => x.companyId == id));
         }
 
+        [UserCheck]
         [HttpPost]
         public JsonResult companyDeactivate(company company)
         {
@@ -76,6 +79,7 @@ namespace jobFindingAdmin.Controllers
 
         }
 
+        [UserCheck]
         [HttpPost]
         public JsonResult companyActivate(company company)
         {

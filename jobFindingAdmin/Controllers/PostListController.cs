@@ -12,17 +12,19 @@ namespace jobFindingAdmin.Controllers
     {
         private AdminEntities db = new AdminEntities();
         // GET: PostList
+        [UserCheck]
         public ActionResult Index()
         {
             return View();
         }
-        
-        
+
+        [UserCheck]
         public ActionResult CompanyPostList(int? id)
         {
             return View(db.job_post.FirstOrDefault(x => x.companyID == id));
         }
-        
+
+        [UserCheck]
         public ActionResult LoadCompanyPostList(int? id)
         {
             try
@@ -68,6 +70,7 @@ namespace jobFindingAdmin.Controllers
             }
         }
 
+        [UserCheck]
         public ActionResult LoadPostList()
         {
             try
@@ -110,6 +113,7 @@ namespace jobFindingAdmin.Controllers
             }
         }
 
+        [UserCheck]
         public ActionResult GetApplicants(int? id)
         {
             return View(db.job_post_activity.Where(x => x.jobPostID == id));
@@ -159,6 +163,7 @@ namespace jobFindingAdmin.Controllers
             }
         }
 
+        [UserCheck]
         [HttpPost]
         public ActionResult Details(int? id)
         {
@@ -166,6 +171,7 @@ namespace jobFindingAdmin.Controllers
             return PartialView(db.job_post.FirstOrDefault(x => x.jobPostId == id));
         }
 
+        [UserCheck]
         [HttpPost]
         public JsonResult postDeactivate(job_post post)
         {
@@ -177,6 +183,7 @@ namespace jobFindingAdmin.Controllers
 
         }
 
+        [UserCheck]
         [HttpPost]
         public JsonResult postActivate(job_post post)
         {

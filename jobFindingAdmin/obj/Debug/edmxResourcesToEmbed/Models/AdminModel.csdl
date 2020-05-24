@@ -442,5 +442,10 @@
       <End Role="user_account" EntitySet="user_account" />
       <End Role="user_teacher" EntitySet="user_teacher" />
     </AssociationSet>
+    <FunctionImport Name="Sp_Admin_Login" ReturnType="Collection(akdenizjobfindingModel.Sp_Admin_Login_Result)">
+      <Parameter Name="mail" Mode="In" Type="String" />
+      <Parameter Name="pass" Mode="In" Type="String" />
+    </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="Sp_Admin_Login_Result" />
 </Schema>

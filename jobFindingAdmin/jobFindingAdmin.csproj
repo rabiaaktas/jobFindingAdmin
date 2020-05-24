@@ -222,6 +222,9 @@
     <Compile Include="Models\languages.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Sp_Admin_Login_Result.cs">
+      <DependentUpon>AdminModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\user_account.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>

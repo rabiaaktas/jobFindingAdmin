@@ -14,6 +14,7 @@ namespace jobFindingAdmin.Controllers
         
         private AdminEntities db = new AdminEntities();
         // GET: TeacherList
+        [UserCheck]
         public ActionResult Index()
         {
             string rb = "rbakt258.";
@@ -24,6 +25,7 @@ namespace jobFindingAdmin.Controllers
             return View();
         }
 
+        [UserCheck]
         public ActionResult LoadTeacData()
         {
             try
@@ -70,6 +72,7 @@ namespace jobFindingAdmin.Controllers
             }
         }
 
+        [UserCheck]
         [HttpPost]
         public JsonResult userDeactivate(user_account user)
         {
@@ -81,6 +84,7 @@ namespace jobFindingAdmin.Controllers
 
         }
 
+        [UserCheck]
         [HttpPost]
         public JsonResult userActivate(user_account user)
         {
@@ -90,6 +94,7 @@ namespace jobFindingAdmin.Controllers
             return Json(JsonRequestBehavior.AllowGet);
         }
 
+        [UserCheck]
         [HttpPost]
         public JsonResult changeUserRole(user_account user)
         {

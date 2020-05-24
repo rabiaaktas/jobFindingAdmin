@@ -12,6 +12,9 @@ namespace jobFindingAdmin.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Objects;
+    using System.Data.Objects.DataClasses;
+    using System.Linq;
     
     public partial class AdminEntities : DbContext
     {
@@ -40,5 +43,18 @@ namespace jobFindingAdmin.Models
         public DbSet<user_student> user_student { get; set; }
         public DbSet<user_teacher> user_teacher { get; set; }
         public DbSet<user_type> user_type { get; set; }
+    
+        public virtual ObjectResult<Sp_Admin_Login_Result> Sp_Admin_Login(string mail, string pass)
+        {
+            var mailParameter = mail != null ?
+                new ObjectParameter("mail", mail) :
+                new ObjectParameter("mail", typeof(string));
+    
+            var passParameter = pass != null ?
+                new ObjectParameter("pass", pass) :
+                new ObjectParameter("pass", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Sp_Admin_Login_Result>("Sp_Admin_Login", mailParameter, passParameter);
+        }
     }
 }

@@ -26,14 +26,9 @@ namespace jobFindingAdmin
         public bool IsLogin { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public bool Sa { get; set; }
+        public string Email { get; set; }
         public int UserId { get; set; }
-        public string isActive { get; set; }
-        public int Status { get; set; }
-        public int userType { get; set; }
-        public string PageCategory { get; set; }
-        public bool Admin { get; set; }
-        public string Ip { get; set; }
-
+        public string IsActive { get; set; }
+        public int UserType { get; set; }
     }
 }

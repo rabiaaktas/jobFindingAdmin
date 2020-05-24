@@ -172,5 +172,10 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Sp_Admin_Login" FunctionName="akdenizjobfindingModel.Store.Sp_Admin_Login">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="akdenizjobfindingModel.Sp_Admin_Login_Result" />
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -341,6 +341,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Sp_Admin_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="akdenizjobfinding">
+          <Parameter Name="mail" Type="varchar" Mode="In" />
+          <Parameter Name="pass" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="akdenizjobfindingModelStoreContainer">
           <EntitySet Name="business_stream" EntityType="Self.business_stream" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="company" EntityType="Self.company" Schema="akdenizjobfinding" store:Type="Tables" />
@@ -865,7 +869,12 @@
             <End Role="user_account" EntitySet="user_account" />
             <End Role="user_teacher" EntitySet="user_teacher" />
           </AssociationSet>
+          <FunctionImport Name="Sp_Admin_Login" ReturnType="Collection(akdenizjobfindingModel.Sp_Admin_Login_Result)">
+            <Parameter Name="mail" Mode="In" Type="String" />
+            <Parameter Name="pass" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="Sp_Admin_Login_Result" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1043,6 +1052,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Sp_Admin_Login" FunctionName="akdenizjobfindingModel.Store.Sp_Admin_Login">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="akdenizjobfindingModel.Sp_Admin_Login_Result" />
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

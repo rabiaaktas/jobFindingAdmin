@@ -15,11 +15,13 @@ namespace jobFindingAdmin.Controllers
     {
         private AdminEntities db = new AdminEntities();
         // GET: StudentList
+        [UserCheck]
         public ActionResult Index()
         {
             return View();
         }
 
+        [UserCheck]
         public ActionResult LoadTableData()
         {
             try
@@ -65,6 +67,7 @@ namespace jobFindingAdmin.Controllers
             }
         }
 
+        [UserCheck]
         [HttpPost]
         public JsonResult userDeactivate(user_account user)
         {
@@ -76,6 +79,7 @@ namespace jobFindingAdmin.Controllers
            
         }
 
+        [UserCheck]
         [HttpPost]
         public JsonResult userActivate(user_account user)
         {
@@ -85,6 +89,7 @@ namespace jobFindingAdmin.Controllers
             return Json(JsonRequestBehavior.AllowGet);
         }
 
+        [UserCheck]
         [HttpPost]
         public JsonResult changeUserRole(user_account user)
         {
@@ -106,6 +111,7 @@ namespace jobFindingAdmin.Controllers
             return Json(JsonRequestBehavior.AllowGet);
         }
 
+        [UserCheck]
         [HttpPost]
         public JsonResult SendEmail(user_account user)
         {
@@ -114,7 +120,7 @@ namespace jobFindingAdmin.Controllers
             SmtpClient sc = new SmtpClient();
             sc.Port = 587;
             sc.Host = "";
-            sc.EnableSsl = false;
+            sc.EnableSsl = true;
             sc.Credentials = new NetworkCredential("rabia-aktas-98@hotmail.com ", "");
             MailMessage mail = new MailMessage();
             mail.To.Add(email);
