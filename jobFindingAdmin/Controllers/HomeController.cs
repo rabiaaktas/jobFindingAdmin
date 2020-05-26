@@ -29,15 +29,41 @@ namespace jobFindingAdmin.Controllers
             var us = user.userEmail;
             var ps = user.userPassword;
             //var password = Crypt.Encrypt(user.userPassword);
-            var data = db.user_account.Where(x => x.userEmail == user.userEmail && x.userPassword == user.userPassword && x.userIsActive == "1" && x.userTypeID == 1).FirstOrDefault();
+            var data = db.user_admin.Where(x => x.adminEmail == user.userEmail && x.adminPassword == user.userPassword && x.adminIsActive == "1").FirstOrDefault();
             if (data != null)
             {
                 LoginStatus.Current.IsLogin = true;
-                LoginStatus.Current.Name = data.firstName;
-                LoginStatus.Current.Surname = data.lastName;
-                LoginStatus.Current.UserId = data.userAccountId;
-                LoginStatus.Current.UserType = data.userTypeID;
-                LoginStatus.Current.IsActive = data.userIsActive;
+                LoginStatus.Current.Name = data.adminName;
+                LoginStatus.Current.Surname = data.adminSurname;
+                LoginStatus.Current.UserId = data.adminAccountId;
+                LoginStatus.Current.IsActive = data.adminIsActive;
+                var userLog = db.admin_log.Where(x => x.adminAccountID == data.adminAccountId).FirstOrDefault();
+                if(userLog == null)
+                {
+                    admin_log log = new admin_log();
+                    log.adminAccountID = data.adminAccountId;
+                    log.loginDate = DateTime.Now;
+                    string ipAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                    if (ipAddress == "" || ipAddress == null)
+                    {
+                        ipAddress = Request.ServerVariables["REMOTE_ADDR"];
+                    }
+                    log.loginIp = ipAddress;
+                    db.admin_log.Add(log);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    userLog.loginDate = DateTime.Now;
+                    string ipAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                    if (ipAddress == "" || ipAddress == null)
+                    {
+                        ipAddress = Request.ServerVariables["REMOTE_ADDR"];
+                    }
+                    userLog.loginIp = ipAddress;
+                    db.SaveChanges();
+                }
+             
                 return RedirectToAction("Index", "Home");
             }
             else

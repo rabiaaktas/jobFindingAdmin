@@ -4,7 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="akdenizjobfindingModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="akdenizjobfindingModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="admin_log">
+          <Key>
+            <PropertyRef Name="adminAccountID" />
+          </Key>
+          <Property Name="adminAccountID" Type="int" Nullable="false" />
+          <Property Name="loginDate" Type="date" Nullable="false" />
+          <Property Name="loginIp" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
         <EntityType Name="business_stream">
           <Key>
             <PropertyRef Name="businessId" />
@@ -96,6 +104,20 @@
           <Property Name="userBday" Type="date" />
           <Property Name="userPhone" Type="varchar" MaxLength="11" />
           <Property Name="userAddress" Type="varchar" MaxLength="10000" />
+          <Property Name="resetPasswordCode" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="user_admin">
+          <Key>
+            <PropertyRef Name="adminAccountId" />
+          </Key>
+          <Property Name="adminAccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adminEmail" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="adminName" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="adminSurname" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="adminPassword" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="adminIsActive" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="adminRegisterDate" Type="date" Nullable="false" />
+          <Property Name="adminResetCode" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="user_education">
           <Key>
@@ -161,6 +183,18 @@
           <Property Name="userTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_type_name" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <Association Name="admin_log_ibfk_1">
+          <End Role="user_admin" Type="Self.user_admin" Multiplicity="1" />
+          <End Role="admin_log" Type="Self.admin_log" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user_admin">
+              <PropertyRef Name="adminAccountId" />
+            </Principal>
+            <Dependent Role="admin_log">
+              <PropertyRef Name="adminAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="company_ibfk_1">
           <End Role="business_stream" Type="Self.business_stream" Multiplicity="1" />
           <End Role="company" Type="Self.company" Multiplicity="*" />
@@ -346,6 +380,7 @@
           <Parameter Name="pass" Type="varchar" Mode="In" />
         </Function>
         <EntityContainer Name="akdenizjobfindingModelStoreContainer">
+          <EntitySet Name="admin_log" EntityType="Self.admin_log" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="business_stream" EntityType="Self.business_stream" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="company" EntityType="Self.company" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="job_location" EntityType="Self.job_location" Schema="akdenizjobfinding" store:Type="Tables" />
@@ -354,6 +389,7 @@
           <EntitySet Name="job_type" EntityType="Self.job_type" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="languages" EntityType="Self.languages" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="user_account" EntityType="Self.user_account" Schema="akdenizjobfinding" store:Type="Tables" />
+          <EntitySet Name="user_admin" EntityType="Self.user_admin" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="user_education" EntityType="Self.user_education" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="user_experinence_detail" EntityType="Self.user_experinence_detail" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="user_language_skill" EntityType="Self.user_language_skill" Schema="akdenizjobfinding" store:Type="Tables" />
@@ -361,6 +397,10 @@
           <EntitySet Name="user_student" EntityType="Self.user_student" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="user_teacher" EntityType="Self.user_teacher" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="user_type" EntityType="Self.user_type" Schema="akdenizjobfinding" store:Type="Tables" />
+          <AssociationSet Name="admin_log_ibfk_1" Association="Self.admin_log_ibfk_1">
+            <End Role="user_admin" EntitySet="user_admin" />
+            <End Role="admin_log" EntitySet="admin_log" />
+          </AssociationSet>
           <AssociationSet Name="company_ibfk_1" Association="Self.company_ibfk_1">
             <End Role="business_stream" EntitySet="business_stream" />
             <End Role="company" EntitySet="company" />
@@ -422,8 +462,7 @@
             <End Role="user_teacher" EntitySet="user_teacher" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="akdenizjobfindingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -539,6 +578,7 @@
           <NavigationProperty Name="user_log" Relationship="Self.user_log_ibfk_1" FromRole="user_account" ToRole="user_log" />
           <NavigationProperty Name="user_student" Relationship="Self.user_student_ibfk_1" FromRole="user_account" ToRole="user_student" />
           <NavigationProperty Name="user_teacher" Relationship="Self.user_teacher_ibfk_1" FromRole="user_account" ToRole="user_teacher" />
+          <Property Name="resetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="user_education">
           <Key>
@@ -873,8 +913,49 @@
             <Parameter Name="mail" Mode="In" Type="String" />
             <Parameter Name="pass" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="admin_log" EntityType="akdenizjobfindingModel.admin_log" />
+          <EntitySet Name="user_admin" EntityType="akdenizjobfindingModel.user_admin" />
+          <AssociationSet Name="admin_log_ibfk_1" Association="akdenizjobfindingModel.admin_log_ibfk_1">
+            <End Role="user_admin" EntitySet="user_admin" />
+            <End Role="admin_log" EntitySet="admin_log" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="Sp_Admin_Login_Result" />
+        <EntityType Name="admin_log">
+          <Key>
+            <PropertyRef Name="adminAccountID" />
+          </Key>
+          <Property Name="adminAccountID" Type="Int32" Nullable="false" />
+          <Property Name="loginDate" Type="DateTime" Nullable="false" />
+          <Property Name="loginIp" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user_admin" Relationship="akdenizjobfindingModel.admin_log_ibfk_1" FromRole="admin_log" ToRole="user_admin" />
+        </EntityType>
+        <EntityType Name="user_admin">
+          <Key>
+            <PropertyRef Name="adminAccountId" />
+          </Key>
+          <Property Name="adminAccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adminEmail" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="adminName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="adminSurname" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="adminPassword" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="adminIsActive" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="adminRegisterDate" Type="DateTime" Nullable="false" />
+          <Property Name="adminResetCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="admin_log" Relationship="akdenizjobfindingModel.admin_log_ibfk_1" FromRole="user_admin" ToRole="admin_log" />
+        </EntityType>
+        <Association Name="admin_log_ibfk_1">
+          <End Type="akdenizjobfindingModel.user_admin" Role="user_admin" Multiplicity="1" />
+          <End Type="akdenizjobfindingModel.admin_log" Role="admin_log" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user_admin">
+              <PropertyRef Name="adminAccountId" />
+            </Principal>
+            <Dependent Role="admin_log">
+              <PropertyRef Name="adminAccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -965,6 +1046,7 @@
           <EntitySetMapping Name="user_account">
             <EntityTypeMapping TypeName="akdenizjobfindingModel.user_account">
               <MappingFragment StoreEntitySet="user_account">
+                <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
                 <ScalarProperty Name="userAccountId" ColumnName="userAccountId" />
                 <ScalarProperty Name="userTypeID" ColumnName="userTypeID" />
                 <ScalarProperty Name="userEmail" ColumnName="userEmail" />
@@ -1057,6 +1139,29 @@
               <ComplexTypeMapping TypeName="akdenizjobfindingModel.Sp_Admin_Login_Result" />
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="admin_log">
+            <EntityTypeMapping TypeName="akdenizjobfindingModel.admin_log">
+              <MappingFragment StoreEntitySet="admin_log">
+                <ScalarProperty Name="loginIp" ColumnName="loginIp" />
+                <ScalarProperty Name="loginDate" ColumnName="loginDate" />
+                <ScalarProperty Name="adminAccountID" ColumnName="adminAccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_admin">
+            <EntityTypeMapping TypeName="akdenizjobfindingModel.user_admin">
+              <MappingFragment StoreEntitySet="user_admin">
+                <ScalarProperty Name="adminResetCode" ColumnName="adminResetCode" />
+                <ScalarProperty Name="adminRegisterDate" ColumnName="adminRegisterDate" />
+                <ScalarProperty Name="adminIsActive" ColumnName="adminIsActive" />
+                <ScalarProperty Name="adminPassword" ColumnName="adminPassword" />
+                <ScalarProperty Name="adminSurname" ColumnName="adminSurname" />
+                <ScalarProperty Name="adminName" ColumnName="adminName" />
+                <ScalarProperty Name="adminEmail" ColumnName="adminEmail" />
+                <ScalarProperty Name="adminAccountId" ColumnName="adminAccountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

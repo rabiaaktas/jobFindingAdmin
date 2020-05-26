@@ -35,6 +35,9 @@
         <AssociationConnector Association="akdenizjobfindingModel.user_log_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_student_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_teacher_ibfk_1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.admin_log" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_admin" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="akdenizjobfindingModel.admin_log_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

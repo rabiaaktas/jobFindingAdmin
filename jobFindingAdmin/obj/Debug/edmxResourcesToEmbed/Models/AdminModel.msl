@@ -85,6 +85,7 @@
     <EntitySetMapping Name="user_account">
       <EntityTypeMapping TypeName="akdenizjobfindingModel.user_account">
         <MappingFragment StoreEntitySet="user_account">
+          <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
           <ScalarProperty Name="userAccountId" ColumnName="userAccountId" />
           <ScalarProperty Name="userTypeID" ColumnName="userTypeID" />
           <ScalarProperty Name="userEmail" ColumnName="userEmail" />
@@ -177,5 +178,28 @@
         <ComplexTypeMapping TypeName="akdenizjobfindingModel.Sp_Admin_Login_Result" />
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="admin_log">
+      <EntityTypeMapping TypeName="akdenizjobfindingModel.admin_log">
+        <MappingFragment StoreEntitySet="admin_log">
+          <ScalarProperty Name="loginIp" ColumnName="loginIp" />
+          <ScalarProperty Name="loginDate" ColumnName="loginDate" />
+          <ScalarProperty Name="adminAccountID" ColumnName="adminAccountID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_admin">
+      <EntityTypeMapping TypeName="akdenizjobfindingModel.user_admin">
+        <MappingFragment StoreEntitySet="user_admin">
+          <ScalarProperty Name="adminResetCode" ColumnName="adminResetCode" />
+          <ScalarProperty Name="adminRegisterDate" ColumnName="adminRegisterDate" />
+          <ScalarProperty Name="adminIsActive" ColumnName="adminIsActive" />
+          <ScalarProperty Name="adminPassword" ColumnName="adminPassword" />
+          <ScalarProperty Name="adminSurname" ColumnName="adminSurname" />
+          <ScalarProperty Name="adminName" ColumnName="adminName" />
+          <ScalarProperty Name="adminEmail" ColumnName="adminEmail" />
+          <ScalarProperty Name="adminAccountId" ColumnName="adminAccountId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

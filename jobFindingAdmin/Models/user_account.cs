@@ -27,6 +27,7 @@ namespace jobFindingAdmin.Models
         public Nullable<System.DateTime> userBday { get; set; }
         public string userPhone { get; set; }
         public string userAddress { get; set; }
+        public string resetPasswordCode { get; set; }
     
         public virtual job_post_activity job_post_activity { get; set; }
         public virtual user_type user_type { get; set; }

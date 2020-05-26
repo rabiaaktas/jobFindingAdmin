@@ -112,6 +112,7 @@
     <NavigationProperty Name="user_log" Relationship="Self.user_log_ibfk_1" FromRole="user_account" ToRole="user_log" />
     <NavigationProperty Name="user_student" Relationship="Self.user_student_ibfk_1" FromRole="user_account" ToRole="user_student" />
     <NavigationProperty Name="user_teacher" Relationship="Self.user_teacher_ibfk_1" FromRole="user_account" ToRole="user_teacher" />
+    <Property Name="resetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="user_education">
     <Key>
@@ -446,6 +447,47 @@
       <Parameter Name="mail" Mode="In" Type="String" />
       <Parameter Name="pass" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="admin_log" EntityType="akdenizjobfindingModel.admin_log" />
+    <EntitySet Name="user_admin" EntityType="akdenizjobfindingModel.user_admin" />
+    <AssociationSet Name="admin_log_ibfk_1" Association="akdenizjobfindingModel.admin_log_ibfk_1">
+      <End Role="user_admin" EntitySet="user_admin" />
+      <End Role="admin_log" EntitySet="admin_log" />
+    </AssociationSet>
   </EntityContainer>
   <ComplexType Name="Sp_Admin_Login_Result" />
+  <EntityType Name="admin_log">
+    <Key>
+      <PropertyRef Name="adminAccountID" />
+    </Key>
+    <Property Name="adminAccountID" Type="Int32" Nullable="false" />
+    <Property Name="loginDate" Type="DateTime" Nullable="false" />
+    <Property Name="loginIp" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="user_admin" Relationship="akdenizjobfindingModel.admin_log_ibfk_1" FromRole="admin_log" ToRole="user_admin" />
+  </EntityType>
+  <EntityType Name="user_admin">
+    <Key>
+      <PropertyRef Name="adminAccountId" />
+    </Key>
+    <Property Name="adminAccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="adminEmail" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="adminName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="adminSurname" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="adminPassword" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="adminIsActive" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="adminRegisterDate" Type="DateTime" Nullable="false" />
+    <Property Name="adminResetCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="admin_log" Relationship="akdenizjobfindingModel.admin_log_ibfk_1" FromRole="user_admin" ToRole="admin_log" />
+  </EntityType>
+  <Association Name="admin_log_ibfk_1">
+    <End Type="akdenizjobfindingModel.user_admin" Role="user_admin" Multiplicity="1" />
+    <End Type="akdenizjobfindingModel.admin_log" Role="admin_log" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="user_admin">
+        <PropertyRef Name="adminAccountId" />
+      </Principal>
+      <Dependent Role="admin_log">
+        <PropertyRef Name="adminAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
