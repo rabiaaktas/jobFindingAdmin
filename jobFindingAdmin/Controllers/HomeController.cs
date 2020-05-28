@@ -74,12 +74,6 @@ namespace jobFindingAdmin.Controllers
 
         }
 
-        //public ActionResult Logout()
-        //{
-        //    Session.Clear();
-        //    return RedirectToAction("Index","Home");
-        //}
-
         public JsonResult Logout()
         {
             Session.Clear();

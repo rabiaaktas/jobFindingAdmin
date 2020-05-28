@@ -32,6 +32,7 @@ namespace jobFindingAdmin.Models
         public string experienceStatus { get; set; }
         public string educationInfo { get; set; }
         public string militaryStiation { get; set; }
+        public System.DateTime postEndedDay { get; set; }
     
         public virtual company company { get; set; }
         public virtual job_location job_location { get; set; }

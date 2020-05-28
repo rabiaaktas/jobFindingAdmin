@@ -46,7 +46,7 @@ namespace jobFindingAdmin.Controllers
                                join te in db.user_teacher on ua.userAccountId equals te.userAccountID
                                join ustype in db.user_type on ua.userTypeID equals ustype.userTypeId
                                where ua.userTypeID == 3
-                               select new { ua.userAccountId, ua.userEmail, ua.firstName, ua.lastName, ua.userPhone, ua.userIsActive, ua.userIsConfirmed, ustype.userTypeId, ustype.user_type_name };
+                               select new { ua.userAccountId, ua.userEmail, ua.firstName, ua.lastName, te.degree, ua.userIsActive, ua.userIsConfirmed, ustype.userTypeId, ustype.user_type_name };
 
                 if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                 {
@@ -112,10 +112,35 @@ namespace jobFindingAdmin.Controllers
                 db.user_student.Add(userT);
                 db.SaveChanges();
             }
+            else
+            {
+                var admin = new user_admin();
+                admin.adminAccountId = selectedUser.userAccountId;
+                admin.adminEmail = selectedUser.userEmail;
+                admin.adminName = selectedUser.firstName;
+                admin.adminSurname = selectedUser.lastName;
+                admin.adminRegisterDate = DateTime.Now;
+                admin.adminPassword = selectedUser.userPassword;
+                admin.adminIsActive = selectedUser.userIsActive;
+                db.user_admin.Add(admin);
+                db.user_account.Remove(selectedUser);
+                db.SaveChanges();
+            }
             db.SaveChanges();
             return Json(JsonRequestBehavior.AllowGet);
         }
 
+
+        [UserCheck]
+        [HttpPost]
+        public ActionResult UserInfo(int? id)
+        {
+            var teach = db.user_teacher.FirstOrDefault(x => x.userAccountID == id);
+            ViewBag.Interested = teach.interestAreas;
+            ViewBag.Degree = teach.degree;
+            return PartialView(db.user_account.FirstOrDefault(x => x.userAccountId == id));
+        }
     }
+
     
 }

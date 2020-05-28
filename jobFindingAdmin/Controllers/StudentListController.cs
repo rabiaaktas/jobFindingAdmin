@@ -42,7 +42,7 @@ namespace jobFindingAdmin.Controllers
                                join st in db.user_student on ua.userAccountId equals st.userAccountID
                                join ustype in db.user_type on ua.userTypeID equals ustype.userTypeId
                                where ua.userTypeID == 2
-                               select new { ua.userAccountId, ua.userEmail, ua.firstName, ua.lastName, ua.userPhone, ua.userIsActive, ua.userIsConfirmed, ustype.userTypeId, ustype.user_type_name };
+                               select new { ua.userAccountId, ua.userEmail, ua.firstName, ua.lastName, st.status, ua.userIsActive, ua.userIsConfirmed, ustype.userTypeId, ustype.user_type_name };
                 if(!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                 {
                     custData = custData.OrderBy(sortColumn + " " + sortColumnDir);
@@ -107,27 +107,96 @@ namespace jobFindingAdmin.Controllers
                 db.user_teacher.Add(userT);
                 db.SaveChanges();
             }
+            else
+            {
+                var admin = new user_admin();
+                admin.adminAccountId = selectedUser.userAccountId;
+                admin.adminEmail = selectedUser.userEmail;
+                admin.adminName = selectedUser.firstName;
+                admin.adminSurname = selectedUser.lastName;
+                admin.adminRegisterDate = DateTime.Now;
+                admin.adminPassword = selectedUser.userPassword;
+                admin.adminIsActive = selectedUser.userIsActive;
+                db.user_admin.Add(admin);
+                db.user_account.Remove(selectedUser);
+                db.SaveChanges();
+            }
             db.SaveChanges();
             return Json(JsonRequestBehavior.AllowGet);
         }
 
         [UserCheck]
         [HttpPost]
-        public JsonResult SendEmail(user_account user)
+        public JsonResult SendActivationEmail(user_account user)
         {
+            var token = Guid.NewGuid().ToString();
+            var activationUrl = "StudentList/Activate/" + token;
+            var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, activationUrl);
             var selected = db.user_account.FirstOrDefault(x => x.userAccountId == user.userAccountId);
-            var email = selected.userEmail;
-            SmtpClient sc = new SmtpClient();
-            sc.Port = 587;
-            sc.Host = "";
-            sc.EnableSsl = true;
-            sc.Credentials = new NetworkCredential("rabia-aktas-98@hotmail.com ", "");
+            selected.mailActivationCode = token;
+            db.SaveChanges();
+            var subject = "E-mail Aktivasyonu";
+            var body = "Merhaba " + selected.firstName + ", <br/> E-mail aktivasyonu için aşağıdaki linke tıklayınız." + "<br/><br/><a href='" + link + "'>Buraya Tıklayınız</a> <br/><br/>" + "Teşekkürler";
+            sendEmail(selected.userEmail, body, subject);
+            return Json("ok",JsonRequestBehavior.AllowGet);
+        }
+
+        [NonAction]
+        public void sendEmail(string email, string body, string subject)
+        {
             MailMessage mail = new MailMessage();
+            mail.From = new MailAddress("aktasrabiaa@gmail.com");
             mail.To.Add(email);
-            mail.Subject = "Kullanıcı Email Aktivasyonu";
-            mail.IsBodyHtml = false;
-            mail.Body = "";
-            return Json(JsonRequestBehavior.AllowGet);
+            mail.Subject = subject;
+            mail.IsBodyHtml = true;
+            mail.Body = body;
+            using (SmtpClient sc = new SmtpClient())
+            {
+                sc.Port = 587;
+                sc.Host = "smtp.live.com";
+                sc.EnableSsl = true;
+                sc.Credentials = new NetworkCredential("rabia-aktas-98@hotmail.com", "rbakt258.");
+                sc.UseDefaultCredentials = false;
+                sc.DeliveryMethod = SmtpDeliveryMethod.Network;
+                sc.Send(mail);
+
+            }
+        }
+
+        public ActionResult Activate(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                ViewBag.Warning = "Geçersiz aktivasyon kodu.";
+            }
+            else
+            {
+                var user = db.user_account.Where(x => x.mailActivationCode == id).FirstOrDefault();
+                if (user != null)
+                {
+                    user.mailActivationCode = "";
+                    user.userIsConfirmed = "1";
+                    db.SaveChanges();
+                    ViewBag.Success = "Aktivasyon başarıyla tamamlandı";
+                }
+                else
+                {
+                    ViewBag.Warning = "Geçersiz aktivasyon kodu.";
+                }
+            }
+            return View();
+           
+        }
+
+        [UserCheck]
+        [HttpPost]
+        public ActionResult UserInfo(int? id)
+        {
+            var stu = db.user_student.FirstOrDefault(x => x.userAccountID == id);
+            var sector = db.business_stream.FirstOrDefault(x => x.businessId == stu.intrestedSectorId);
+            ViewBag.Interested = sector.businessName;
+            ViewBag.Status = stu.status;
+            return PartialView(db.user_account.FirstOrDefault(x => x.userAccountId == id));
         }
     }
 }

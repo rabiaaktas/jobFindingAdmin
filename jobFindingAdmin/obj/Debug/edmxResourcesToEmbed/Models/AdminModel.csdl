@@ -60,6 +60,7 @@
     <NavigationProperty Name="job_location" Relationship="Self.job_post_ibfk_2" FromRole="job_post" ToRole="job_location" />
     <NavigationProperty Name="job_post_activity" Relationship="Self.job_post_activity_ibfk_2" FromRole="job_post" ToRole="job_post_activity" />
     <NavigationProperty Name="job_type" Relationship="Self.job_post_ibfk_1" FromRole="job_post" ToRole="job_type" />
+    <Property Name="postEndedDay" Type="DateTime" Nullable="false" />
   </EntityType>
   <EntityType Name="job_post_activity">
     <Key>
@@ -113,6 +114,7 @@
     <NavigationProperty Name="user_student" Relationship="Self.user_student_ibfk_1" FromRole="user_account" ToRole="user_student" />
     <NavigationProperty Name="user_teacher" Relationship="Self.user_teacher_ibfk_1" FromRole="user_account" ToRole="user_teacher" />
     <Property Name="resetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="mailActivationCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="user_education">
     <Key>
@@ -453,6 +455,7 @@
       <End Role="user_admin" EntitySet="user_admin" />
       <End Role="admin_log" EntitySet="admin_log" />
     </AssociationSet>
+    <EntitySet Name="countries" EntityType="akdenizjobfindingModel.countries" />
   </EntityContainer>
   <ComplexType Name="Sp_Admin_Login_Result" />
   <EntityType Name="admin_log">
@@ -490,4 +493,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="countries">
+    <Key>
+      <PropertyRef Name="countryId" />
+    </Key>
+    <Property Name="countryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="countryName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

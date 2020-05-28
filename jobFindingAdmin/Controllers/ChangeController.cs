@@ -55,6 +55,7 @@ namespace jobFindingAdmin.Controllers
             return exist;
         }
 
+        [NonAction]
         public void sendEmail(string email, string body, string subject)
         {
             MailMessage mail = new MailMessage();

@@ -38,6 +38,13 @@
           <Property Name="registrationCompanyDate" Type="date" Nullable="false" />
           <Property Name="isCompanyActive" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
+        <EntityType Name="countries">
+          <Key>
+            <PropertyRef Name="countryId" />
+          </Key>
+          <Property Name="countryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="countryName" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
         <EntityType Name="job_location">
           <Key>
             <PropertyRef Name="jobLocationId" />
@@ -56,6 +63,7 @@
           <Property Name="companyID" Type="int" Nullable="false" />
           <Property Name="isCompanyNameHidden" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="postCreatedDate" Type="date" Nullable="false" />
+          <Property Name="postEndedDay" Type="date" Nullable="false" />
           <Property Name="jobDescription" Type="text" Nullable="false" />
           <Property Name="jobLocationID" Type="int" Nullable="false" />
           <Property Name="isActivePost" Type="varchar" MaxLength="1" Nullable="false" />
@@ -105,6 +113,7 @@
           <Property Name="userPhone" Type="varchar" MaxLength="11" />
           <Property Name="userAddress" Type="varchar" MaxLength="10000" />
           <Property Name="resetPasswordCode" Type="varchar" MaxLength="100" />
+          <Property Name="mailActivationCode" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="user_admin">
           <Key>
@@ -383,6 +392,7 @@
           <EntitySet Name="admin_log" EntityType="Self.admin_log" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="business_stream" EntityType="Self.business_stream" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="company" EntityType="Self.company" Schema="akdenizjobfinding" store:Type="Tables" />
+          <EntitySet Name="countries" EntityType="Self.countries" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="job_location" EntityType="Self.job_location" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="job_post" EntityType="Self.job_post" Schema="akdenizjobfinding" store:Type="Tables" />
           <EntitySet Name="job_post_activity" EntityType="Self.job_post_activity" Schema="akdenizjobfinding" store:Type="Tables" />
@@ -526,6 +536,7 @@
           <NavigationProperty Name="job_location" Relationship="Self.job_post_ibfk_2" FromRole="job_post" ToRole="job_location" />
           <NavigationProperty Name="job_post_activity" Relationship="Self.job_post_activity_ibfk_2" FromRole="job_post" ToRole="job_post_activity" />
           <NavigationProperty Name="job_type" Relationship="Self.job_post_ibfk_1" FromRole="job_post" ToRole="job_type" />
+          <Property Name="postEndedDay" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="job_post_activity">
           <Key>
@@ -579,6 +590,7 @@
           <NavigationProperty Name="user_student" Relationship="Self.user_student_ibfk_1" FromRole="user_account" ToRole="user_student" />
           <NavigationProperty Name="user_teacher" Relationship="Self.user_teacher_ibfk_1" FromRole="user_account" ToRole="user_teacher" />
           <Property Name="resetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="mailActivationCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="user_education">
           <Key>
@@ -919,6 +931,7 @@
             <End Role="user_admin" EntitySet="user_admin" />
             <End Role="admin_log" EntitySet="admin_log" />
           </AssociationSet>
+          <EntitySet Name="countries" EntityType="akdenizjobfindingModel.countries" />
         </EntityContainer>
         <ComplexType Name="Sp_Admin_Login_Result" />
         <EntityType Name="admin_log">
@@ -956,6 +969,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="countries">
+          <Key>
+            <PropertyRef Name="countryId" />
+          </Key>
+          <Property Name="countryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="countryName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1002,6 +1022,7 @@
           <EntitySetMapping Name="job_post">
             <EntityTypeMapping TypeName="akdenizjobfindingModel.job_post">
               <MappingFragment StoreEntitySet="job_post">
+                <ScalarProperty Name="postEndedDay" ColumnName="postEndedDay" />
                 <ScalarProperty Name="jobPostId" ColumnName="jobPostId" />
                 <ScalarProperty Name="jobTypeID" ColumnName="jobTypeID" />
                 <ScalarProperty Name="companyID" ColumnName="companyID" />
@@ -1046,6 +1067,7 @@
           <EntitySetMapping Name="user_account">
             <EntityTypeMapping TypeName="akdenizjobfindingModel.user_account">
               <MappingFragment StoreEntitySet="user_account">
+                <ScalarProperty Name="mailActivationCode" ColumnName="mailActivationCode" />
                 <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
                 <ScalarProperty Name="userAccountId" ColumnName="userAccountId" />
                 <ScalarProperty Name="userTypeID" ColumnName="userTypeID" />
@@ -1159,6 +1181,14 @@
                 <ScalarProperty Name="adminName" ColumnName="adminName" />
                 <ScalarProperty Name="adminEmail" ColumnName="adminEmail" />
                 <ScalarProperty Name="adminAccountId" ColumnName="adminAccountId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="countries">
+            <EntityTypeMapping TypeName="akdenizjobfindingModel.countries">
+              <MappingFragment StoreEntitySet="countries">
+                <ScalarProperty Name="countryName" ColumnName="countryName" />
+                <ScalarProperty Name="countryId" ColumnName="countryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

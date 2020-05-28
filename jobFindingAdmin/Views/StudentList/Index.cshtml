@@ -14,11 +14,12 @@
                     <th>E-mail</th>
                     <th>Adı</th>
                     <th>Soyadı</th>
-                    <th>Telefon</th>
+                    <th>Durumu</th>
                     <th>Aktif Mi?</th>
                     <th>E-mail Onay</th>
                     <th>Rol Id</th>
                     <th>Rol Değiştirme</th>
+                    <th>Kullanıcı Bilgileri</th>
                 </tr>
             </thead>
         </table>
@@ -104,6 +105,24 @@
             <form>
                 <div class="form-group m-3">
                     <label>Mail Gönderildi. </label>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog modal-dialog-center">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h class="modal-title text-muted">Kullanıcı Bilgileri</h>
+            </div>
+            <form>
+                <div class="modal-body">
+
                 </div>
             </form>
             <div class="modal-footer">
@@ -207,16 +226,31 @@
                 { "title": "E-mail", "data": "userEmail", "name": "userEmail", "autowidth": true },
                 { "title": "Adı", "data": "firstName", "name": "firstName", "autowidth": true },
                 { "title": "Soyadı", "data": "lastName", "name": "lastName", "autowidth": true },
-                { "title": "Telefon", "data": "userPhone", "name": "userPhone", "autowidth": true },
+                { "title": "Durumu", "data": "status", "name": "status", "autowidth": true },
                 { "title": "Aktif Mi?", "data": "userIsActive", "name": "userIsActive", "autowidth": true },
                 { "title": "E-mail Onay", "data": "userIsConfirmed", "name": "userIsConfirmed", "autowidth": true },
                 { "title": "Rol Id", "data": "userTypeId", "name": "userTypeId", "autowidth": true },
                 { "title": "Rolü", "data": "user_type_name", "name": "user_type_name", "autowidth": true },
-
+                {
+                    "render": function (data, type, full, meta) {
+                        return '<a class="detailButton btn btn-info btn-sm float-center ml-1 text-white" data-target="/StudentList/UserInfo/' + full.userAccountId + '"><i class="fas fa-info-circle"></i> Kullanıcı Bilgileri</a>';
+                    }
+                },
             ]
 
 
         });
+    });
+    $(document).on('click', '.detailButton', function () {
+        var url = $(this).data("target");
+        $.post(url, function (data) { })
+            .done(function (data) {
+                $("#detailModal .modal-body").html(data);
+                $("#detailModal").modal('show');
+            }).fail(function (data) {
+                $("#detailModal .modal-body").text("Error");
+                $("#detailModal").modal('show');
+            })
     });
     $(document).on("click", ".open-deactivateModal", function () {
         id = $(this).data('id');
@@ -239,7 +273,7 @@
         user.userAccountId = id;
         $.ajax({
             type: "POST",
-            url: "/StudentList/SendEmail",
+            url: "/StudentList/SendActivationEmail",
             data: JSON.stringify(user),
             contentType: "application/json; charset=utf-8",
             dataType: "json",

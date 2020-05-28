@@ -41,6 +41,7 @@
     <EntitySetMapping Name="job_post">
       <EntityTypeMapping TypeName="akdenizjobfindingModel.job_post">
         <MappingFragment StoreEntitySet="job_post">
+          <ScalarProperty Name="postEndedDay" ColumnName="postEndedDay" />
           <ScalarProperty Name="jobPostId" ColumnName="jobPostId" />
           <ScalarProperty Name="jobTypeID" ColumnName="jobTypeID" />
           <ScalarProperty Name="companyID" ColumnName="companyID" />
@@ -85,6 +86,7 @@
     <EntitySetMapping Name="user_account">
       <EntityTypeMapping TypeName="akdenizjobfindingModel.user_account">
         <MappingFragment StoreEntitySet="user_account">
+          <ScalarProperty Name="mailActivationCode" ColumnName="mailActivationCode" />
           <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
           <ScalarProperty Name="userAccountId" ColumnName="userAccountId" />
           <ScalarProperty Name="userTypeID" ColumnName="userTypeID" />
@@ -198,6 +200,14 @@
           <ScalarProperty Name="adminName" ColumnName="adminName" />
           <ScalarProperty Name="adminEmail" ColumnName="adminEmail" />
           <ScalarProperty Name="adminAccountId" ColumnName="adminAccountId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="countries">
+      <EntityTypeMapping TypeName="akdenizjobfindingModel.countries">
+        <MappingFragment StoreEntitySet="countries">
+          <ScalarProperty Name="countryName" ColumnName="countryName" />
+          <ScalarProperty Name="countryId" ColumnName="countryId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

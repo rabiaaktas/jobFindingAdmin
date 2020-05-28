@@ -1,0 +1,25 @@
+﻿
+@model jobFindingAdmin.Models.user_account
+
+<div class="col-md-12">
+    <div>
+        <label class="font-weight-bold" for="name">Adı Soyadı:</label>
+        <p id="name">@Model.firstName @Model.lastName</p>
+        <label class="font-weight-bold" for="bs">İlgi alanları :</label>
+        <p id="bs">@ViewBag.Interested</p>
+        <label class="font-weight-bold" for="year">Ünvanı :</label>
+        <p id="year">@ViewBag.Degree</p>
+        <label class="font-weight-bold" for="address">E-mail Adresi :</label>
+        <p id="address">@Model.userEmail</p>
+        <label class="font-weight-bold" for="web">Kayıt Tarihi :</label>
+        <p id="web">@Model.userRegistrationDate</p>
+        <label class="font-weight-bold" for="email">Doğum Tarihi :</label>
+        <p id="email">@Model.userBday</p>
+        <label class="font-weight-bold" for="info">Telefonu :</label>
+        <p id="info">@Model.userPhone</p>
+        <label class="font-weight-bold" for="phone">Adresi :</label>
+        <p id="phone">@Model.userAddress</p>
+
+    </div>
+</div>
+

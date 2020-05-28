@@ -33,6 +33,13 @@
     <Property Name="registrationCompanyDate" Type="date" Nullable="false" />
     <Property Name="isCompanyActive" Type="varchar" MaxLength="1" Nullable="false" />
   </EntityType>
+  <EntityType Name="countries">
+    <Key>
+      <PropertyRef Name="countryId" />
+    </Key>
+    <Property Name="countryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="countryName" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
   <EntityType Name="job_location">
     <Key>
       <PropertyRef Name="jobLocationId" />
@@ -51,6 +58,7 @@
     <Property Name="companyID" Type="int" Nullable="false" />
     <Property Name="isCompanyNameHidden" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="postCreatedDate" Type="date" Nullable="false" />
+    <Property Name="postEndedDay" Type="date" Nullable="false" />
     <Property Name="jobDescription" Type="text" Nullable="false" />
     <Property Name="jobLocationID" Type="int" Nullable="false" />
     <Property Name="isActivePost" Type="varchar" MaxLength="1" Nullable="false" />
@@ -100,6 +108,7 @@
     <Property Name="userPhone" Type="varchar" MaxLength="11" />
     <Property Name="userAddress" Type="varchar" MaxLength="10000" />
     <Property Name="resetPasswordCode" Type="varchar" MaxLength="100" />
+    <Property Name="mailActivationCode" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="user_admin">
     <Key>
@@ -378,6 +387,7 @@
     <EntitySet Name="admin_log" EntityType="Self.admin_log" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="business_stream" EntityType="Self.business_stream" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="company" EntityType="Self.company" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="countries" EntityType="Self.countries" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="job_location" EntityType="Self.job_location" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="job_post" EntityType="Self.job_post" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="job_post_activity" EntityType="Self.job_post_activity" Schema="akdenizjobfinding" store:Type="Tables" />

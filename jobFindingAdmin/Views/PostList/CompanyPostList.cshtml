@@ -14,6 +14,7 @@
                     <th>Firma Adı</th>
                     <th>İlan Başlığı</th>
                     <th>Tarih</th>
+                    <th>Bitiş Tarihi</th>
                     <th>Departman</th>
                     <th>Şehir</th>
                     <th>Aktif Mi?</th>
@@ -147,7 +148,13 @@
                     },
                 },
                 {
-                    "targets": [6],
+                    "targets": [4],
+                    "render": function (data, type, row) {
+                        return ToJavaScriptDate(row.postEndedDay);
+                    },
+                },
+                {
+                    "targets": [7],
                     "searchable": false,
                     "render": function (data, type, row) {
                         var id = row.jobPostId;
@@ -159,7 +166,7 @@
                     },
                 },
                 {
-                    "targets": [7],
+                    "targets": [8],
                     "searchable": false,
                     "render": function (data, type, row) {
                         var id = row.jobPostId;
@@ -167,7 +174,7 @@
                     },
                 },
                 {
-                    "targets": [8],
+                    "targets": [9],
                     "searchable": false,
                     "render": function (data, type, row) {
                         var id = row.jobPostId;
@@ -182,6 +189,7 @@
                 { "title": "Firma Adı", "data": "companyName", "name": "companyName", "autowidth": true },
                 { "title": "İlan Başlığı", "data": "jobPostTitle", "name": "jobPostTitle", "autowidth": true },
                 { "title": "Tarih", "data": "postCreatedDate", "name": "postCreatedDate", "autowidth": true },
+                { "title": "Bitiş Tarihi", "data": "postEndedDay", "name": "postEndedDay", "autowidth": true },
                 { "title": "Departman", "data": "department", "name": "department", "autowidth": true },
                 { "title": "Şehir", "data": "city", "name": "city", "autowidth": true },
                 { "title": "Aktif Mi?", "data": "isActivePost", "name": "isActivePost", "autowidth": true },

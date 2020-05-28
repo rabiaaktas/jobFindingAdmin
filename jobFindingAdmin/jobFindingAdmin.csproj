@@ -185,8 +185,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BusinessAreaController.cs" />
     <Compile Include="Controllers\ChangeController.cs" />
     <Compile Include="Controllers\CompanyListController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostListController.cs" />
     <Compile Include="Controllers\StudentListController.cs" />
@@ -218,6 +220,9 @@
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\company.cs">
+      <DependentUpon>AdminModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\countries.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HelperModel\resetPassword.cs" />
@@ -291,6 +296,15 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Change\ForgotPassword.cshtml" />
     <Content Include="Views\Change\ResetPassword.cshtml" />
+    <Content Include="Views\StudentList\Activate.cshtml" />
+    <Content Include="Views\StudentList\UserInfo.cshtml" />
+    <Content Include="Views\TeacherList\UserInfo.cshtml" />
+    <Content Include="Views\BusinessArea\Index.cshtml" />
+    <Content Include="Views\CompanyList\BusinessCompanyList.cshtml" />
+    <Content Include="Views\BusinessArea\Add.cshtml" />
+    <Content Include="Views\BusinessArea\Edit.cshtml" />
+    <Content Include="Views\Country\Index.cshtml" />
+    <Content Include="Views\Country\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

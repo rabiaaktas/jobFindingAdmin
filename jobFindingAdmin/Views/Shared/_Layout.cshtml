@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -57,7 +57,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Settings</a><a class="dropdown-item" href="#">@ad</a>
+                    <a class="dropdown-item" href="#">Ayarlar</a><a class="dropdown-item" href="#">@ad</a>
                     <div class="dropdown-divider"></div>
                     <a href="javascript:GoOut('@jobFindingAdmin.MvcApplication.FilePath')" class="dropdown-item">
                         Çıkış Yap
@@ -110,10 +110,38 @@
                         <a class="nav-link" href="/PostList/Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                             İş İlanları Listesi
-                        </a><a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
                         </a>
+                        <div class="sb-sidenav-menu-heading">Statik Eleman Ayarları</div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStatic" aria-expanded="false" aria-controls="collapseStatic">
+                            <div class="sb-nav-link-icon"><i class="fab fa-elementor"></i></div>
+                            Statik Elemanlar
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseStatic" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link" href="/Country/Index">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                    Şehir Listesi
+                                </a>
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesBusinessArea" aria-expanded="false" aria-controls="pagesBusinessArea">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
+                                    Sektör
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="pagesBusinessArea" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                                    <nav class="sb-sidenav-menu-nested nav">
+                                        <a class="nav-link" href="/BusinessArea/Index">
+                                            <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                            Sektör Listesi
+                                        </a>
+                                        <a class="nav-link" href="/BusinessArea/Add">
+                                            <div class="sb-nav-link-icon"><i class="far fa-plus-square"></i></div>
+                                            Sektör Ekleme
+                                        </a>
+                                    </nav>
+                                </div>
+                            </nav>
+                        </div>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

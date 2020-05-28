@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <br />
+    <div style="width:90%; margin:0 auto;">
+        <table id="countryTable" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Şehir ID</th>
+                    <th>Şehir Adı</th>
+                    <th>Düzenle</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+        $("#countryTable").DataTable({
+
+            "processing": true, // for show progress bar
+            "serverSide": true, // for process server side
+            "filter": true, // this is for disable filter (search box)
+            "orderMulti": false, // for disable multiple column at once
+            //"pageLength": 5,
+            "paging": true,
+            "language": {
+                "sEmptyTable": "Tabloda mevcut veri yok",
+                "sInfo": "_START_ ile _END_ arası _TOTAL_ adet sonuç gösteriliyor.",
+                "sInfoEmpty": "0 ile 0 arası 0 adet sonuç gösteriliyor.",
+                "sInfoFiltered": "",
+                "sInfoPostFix": "",
+                "sInfoThousands": ",",
+                "sLengthMenu": "Sayfa başına _MENU_ adet sonuç göster.",
+                "sLoadingRecords": "Yükleniyor...",
+                "sProcessing": "İşlem sürüyor...",
+                "sSearch": "Arama:",
+                "sZeroRecords": "Arama sonucu bulunamadı.",
+                "oPaginate": {
+                    "sFirst": "İlk",
+                    "sLast": "Son",
+                    "sNext": "Önceki",
+                    "sPrevious": "Sonraki"
+                },
+                "oAria": {
+                    "sSortAscending": ": Sütunu artan olarak sırala",
+                    "sSortDescending": ": Sütunu azalan olarak sırala"
+                }
+            },
+
+            "ajax": {
+                "url": "/Country/LoadData",
+                "type": "POST",
+                "datatype": "json"
+            },
+
+            "columnDefs":
+                [ {
+                        "targets": [2],
+                        "searchable": false,
+                        "render": function (data, type, row) {
+                            var id = row.countryId;
+                            return '<a  href="/Country/Edit/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" > Düzenle</a>';
+                        }
+                    },
+                ],
+
+            "columns": [
+                { "title": "Şehir ID", "data": "countryId", "name": "countryId", "autowidth": true },
+                { "title": "Şehir Adı", "data": "countryName", "name": "countryName", "autowidth": true },
+
+            ]
+
+        });
+    });
+
+</script>
+

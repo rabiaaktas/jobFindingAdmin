@@ -45,7 +45,7 @@ namespace jobFindingAdmin.Controllers
                                join jt in db.job_type on jp.jobTypeID equals jt.jobTypeId
                                join co in db.company on jp.companyID equals co.companyId
                                where jp.companyID == id
-                               select new { jp.jobPostId, co.companyName, jp.jobPostTitle, jp.postCreatedDate, jp.department, jl.city, jp.isActivePost };
+                               select new { jp.jobPostId, co.companyName, jp.jobPostTitle, jp.postCreatedDate, jp.postEndedDay,jp.department, jl.city, jp.isActivePost };
                 if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                 {
                     custData = custData.OrderBy(sortColumn + " " + sortColumnDir);
@@ -88,7 +88,7 @@ namespace jobFindingAdmin.Controllers
 
                 var custData = from jp in db.job_post join jl in db.job_location on jp.jobLocationID equals jl.jobLocationId
                                join jt in db.job_type on jp.jobTypeID equals jt.jobTypeId join co in db.company on jp.companyID equals co.companyId
-                               select new { jp.jobPostId, co.companyName, jp.jobPostTitle, jp.postCreatedDate, jp.department,  jl.city, jp.isActivePost};
+                               select new { jp.jobPostId, co.companyName, jp.jobPostTitle, jp.postCreatedDate, jp.postEndedDay,jp.department,  jl.city, jp.isActivePost};
                 if(!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                 {
                     custData = custData.OrderBy(sortColumn + " " + sortColumnDir);

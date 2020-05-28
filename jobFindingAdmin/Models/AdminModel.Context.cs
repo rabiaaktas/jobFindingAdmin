@@ -45,6 +45,7 @@ namespace jobFindingAdmin.Models
         public DbSet<user_type> user_type { get; set; }
         public DbSet<admin_log> admin_log { get; set; }
         public DbSet<user_admin> user_admin { get; set; }
+        public DbSet<countries> countries { get; set; }
     
         public virtual ObjectResult<Sp_Admin_Login_Result> Sp_Admin_Login(string mail, string pass)
         {
