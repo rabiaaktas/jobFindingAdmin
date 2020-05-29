@@ -23,6 +23,7 @@
                     <th>Aktif Mi?</th>
                     <th>Detaylar</th>
                     <th>Başvuranlar</th>
+                    <th>Düzenle</th>
                 </tr>
             </thead>
         </table>
@@ -183,6 +184,14 @@
                         var id = row.jobPostId;
                         return '<a class="btn btn-info btn-sm float-center ml-1" href="/PostList/GetApplicants/' + id + '"> <i class="fas fa-clipboard-list"></i> Başvuranlar</a>';
                     },
+                },
+                {
+                    "targets": [10],
+                    "searchable": false,
+                    "render": function (data, type, row) {
+                        var id = row.jobPostId;
+                        return '<a  href="/PostList/Edit/' + id + '" data-id = "' + id + '" class="postEdit btn btn-sm btn-success float-center ml-1" ><i class="fas fa-edit"></i> Düzenle</a>';
+                    }
                 },
 
                 ],

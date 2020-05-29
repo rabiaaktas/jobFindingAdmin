@@ -192,5 +192,38 @@ namespace jobFindingAdmin.Controllers
             db.SaveChanges();
             return Json(JsonRequestBehavior.AllowGet);
         }
+
+        [UserCheck]
+        public ActionResult Edit(int? id)
+        {
+            return View(db.job_post.FirstOrDefault(x => x.jobPostId == id));
+        }
+
+        [UserCheck]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(job_post post)
+        {
+            var jp = db.job_post.FirstOrDefault(x => x.jobPostId == post.jobPostId);
+            var jl = db.job_location.FirstOrDefault(x => x.jobLocationId == jp.jobLocationID);
+            if (jp != null)
+            {
+                jp.jobPostTitle = post.jobPostTitle;
+                jp.postEndedDay = post.postEndedDay;
+                jp.job_location.country = post.job_location.country;
+                jp.job_location.streetAddress = post.job_location.streetAddress;
+                jp.jobTypeID = post.jobTypeID;
+                jp.jobDescription = post.jobDescription;
+                jp.educationInfo = post.educationInfo;
+                jp.militaryStiation = post.militaryStiation;
+                db.SaveChanges();
+                return RedirectToAction("Index", "PostList");
+            }
+            else
+            {
+                ViewBag.Warning = "Düzenleme gerçekleştirilemedi.";
+                return View();
+            }
+        }
     }
 }

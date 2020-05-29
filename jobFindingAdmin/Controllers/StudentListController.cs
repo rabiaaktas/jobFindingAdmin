@@ -198,5 +198,33 @@ namespace jobFindingAdmin.Controllers
             ViewBag.Status = stu.status;
             return PartialView(db.user_account.FirstOrDefault(x => x.userAccountId == id));
         }
+
+        [UserCheck]
+        public ActionResult Edit(int? id)
+        {
+            return View(db.user_account.FirstOrDefault(x => x.userAccountId == id));
+        }
+
+        [UserCheck]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(user_account user)
+        {
+            var stu = db.user_account.FirstOrDefault(x => x.userAccountId == user.userAccountId);
+            if (stu != null)
+            {
+                stu.firstName = user.firstName;
+                stu.lastName = user.lastName;
+                stu.userAddress = user.userAddress;
+                stu.userPhone = user.userPhone;
+                db.SaveChanges();
+                return RedirectToAction("Index", "StudentList");
+            }
+            else
+            {
+                ViewBag.Warning = "Düzenleme gerçekleştirilemedi.";
+                return View();
+            }
+        }
     }
 }

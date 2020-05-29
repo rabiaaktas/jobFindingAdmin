@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model jobFindingAdmin.Models.user_account
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Öğretmen Bilgileri Düzenleme</h3></div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Edit", "TeacherList", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.userAccountId)
+                        <div class="form-group">
+                            <label class=" mb-1"> Adı:</label>
+                            @Html.TextBoxFor(x => x.firstName, new { @class = "form-control py-4", id = "inName", placeholder = @Model.firstName, required = "required", type = "text" })
+                        </div>
+                        <div class="form-group">
+                            <label class=" mb-1"> Soyadı:</label>
+                            @Html.TextBoxFor(x => x.lastName, new { @class = "form-control py-4", id = "inLastName", placeholder = @Model.lastName, required = "required", type = "text" })
+                        </div>
+                        <div class="form-group">
+                            <label class=" mb-1"> Adresi:</label>
+                            @Html.TextBoxFor(x => x.userAddress, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.userAddress, required = "required", type = "text" })
+                        </div>
+                        <div class="form-group">
+                            <label class=" mb-1"> Telefon:</label>
+                            @Html.TextBoxFor(x => x.userPhone, new { @class = "form-control py-4", id = "inPhone", placeholder = @Model.userPhone, required = "required", type = "text", maxlength = "11" })
+                        </div>
+                        <div class="form-group">
+                            <label for="roleSelect">Değiştirmek istediğiniz ünvanı seçiniz : </label>
+                            <select id="roleSelect" class="form-control" name="user_teacher.degree">
+                                    <option value="Ph.D" @if(Model.user_teacher.degree == "Ph.D"){<text>selected="selected"</text>}>Ph.D</option>
+                                    <option value="Asst.Ph.D" @if(Model.user_teacher.degree == "Asst.Ph.D"){<text>selected="selected"</text>}>Asst.Ph.D</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <span style="color:red">
+                                @ViewBag.Warning
+                            </span>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Düzenle</button>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

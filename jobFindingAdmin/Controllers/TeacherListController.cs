@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq.Dynamic;
 using jobFindingAdmin.Models;
+using jobFindingAdmin.Models.HelperModel;
 
 
 namespace jobFindingAdmin.Controllers
@@ -140,7 +143,35 @@ namespace jobFindingAdmin.Controllers
             ViewBag.Degree = teach.degree;
             return PartialView(db.user_account.FirstOrDefault(x => x.userAccountId == id));
         }
-    }
 
-    
+        [UserCheck]
+        public ActionResult Edit(int? id)
+        {
+            return View(db.user_account.FirstOrDefault(x => x.userAccountId == id));
+        }
+
+        [UserCheck]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(user_account user)
+        {
+            var teach = db.user_account.FirstOrDefault(x => x.userAccountId == user.userAccountId);
+            if (teach != null)
+            {
+                teach.firstName = user.firstName;
+                teach.lastName = user.lastName;
+                teach.userAddress = user.userAddress;
+                teach.userPhone = user.userPhone;
+                teach.user_teacher.degree = user.user_teacher.degree;
+                db.SaveChanges();
+                return RedirectToAction("Index", "TeacherList");
+            }
+            else
+            {
+                ViewBag.Warning = "Düzenleme gerçekleştirilemedi.";
+                return View();
+            }
+        }
+
+    }
 }

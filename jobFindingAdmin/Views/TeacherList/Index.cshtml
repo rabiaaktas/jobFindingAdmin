@@ -22,6 +22,7 @@
                     <th>Rol Id</th>
                     <th>Rol Değiştirme</th>
                     <th>Kullanıcı Bilgileri</th>
+                    <th>Düzenle</th>
                 </tr>
             </thead>
         </table>
@@ -201,7 +202,15 @@
                         var id = row.userAccountId;
                         return '</button><button type="submit" data-id="' + id + '" class = "open-roleChangeModal btn btn-sm btn-warning float-center ml-1 text-white"> <i class="fas fa-recycle"></i> Rol Değiştir </button>';
                     },
-                }],
+                },
+                {
+                        "targets": [10],
+                        "searchable": false,
+                        "render": function (data, type, row) {
+                            var id = row.userAccountId;
+                            return '<a  href="/TeacherList/Edit/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" ><i class="fas fa-user-edit"></i> Düzenle</a>';
+                        }
+                },],
 
             "columns": [
                 { "title": "Kullanıcı ID", "data": "userAccountId", "name": "userAccountId", "autowidth": true },

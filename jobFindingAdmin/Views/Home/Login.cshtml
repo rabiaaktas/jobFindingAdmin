@@ -31,7 +31,7 @@
                                         @Html.AntiForgeryToken()
                                     <div class="form-group">
                                         <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                        @Html.TextBoxFor(x => x.userEmail, new { @class = "form-control py-4", id = "inputEmail", placeholder = "Email adresini giriniz.", required = "required", type = "text", onblur = "validateEmail(this.value);" })
+                                        @Html.TextBoxFor(x => x.userEmail, new { @class = "form-control py-4", id = "inputEmail", placeholder = "Email adresini giriniz", required = "required", type = "text", onblur = "validateEmail(this.value);" })
                                         <div class="alert alert-danger" id="wrongEmailFormat">
                                             Geçersiz e-mail adresi.
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -41,7 +41,7 @@
                                     </div>
                                         <div class="form-group">
                                             <label class="small mb-1" for="inputPassword">Parola</label>
-                                            @Html.TextBoxFor(x => x.userPassword, new { @class = "form-control py-4", id = "inputPassword", placeholder = "Parolanızı Giriniz.", type = "password", required = "required" })
+                                            @Html.TextBoxFor(x => x.userPassword, new { @class = "form-control py-4", id = "inputPassword", placeholder = "Parolanızı Giriniz", type = "password", required = "required" })
                                         </div>
                                         @*<div class="form-group">
                                                 <div class="custom-control custom-checkbox"><input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" /><label class="custom-control-label" for="rememberPasswordCheck">Remember password</label></div>

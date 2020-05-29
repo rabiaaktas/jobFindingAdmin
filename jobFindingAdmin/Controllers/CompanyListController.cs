@@ -138,5 +138,33 @@ namespace jobFindingAdmin.Controllers
                 throw;
             }
         }
+
+        [UserCheck]
+        public ActionResult Edit(int? id)
+        {
+            return View(db.company.FirstOrDefault(x => x.companyId == id));
+        }
+
+        [UserCheck]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(company company)
+        {
+            var co = db.company.FirstOrDefault(x => x.companyId == company.companyId);
+            if (co != null)
+            {
+                co.companyName = company.companyName;
+                co.companyAddress = company.companyAddress;
+                co.companyPhone = company.companyPhone;
+                co.businessID = company.businessID;
+                db.SaveChanges();
+                return RedirectToAction("Index", "CompanyList");
+            }
+            else
+            {
+                ViewBag.Warning = "Düzenleme gerçekleştirilemedi.";
+                return View();
+            }
+        }
     }
 }

@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    jobFindingAdmin.Models.AdminEntities db = new jobFindingAdmin.Models.AdminEntities();
+    var businessAreas = db.business_stream.ToList();
+}
+
+@model jobFindingAdmin.Models.company
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Firma Bilgileri Düzenleme</h3></div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Edit", "CompanyList", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.companyId)
+                        <div class="form-group">
+                            <label class=" mb-1"> Adı:</label>
+                            @Html.TextBoxFor(x => x.companyName, new { @class = "form-control py-4", id = "inName", placeholder = @Model.companyName, required = "required", type = "text" })
+                        </div>
+                        <div class="form-group">
+                            <label class=" mb-1"> Adres:</label>
+                            @Html.TextBoxFor(x => x.companyAddress, new { @class = "form-control py-4", id = "inLastName", placeholder = @Model.companyAddress, required = "required", type = "text" })
+                        </div>
+                        <div class="form-group">
+                            <label class=" mb-1"> Telefon:</label>
+                            @Html.TextBoxFor(x => x.companyPhone, new { @class = "form-control py-4", id = "inPhone", placeholder = @Model.companyPhone, required = "required", type = "text", maxlength = "11" })
+                        </div>
+                        <div class="form-group">
+                            <label for="roleSelect">Değiştirmek istediğiniz sektörü seçiniz : </label>
+                            <select id="roleSelect" class="form-control" name="businessId">
+                                @foreach (var item in businessAreas)
+                                {
+                                    
+                                    <option value=@item.businessId @if(item.businessName == Model.business_stream.businessName)
+                                    {
+                                        <text>selected="selected"</text>
+                                    }>@item.businessName</option>
+
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <span style="color:red">
+                                @ViewBag.Warning
+                            </span>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Düzenle</button>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

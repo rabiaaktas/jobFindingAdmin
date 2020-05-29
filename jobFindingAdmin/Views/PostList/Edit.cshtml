@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    jobFindingAdmin.Models.AdminEntities db = new jobFindingAdmin.Models.AdminEntities();
+    var countries = db.countries.ToList();
+    var jobType = db.job_type.ToList();
+}
+
+@model jobFindingAdmin.Models.job_post
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">İş İlanı Düzenleme</h3></div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Edit", "PostList", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.jobPostId)
+                        <div class="form-group">
+                            <label class=" mb-1"> Başlık:</label>
+                            @Html.TextBoxFor(x => x.jobPostTitle, new { @class = "form-control py-4", id = "inName", placeholder = @Model.jobPostTitle, required = "required", type = "text" })
+                        </div>
+                        <div class="form-group">
+                            <label class=" mb-1"> Bitiş Tarihi:</label>
+                            @Html.TextBoxFor(model => model.postEndedDay, new { @class = "date-picker form-control py-4" })
+                        </div>
+                        <div class="form-group">
+                            <label for="countrySelect">Değiştirmek istediğiniz şehri seçiniz : </label>
+                            <select id="countrySelect" class="form-control" name="job_location.country">
+                                @foreach (var item in countries)
+                                {
+
+                                    <option value=@item.countryName @if (item.countryName == Model.job_location.country) { <text> selected="selected" </text> }>
+                                        @item.countryName
+                                    </option>
+
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class=" mb-1"> Adres:</label>
+                            @Html.TextAreaFor(x => x.job_location.streetAddress, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.job_location.streetAddress, required = "required", type = "text" })
+                        </div>
+                        <div class="form-group">
+                            <label for="typeSelect">Değiştirmek istediğiniz iş tipini seçiniz : </label>
+                            <select id="typeSelect" class="form-control" name="jobTypeID">
+                                @foreach (var item in jobType)
+                                {
+
+                                    <option value=@item.jobTypeId @if (item.jobTypeId == Model.jobTypeID) { <text> selected="selected" </text> }>
+                                        @item.jobTypeName
+                                    </option>
+
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class=" mb-1"> Açıklama:</label>
+                            @Html.TextAreaFor(x => x.jobDescription, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.jobDescription, required = "required", type = "text" })
+                        </div>
+                        <div class="form-group">
+                            <label class=" mb-1"> Eğitim Düzeyi:</label>
+                            @Html.TextAreaFor(x => x.educationInfo, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.educationInfo, required = "required", type = "text" })
+                        </div>
+                        <div class="form-group">
+                            <label class=" mb-1"> Askerlik Durumu: </label>
+                            @Html.TextAreaFor(x => x.militaryStiation, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.militaryStiation, required = "required", type = "text" })
+                        </div>
+                        <div class="form-group">
+                            <span style="color:red">
+                                @ViewBag.Warning
+                            </span>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Düzenle</button>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('.date-picker').datepicker({ dateFormat: "d/m/yy", });
+    })
+</script>
