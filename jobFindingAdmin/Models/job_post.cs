@@ -24,6 +24,7 @@ namespace jobFindingAdmin.Models
         public int companyID { get; set; }
         public string isCompanyNameHidden { get; set; }
         public System.DateTime postCreatedDate { get; set; }
+        public System.DateTime postEndedDay { get; set; }
         public string jobDescription { get; set; }
         public int jobLocationID { get; set; }
         public string isActivePost { get; set; }
@@ -32,7 +33,6 @@ namespace jobFindingAdmin.Models
         public string experienceStatus { get; set; }
         public string educationInfo { get; set; }
         public string militaryStiation { get; set; }
-        public System.DateTime postEndedDay { get; set; }
     
         public virtual company company { get; set; }
         public virtual job_location job_location { get; set; }

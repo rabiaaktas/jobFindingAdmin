@@ -14,13 +14,14 @@ namespace jobFindingAdmin.Models
     
     public partial class user_education
     {
+        public int educationId { get; set; }
         public int userAccountId { get; set; }
         public string degreeName { get; set; }
         public string universityName { get; set; }
         public string startingDate { get; set; }
         public string endingDate { get; set; }
         public Nullable<double> GANO { get; set; }
-        public int GANOINT { get; set; }
+        public Nullable<int> GANOINT { get; set; }
         public string department { get; set; }
     
         public virtual user_account user_account { get; set; }

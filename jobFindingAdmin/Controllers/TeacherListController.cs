@@ -138,9 +138,6 @@ namespace jobFindingAdmin.Controllers
         [HttpPost]
         public ActionResult UserInfo(int? id)
         {
-            var teach = db.user_teacher.FirstOrDefault(x => x.userAccountID == id);
-            ViewBag.Interested = teach.interestAreas;
-            ViewBag.Degree = teach.degree;
             return PartialView(db.user_account.FirstOrDefault(x => x.userAccountId == id));
         }
 

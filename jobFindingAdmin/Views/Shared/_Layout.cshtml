@@ -25,22 +25,24 @@
         string soyad = string.Empty;
         string id = string.Empty;
         int statusId = 0;
-        if (LoginStatus.Current.IsActive == null && LoginStatus.Current.Name == null && LoginStatus.Current.UserId == 0 )
+        if (LoginStatus.Current.IsActive == null && LoginStatus.Current.Name == null && LoginStatus.Current.UserId == 0)
         {
             Response.Redirect(jobFindingAdmin.MvcApplication.FilePath + "/Home/Login");
         }
         else
         {
-            ad = LoginStatus.Current.Name;
-            soyad = LoginStatus.Current.Surname;
+            jobFindingAdmin.Models.AdminEntities db = new jobFindingAdmin.Models.AdminEntities();
+            var admin = db.user_admin.Where(x => x.adminAccountId == LoginStatus.Current.UserId).FirstOrDefault();
+            ad = admin.adminName;
+            soyad = admin.adminSurname;
             id = LoginStatus.Current.UserId.ToString();
             statusId = Convert.ToInt32(LoginStatus.Current.IsActive);
         }
     }
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand" href="/Home/Index">
-            @ad @soyad
-            </a>
+            Akdeniz Mühendislik Fakültesi
+        </a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i>
         </button><!-- Navbar Search-->
@@ -57,14 +59,15 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Ayarlar</a><a class="dropdown-item" href="#">@ad</a>
+                    <a class="dropdown-item" href="/Settings/PersonalInfo">Kullanıcı Bilgileri</a>
+                    <a class="dropdown-item" href="/Settings/ChangePass">Şifre Değiştirme</a>
                     <div class="dropdown-divider"></div>
                     <a href="javascript:GoOut('@jobFindingAdmin.MvcApplication.FilePath')" class="dropdown-item">
                         Çıkış Yap
                     </a>
                     @*<a href="/Home/Logout" class="dropdown-item">
-                        Çıkış Yap
-                    </a>*@
+                            Çıkış Yap
+                        </a>*@
                 </div>
             </li>
         </ul>
@@ -123,30 +126,21 @@
                                     <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                     Şehir Listesi
                                 </a>
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesBusinessArea" aria-expanded="false" aria-controls="pagesBusinessArea">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
-                                    Sektör
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                <a class="nav-link" href="/BusinessArea/Index">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                    Sektör Listesi
                                 </a>
-                                <div class="collapse" id="pagesBusinessArea" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="/BusinessArea/Index">
-                                            <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
-                                            Sektör Listesi
-                                        </a>
-                                        <a class="nav-link" href="/BusinessArea/Add">
-                                            <div class="sb-nav-link-icon"><i class="far fa-plus-square"></i></div>
-                                            Sektör Ekleme
-                                        </a>
-                                    </nav>
-                                </div>
+                                <a class="nav-link" href="/University/Index">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                    Üniversite Listesi
+                                </a>
                             </nav>
                         </div>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Admin
+                    @ad @soyad
                 </div>
             </nav>
         </div>
@@ -178,12 +172,13 @@
     <script src="~/Scripts/jquery-ui.min.js"></script>
     <script src="~/Scripts/scripts.js"></script>
     <script src="~/Scripts/all.min.js"></script>
+    <script src="~/Scripts/validate.js"></script>
     <script>
         function GoOut(url) {
             $.getJSON(url + "/Home/Logout", null, function (data) {
-                window.location.reload(); 
+                window.location.reload();
                 window.location = url + "/Home/Login";
-                window.location.reload(); 
+                window.location.reload();
             });
         }
     </script>

@@ -1,25 +1,24 @@
 ﻿
 @{
-    ViewBag.Title = "Şehir Düzenleme";
+    ViewBag.Title = "Üniversite Düzenle";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-5">
-            @model jobFindingAdmin.Models.countries
+            @model jobFindingAdmin.Models.universities
             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                <div class="card-header"><h3 class="text-center font-weight-light my-4">Şehir Düzenleme</h3></div>
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Üniversite Düzenleme</h3></div>
                 <div class="card-body">
-                    @using (Html.BeginForm("Edit", "Country", FormMethod.Post))
+                    @using (Html.BeginForm("Edit", "University", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true)
-                        @Html.HiddenFor(model => model.countryId)
+                        @Html.HiddenFor(model => model.universityId)
                         <div class="form-group">
-                            <label class=" mb-1" for="inputEmailAddress">Sektör Adı</label>
-                            @Html.TextBoxFor(x => x.countryName, new { @class = "form-control py-4", id = "inputEmail", placeholder = @Model.countryName, required = "required", type = "text" })
+                            <label class=" mb-1" for="inputEmailAddress">Üniversite Adı</label>
+                            @Html.TextBoxFor(x => x.universityName, new { @class = "form-control py-4", id = "inputEmail", placeholder = @Model.universityName, required = "required", type = "text" })
                         </div>
                         <div class="form-group">
                             <span style="color:red">
@@ -34,3 +33,5 @@
         </div>
     </div>
 </div>
+
+

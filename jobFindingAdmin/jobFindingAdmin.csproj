@@ -192,8 +192,10 @@
     <Compile Include="Controllers\CountryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostListController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\StudentListController.cs" />
     <Compile Include="Controllers\TeacherListController.cs" />
+    <Compile Include="Controllers\UniversityController.cs" />
     <Compile Include="Crypt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -227,6 +229,7 @@
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HelperModel\resetPassword.cs" />
+    <Compile Include="Models\HelperModel\SettingModel.cs" />
     <Compile Include="Models\HelperModel\UserDT.cs" />
     <Compile Include="Models\job_location.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
@@ -244,6 +247,9 @@
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Sp_Admin_Login_Result.cs">
+      <DependentUpon>AdminModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\universities.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user_account.cs">
@@ -295,7 +301,7 @@
     <Content Include="Views\PostList\GetApplicants.cshtml" />
     <Content Include="Views\PostList\CompanyPostList.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Change\ForgotPassword.cshtml" />
+    <Content Include="Views\Change\ForgetPassword.cshtml" />
     <Content Include="Views\Change\ResetPassword.cshtml" />
     <Content Include="Views\StudentList\Activate.cshtml" />
     <Content Include="Views\StudentList\UserInfo.cshtml" />
@@ -310,6 +316,12 @@
     <Content Include="Views\TeacherList\Edit.cshtml" />
     <Content Include="Views\CompanyList\Edit.cshtml" />
     <Content Include="Views\PostList\Edit.cshtml" />
+    <Content Include="Views\Country\Add.cshtml" />
+    <Content Include="Views\University\Add.cshtml" />
+    <Content Include="Views\University\Index.cshtml" />
+    <Content Include="Views\University\Edit.cshtml" />
+    <Content Include="Views\Settings\PersonalInfo.cshtml" />
+    <Content Include="Views\Settings\ChangePass.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    ViewBag.Title = "Giriş Yap";
 }
 
 <!DOCTYPE html>
@@ -41,15 +42,17 @@
                                     </div>
                                         <div class="form-group">
                                             <label class="small mb-1" for="inputPassword">Parola</label>
-                                            @Html.TextBoxFor(x => x.userPassword, new { @class = "form-control py-4", id = "inputPassword", placeholder = "Parolanızı Giriniz", type = "password", required = "required" })
+                                            @Html.TextBoxFor(x => x.userPassword, new { @class = "form-control py-4 pwd", id = "inputPassword", placeholder = "Parolanızı Giriniz", type = "password", required = "required" })
+                                            <span style="float: right;margin-left: -25px;margin-top: -35px;position: relative;z-index: 2;margin-right: 5px;">
+                                                <button class="btn btn-default toggle-password" type="button">
+                                                    <i class="fas fa-eye eye"></i>
+                                                </button>
+                                            </span>
                                         </div>
-                                        @*<div class="form-group">
-                                                <div class="custom-control custom-checkbox"><input class="custom-control-input" id="rememberPasswordCheck" type="checkbox" /><label class="custom-control-label" for="rememberPasswordCheck">Remember password</label></div>
-                                            </div>*@
                                         <span style="color:red">
                                             @ViewBag.Warning
                                         </span>
-                                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><a class="small" href="/Change/ForgotPassword">Parolanızı mı unuttunuz?</a><button class="btn btn-primary" type="submit">Giriş Yap</button></div>
+                                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0"><a class="small" href="/Change/ForgetPassword">Parolanızı mı unuttunuz?</a><button class="btn btn-primary" type="submit">Giriş Yap</button></div>
                                     }
 
                                 </div>
@@ -84,7 +87,19 @@
     <script>
         $(document).ready(function () {
             $('#wrongEmailFormat').hide();
-        })
+        });
+        $(".toggle-password").click(function () {
+            var input = $('.pwd');
+            if (input.attr("type") == "password") {
+                $('.eye').removeClass("fa-eye");
+                $('.eye').addClass("fa-eye-slash");
+                input.attr("type", "text");
+            } else {
+                $('.eye').removeClass("fa-eye-slash");
+                $('.eye').addClass("fa-eye");
+                input.attr("type", "password");
+            }
+        });
     </script>
 </body>
 </html>

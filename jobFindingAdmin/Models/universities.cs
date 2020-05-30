@@ -12,17 +12,9 @@ namespace jobFindingAdmin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class user_experinence_detail
+    public partial class universities
     {
-        public int experienceId { get; set; }
-        public int userAccountID { get; set; }
-        public string isCurrentJob { get; set; }
-        public System.DateTime startDate { get; set; }
-        public Nullable<System.DateTime> endDate { get; set; }
-        public string jobTitle { get; set; }
-        public string companyName { get; set; }
-        public string description { get; set; }
-    
-        public virtual user_account user_account { get; set; }
+        public int universityId { get; set; }
+        public string universityName { get; set; }
     }
 }

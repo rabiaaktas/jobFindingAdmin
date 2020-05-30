@@ -210,7 +210,7 @@ namespace jobFindingAdmin.Controllers
             {
                 jp.jobPostTitle = post.jobPostTitle;
                 jp.postEndedDay = post.postEndedDay;
-                jp.job_location.country = post.job_location.country;
+                jp.job_location.city = post.job_location.city;
                 jp.job_location.streetAddress = post.job_location.streetAddress;
                 jp.jobTypeID = post.jobTypeID;
                 jp.jobDescription = post.jobDescription;

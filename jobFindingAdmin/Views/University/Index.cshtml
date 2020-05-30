@@ -1,38 +1,29 @@
 ﻿
 @{
-    ViewBag.Title = "Başvuranlar";
+    ViewBag.Title = "Üniversiteler";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<div class="container"><a class="btn btn-success mt-5" href="/University/Add"><i class="far fa-plus-square"></i> Üniversite Ekle</a></div>
 <div class="container">
     <br />
     <div style="width:90%; margin:0 auto;">
-        <table id="userTable" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
+        <table id="UniTable" class="table table-striped table-bordered dt-responsive nowrap" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>Kullanıcı ID</th>
-                    <th>E-mail</th>
-                    <th>Adı</th>
-                    <th>Soyadı</th>
-                    <th>Başvuru Tarihi</th>
+                    <th>Üniversite ID</th>
+                    <th>Üniversite Adı</th>
+                    <th>Düzenle</th>
                 </tr>
             </thead>
         </table>
     </div>
 </div>
 
-<script>
-    var routeId = @ViewContext.RouteData.Values["id"].ToString();
 
-    function ToJavaScriptDate(value) {
-        var pattern = /Date\(([^)]+)\)/;
-        var results = pattern.exec(value);
-        var dt = new Date(parseFloat(results[1]));
-        return dt.getDate() + "/" + (dt.getMonth() + 1) + "/" + dt.getFullYear();
-    }
+<script>
 
     $(document).ready(function () {
-        $("#userTable").DataTable({
+        $("#UniTable").DataTable({
 
             "processing": true, // for show progress bar
             "serverSide": true, // for process server side
@@ -65,38 +56,27 @@
             },
 
             "ajax": {
-                "url": "/PostList/LoadApplicants/" + routeId,
+                "url": "/University/LoadData",
                 "type": "POST",
-                "datatype": "json",
-                "error": function (request, status, error) {
-                    console.log(request);
-                },
+                "datatype": "json"
             },
 
             "columnDefs":
-                [{
-                    "targets": [0],
-                    "visible": false,
-                    "searchable": false
-                },
-                {
-                    "targets": [4],
-                    "render": function (data, type, row) {
-                        return ToJavaScriptDate(row.applyDate);
+                [ {
+                        "targets": [2],
+                        "searchable": false,
+                        "render": function (data, type, row) {
+                            var id = row.universityId;
+                            return '<a  href="/University/Edit/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" > Düzenle</a>';
+                        }
                     },
-                },
                 ],
 
             "columns": [
-                { "title": "Kullanıcı ID", "data": "userAccountID", "name": "userAccountID", "autowidth": true },
-                { "title": "E-mail", "data": "userEmail", "name": "userEmail", "autowidth": true },
-                { "title": "Adı", "data": "firstName", "name": "firstName", "autowidth": true },
-                { "title": "Soyadı", "data": "lastName", "name": "lastName", "autowidth": true },
-                { "title": "Başvuru Tarihi", "data": "applyDate", "name": "applyDate", "autowidth": true },
-
+                { "title": "Üniversite ID", "data": "universityId", "name": "universityId", "autowidth": true },
+                { "title": "Üniversite Adı", "data": "universityName", "name": "universityName", "autowidth": true },
 
             ]
-
 
         });
     });

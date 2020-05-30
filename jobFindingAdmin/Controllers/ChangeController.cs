@@ -14,14 +14,14 @@ namespace jobFindingAdmin.Controllers
 
         private AdminEntities db = new AdminEntities();
         // GET: Change
-        public ActionResult ForgotPassword()
+        public ActionResult ForgetPassword()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ForgotPassword(user_admin user)
+        public ActionResult ForgetPassword(user_admin user)
         {
             bool exist = isEmailExist(user.adminEmail);
             if (exist == false)
@@ -108,10 +108,19 @@ namespace jobFindingAdmin.Controllers
                 var user = db.user_admin.Where(x => x.adminResetCode == reset.ResetCode).FirstOrDefault();
                 if(user != null)
                 {
-                    user.adminPassword = reset.NewPassword;
-                    user.adminResetCode = "";
-                    db.SaveChanges();
-                    ViewBag.Success = "Parola başarıyla değiştirildi.";
+                    if (user.adminPassword == reset.NewPassword)
+                    {
+                        ViewBag.Warning = "Yeni parola eskisi ile aynı olamaz. Tekrar deneyiniz.";
+                    }
+                    else
+                    {
+                        var encrypted = Crypt.Encrypt(reset.NewPassword);
+                        user.adminPassword = encrypted;
+                        user.adminResetCode = "";
+                        db.SaveChanges();
+                        ViewBag.Success = "Parola başarıyla değiştirildi.";
+                    }
+                    
                 }
             }
             else

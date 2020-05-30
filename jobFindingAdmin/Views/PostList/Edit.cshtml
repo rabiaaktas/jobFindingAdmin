@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "İlan Düzenleme";
     Layout = "~/Views/Shared/_Layout.cshtml";
     jobFindingAdmin.Models.AdminEntities db = new jobFindingAdmin.Models.AdminEntities();
     var countries = db.countries.ToList();
@@ -30,11 +30,11 @@
                         </div>
                         <div class="form-group">
                             <label for="countrySelect">Değiştirmek istediğiniz şehri seçiniz : </label>
-                            <select id="countrySelect" class="form-control" name="job_location.country">
+                            <select id="countrySelect" class="form-control" name="job_location.city">
                                 @foreach (var item in countries)
                                 {
 
-                                    <option value=@item.countryName @if (item.countryName == Model.job_location.country) { <text> selected="selected" </text> }>
+                                    <option value=@item.countryName @if (item.countryName == Model.job_location.city) { <text> selected="selected" </text> }>
                                         @item.countryName
                                     </option>
 

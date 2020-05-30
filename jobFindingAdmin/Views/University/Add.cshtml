@@ -1,22 +1,22 @@
 ﻿
 @{
-    ViewBag.Title = "Sektör Ekleme";
+    ViewBag.Title = "Üniversite Ekle";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-5">
-            @model jobFindingAdmin.Models.business_stream
+            @model jobFindingAdmin.Models.universities
             <div class="card shadow-lg border-0 rounded-lg mt-5">
-                <div class="card-header"><h3 class="text-center font-weight-light my-4">Sektör Ekleme</h3></div>
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Üniversite Ekleme</h3></div>
                 <div class="card-body">
-                    @using (Html.BeginForm("Add", "BusinessArea", FormMethod.Post))
+                    @using (Html.BeginForm("Add", "University", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         <div class="form-group">
-                            <label class=" mb-1" for="inputEmailAddress">Sektör Adı</label>
-                            @Html.TextBoxFor(x => x.businessName, new { @class = "form-control py-4", id = "inputEmail", placeholder = "", required = "required", type = "text" })
+                            <label class=" mb-1" for="inputEmailAddress">Üniversite Adı</label>
+                            @Html.TextBoxFor(x => x.universityName, new { @class = "form-control py-4", id = "inputEmail", placeholder = "", required = "required", type = "text" })
                         </div>
                         <span style="color:red">
                             @ViewBag.Warning
@@ -25,9 +25,7 @@
                     }
                 </div>
 
-                </div>
             </div>
+        </div>
     </div>
 </div>
-
-

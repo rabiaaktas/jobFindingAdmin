@@ -28,8 +28,8 @@ namespace jobFindingAdmin.Controllers
         {
             var us = user.userEmail;
             var ps = user.userPassword;
-            //var password = Crypt.Encrypt(user.userPassword);
-            var data = db.user_admin.Where(x => x.adminEmail == user.userEmail && x.adminPassword == user.userPassword && x.adminIsActive == "1").FirstOrDefault();
+            var password = Crypt.Encrypt(user.userPassword);
+            var data = db.user_admin.Where(x => x.adminEmail == user.userEmail && x.adminPassword == password && x.adminIsActive == "1").FirstOrDefault();
             if (data != null)
             {
                 LoginStatus.Current.IsLogin = true;

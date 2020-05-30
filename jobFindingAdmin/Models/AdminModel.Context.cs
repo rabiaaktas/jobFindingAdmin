@@ -28,14 +28,18 @@ namespace jobFindingAdmin.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<admin_log> admin_log { get; set; }
         public DbSet<business_stream> business_stream { get; set; }
         public DbSet<company> company { get; set; }
+        public DbSet<countries> countries { get; set; }
         public DbSet<job_location> job_location { get; set; }
         public DbSet<job_post> job_post { get; set; }
         public DbSet<job_post_activity> job_post_activity { get; set; }
         public DbSet<job_type> job_type { get; set; }
         public DbSet<languages> languages { get; set; }
+        public DbSet<universities> universities { get; set; }
         public DbSet<user_account> user_account { get; set; }
+        public DbSet<user_admin> user_admin { get; set; }
         public DbSet<user_education> user_education { get; set; }
         public DbSet<user_experinence_detail> user_experinence_detail { get; set; }
         public DbSet<user_language_skill> user_language_skill { get; set; }
@@ -43,9 +47,6 @@ namespace jobFindingAdmin.Models
         public DbSet<user_student> user_student { get; set; }
         public DbSet<user_teacher> user_teacher { get; set; }
         public DbSet<user_type> user_type { get; set; }
-        public DbSet<admin_log> admin_log { get; set; }
-        public DbSet<user_admin> user_admin { get; set; }
-        public DbSet<countries> countries { get; set; }
     
         public virtual ObjectResult<Sp_Admin_Login_Result> Sp_Admin_Login(string mail, string pass)
         {

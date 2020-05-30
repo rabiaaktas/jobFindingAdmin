@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="akdenizjobfindingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="admin_log">
+    <Key>
+      <PropertyRef Name="adminAccountID" />
+    </Key>
+    <Property Name="adminAccountID" Type="Int32" Nullable="false" />
+    <Property Name="loginDate" Type="DateTime" Nullable="false" />
+    <Property Name="loginIp" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="user_admin" Relationship="Self.admin_log_ibfk_1" FromRole="admin_log" ToRole="user_admin" />
+  </EntityType>
   <EntityType Name="business_stream">
     <Key>
       <PropertyRef Name="businessId" />
@@ -29,6 +38,13 @@
     <NavigationProperty Name="business_stream" Relationship="Self.company_ibfk_1" FromRole="company" ToRole="business_stream" />
     <NavigationProperty Name="job_post" Relationship="Self.job_post_ibfk_3" FromRole="company" ToRole="job_post" />
   </EntityType>
+  <EntityType Name="countries">
+    <Key>
+      <PropertyRef Name="countryId" />
+    </Key>
+    <Property Name="countryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="countryName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
   <EntityType Name="job_location">
     <Key>
       <PropertyRef Name="jobLocationId" />
@@ -48,6 +64,7 @@
     <Property Name="companyID" Type="Int32" Nullable="false" />
     <Property Name="isCompanyNameHidden" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="postCreatedDate" Type="DateTime" Nullable="false" />
+    <Property Name="postEndedDay" Type="DateTime" Nullable="false" />
     <Property Name="jobDescription" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="jobLocationID" Type="Int32" Nullable="false" />
     <Property Name="isActivePost" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
@@ -60,12 +77,12 @@
     <NavigationProperty Name="job_location" Relationship="Self.job_post_ibfk_2" FromRole="job_post" ToRole="job_location" />
     <NavigationProperty Name="job_post_activity" Relationship="Self.job_post_activity_ibfk_2" FromRole="job_post" ToRole="job_post_activity" />
     <NavigationProperty Name="job_type" Relationship="Self.job_post_ibfk_1" FromRole="job_post" ToRole="job_type" />
-    <Property Name="postEndedDay" Type="DateTime" Nullable="false" />
   </EntityType>
   <EntityType Name="job_post_activity">
     <Key>
-      <PropertyRef Name="userAccountID" />
+      <PropertyRef Name="activityId" />
     </Key>
+    <Property Name="activityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="userAccountID" Type="Int32" Nullable="false" />
     <Property Name="jobPostID" Type="Int32" Nullable="false" />
     <Property Name="applyDate" Type="DateTime" Nullable="false" />
@@ -88,6 +105,13 @@
     <Property Name="languageName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="user_language_skill" Relationship="Self.user_language_skill_ibfk_1" FromRole="languages" ToRole="user_language_skill" />
   </EntityType>
+  <EntityType Name="universities">
+    <Key>
+      <PropertyRef Name="universityId" />
+    </Key>
+    <Property Name="universityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="universityName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
   <EntityType Name="user_account">
     <Key>
       <PropertyRef Name="userAccountId" />
@@ -105,6 +129,8 @@
     <Property Name="userBday" Type="DateTime" />
     <Property Name="userPhone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
     <Property Name="userAddress" Type="String" MaxLength="10000" FixedLength="false" Unicode="false" />
+    <Property Name="resetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="mailActivationCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="job_post_activity" Relationship="Self.job_post_activity_ibfk_1" FromRole="user_account" ToRole="job_post_activity" />
     <NavigationProperty Name="user_type" Relationship="Self.user_account_ibfk_1" FromRole="user_account" ToRole="user_type" />
     <NavigationProperty Name="user_education" Relationship="Self.user_education_ibfk_1" FromRole="user_account" ToRole="user_education" />
@@ -113,31 +139,45 @@
     <NavigationProperty Name="user_log" Relationship="Self.user_log_ibfk_1" FromRole="user_account" ToRole="user_log" />
     <NavigationProperty Name="user_student" Relationship="Self.user_student_ibfk_1" FromRole="user_account" ToRole="user_student" />
     <NavigationProperty Name="user_teacher" Relationship="Self.user_teacher_ibfk_1" FromRole="user_account" ToRole="user_teacher" />
-    <Property Name="resetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="mailActivationCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="user_admin">
+    <Key>
+      <PropertyRef Name="adminAccountId" />
+    </Key>
+    <Property Name="adminAccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="adminEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adminName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adminSurname" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adminPassword" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adminIsActive" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="adminRegisterDate" Type="DateTime" Nullable="false" />
+    <Property Name="adminResetCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="admin_log" Relationship="Self.admin_log_ibfk_1" FromRole="user_admin" ToRole="admin_log" />
   </EntityType>
   <EntityType Name="user_education">
     <Key>
-      <PropertyRef Name="userAccountId" />
+      <PropertyRef Name="educationId" />
     </Key>
+    <Property Name="educationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="userAccountId" Type="Int32" Nullable="false" />
     <Property Name="degreeName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="universityName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="startingDate" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="endingDate" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
     <Property Name="GANO" Type="Double" />
-    <Property Name="GANOINT" Type="Int32" Nullable="false" />
+    <Property Name="GANOINT" Type="Int32" />
     <Property Name="department" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="user_account" Relationship="Self.user_education_ibfk_1" FromRole="user_education" ToRole="user_account" />
   </EntityType>
   <EntityType Name="user_experinence_detail">
     <Key>
-      <PropertyRef Name="userAccountID" />
+      <PropertyRef Name="experienceId" />
     </Key>
+    <Property Name="experienceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="userAccountID" Type="Int32" Nullable="false" />
     <Property Name="isCurrentJob" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="startDate" Type="DateTime" Nullable="false" />
-    <Property Name="endDate" Type="DateTime" Nullable="false" />
+    <Property Name="endDate" Type="DateTime" />
     <Property Name="jobTitle" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="companyName" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
@@ -145,8 +185,9 @@
   </EntityType>
   <EntityType Name="user_language_skill">
     <Key>
-      <PropertyRef Name="userAccountID" />
+      <PropertyRef Name="skillId" />
     </Key>
+    <Property Name="skillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="userAccountID" Type="Int32" Nullable="false" />
     <Property Name="languageID" Type="Int32" Nullable="false" />
     <Property Name="level" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
@@ -189,6 +230,18 @@
     <Property Name="user_type_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="user_account" Relationship="Self.user_account_ibfk_1" FromRole="user_type" ToRole="user_account" />
   </EntityType>
+  <Association Name="admin_log_ibfk_1">
+    <End Role="user_admin" Type="Self.user_admin" Multiplicity="1" />
+    <End Role="admin_log" Type="Self.admin_log" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="user_admin">
+        <PropertyRef Name="adminAccountId" />
+      </Principal>
+      <Dependent Role="admin_log">
+        <PropertyRef Name="adminAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="company_ibfk_1">
     <End Role="business_stream" Type="Self.business_stream" Multiplicity="1" />
     <End Role="company" Type="Self.company" Multiplicity="*" />
@@ -263,7 +316,7 @@
   </Association>
   <Association Name="job_post_activity_ibfk_1">
     <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
-    <End Role="job_post_activity" Type="Self.job_post_activity" Multiplicity="0..1" />
+    <End Role="job_post_activity" Type="Self.job_post_activity" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user_account">
         <PropertyRef Name="userAccountId" />
@@ -299,7 +352,7 @@
   </Association>
   <Association Name="user_education_ibfk_1">
     <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
-    <End Role="user_education" Type="Self.user_education" Multiplicity="0..1" />
+    <End Role="user_education" Type="Self.user_education" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user_account">
         <PropertyRef Name="userAccountId" />
@@ -311,7 +364,7 @@
   </Association>
   <Association Name="user_experinence_detail_ibfk_1">
     <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
-    <End Role="user_experinence_detail" Type="Self.user_experinence_detail" Multiplicity="0..1" />
+    <End Role="user_experinence_detail" Type="Self.user_experinence_detail" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user_account">
         <PropertyRef Name="userAccountId" />
@@ -323,7 +376,7 @@
   </Association>
   <Association Name="user_language_skill_ibfk_2">
     <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
-    <End Role="user_language_skill" Type="Self.user_language_skill" Multiplicity="0..1" />
+    <End Role="user_language_skill" Type="Self.user_language_skill" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user_account">
         <PropertyRef Name="userAccountId" />
@@ -370,14 +423,18 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="AdminEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="admin_log" EntityType="Self.admin_log" />
     <EntitySet Name="business_stream" EntityType="Self.business_stream" />
     <EntitySet Name="company" EntityType="Self.company" />
+    <EntitySet Name="countries" EntityType="Self.countries" />
     <EntitySet Name="job_location" EntityType="Self.job_location" />
     <EntitySet Name="job_post" EntityType="Self.job_post" />
     <EntitySet Name="job_post_activity" EntityType="Self.job_post_activity" />
     <EntitySet Name="job_type" EntityType="Self.job_type" />
     <EntitySet Name="languages" EntityType="Self.languages" />
+    <EntitySet Name="universities" EntityType="Self.universities" />
     <EntitySet Name="user_account" EntityType="Self.user_account" />
+    <EntitySet Name="user_admin" EntityType="Self.user_admin" />
     <EntitySet Name="user_education" EntityType="Self.user_education" />
     <EntitySet Name="user_experinence_detail" EntityType="Self.user_experinence_detail" />
     <EntitySet Name="user_language_skill" EntityType="Self.user_language_skill" />
@@ -385,6 +442,10 @@
     <EntitySet Name="user_student" EntityType="Self.user_student" />
     <EntitySet Name="user_teacher" EntityType="Self.user_teacher" />
     <EntitySet Name="user_type" EntityType="Self.user_type" />
+    <AssociationSet Name="admin_log_ibfk_1" Association="Self.admin_log_ibfk_1">
+      <End Role="user_admin" EntitySet="user_admin" />
+      <End Role="admin_log" EntitySet="admin_log" />
+    </AssociationSet>
     <AssociationSet Name="company_ibfk_1" Association="Self.company_ibfk_1">
       <End Role="business_stream" EntitySet="business_stream" />
       <End Role="company" EntitySet="company" />
@@ -449,55 +510,6 @@
       <Parameter Name="mail" Mode="In" Type="String" />
       <Parameter Name="pass" Mode="In" Type="String" />
     </FunctionImport>
-    <EntitySet Name="admin_log" EntityType="akdenizjobfindingModel.admin_log" />
-    <EntitySet Name="user_admin" EntityType="akdenizjobfindingModel.user_admin" />
-    <AssociationSet Name="admin_log_ibfk_1" Association="akdenizjobfindingModel.admin_log_ibfk_1">
-      <End Role="user_admin" EntitySet="user_admin" />
-      <End Role="admin_log" EntitySet="admin_log" />
-    </AssociationSet>
-    <EntitySet Name="countries" EntityType="akdenizjobfindingModel.countries" />
   </EntityContainer>
   <ComplexType Name="Sp_Admin_Login_Result" />
-  <EntityType Name="admin_log">
-    <Key>
-      <PropertyRef Name="adminAccountID" />
-    </Key>
-    <Property Name="adminAccountID" Type="Int32" Nullable="false" />
-    <Property Name="loginDate" Type="DateTime" Nullable="false" />
-    <Property Name="loginIp" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="user_admin" Relationship="akdenizjobfindingModel.admin_log_ibfk_1" FromRole="admin_log" ToRole="user_admin" />
-  </EntityType>
-  <EntityType Name="user_admin">
-    <Key>
-      <PropertyRef Name="adminAccountId" />
-    </Key>
-    <Property Name="adminAccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="adminEmail" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="adminName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="adminSurname" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-    <Property Name="adminPassword" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="adminIsActive" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="adminRegisterDate" Type="DateTime" Nullable="false" />
-    <Property Name="adminResetCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="admin_log" Relationship="akdenizjobfindingModel.admin_log_ibfk_1" FromRole="user_admin" ToRole="admin_log" />
-  </EntityType>
-  <Association Name="admin_log_ibfk_1">
-    <End Type="akdenizjobfindingModel.user_admin" Role="user_admin" Multiplicity="1" />
-    <End Type="akdenizjobfindingModel.admin_log" Role="admin_log" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="user_admin">
-        <PropertyRef Name="adminAccountId" />
-      </Principal>
-      <Dependent Role="admin_log">
-        <PropertyRef Name="adminAccountID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityType Name="countries">
-    <Key>
-      <PropertyRef Name="countryId" />
-    </Key>
-    <Property Name="countryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="countryName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
-  </EntityType>
 </Schema>

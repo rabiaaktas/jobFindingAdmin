@@ -70,8 +70,9 @@
   </EntityType>
   <EntityType Name="job_post_activity">
     <Key>
-      <PropertyRef Name="userAccountID" />
+      <PropertyRef Name="activityId" />
     </Key>
+    <Property Name="activityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userAccountID" Type="int" Nullable="false" />
     <Property Name="jobPostID" Type="int" Nullable="false" />
     <Property Name="applyDate" Type="date" Nullable="false" />
@@ -89,6 +90,13 @@
     </Key>
     <Property Name="languageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="languageName" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="universities">
+    <Key>
+      <PropertyRef Name="universityId" />
+    </Key>
+    <Property Name="universityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="universityName" Type="varchar" MaxLength="255" Nullable="false" />
   </EntityType>
   <EntityType Name="user_account">
     <Key>
@@ -125,33 +133,36 @@
   </EntityType>
   <EntityType Name="user_education">
     <Key>
-      <PropertyRef Name="userAccountId" />
+      <PropertyRef Name="educationId" />
     </Key>
+    <Property Name="educationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userAccountId" Type="int" Nullable="false" />
     <Property Name="degreeName" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="universityName" Type="varchar" MaxLength="1000" Nullable="false" />
     <Property Name="startingDate" Type="varchar" MaxLength="4" Nullable="false" />
     <Property Name="endingDate" Type="varchar" MaxLength="4" />
     <Property Name="GANO" Type="double" />
-    <Property Name="GANOINT" Type="int" Nullable="false" />
+    <Property Name="GANOINT" Type="int" />
     <Property Name="department" Type="varchar" MaxLength="1000" Nullable="false" />
   </EntityType>
   <EntityType Name="user_experinence_detail">
     <Key>
-      <PropertyRef Name="userAccountID" />
+      <PropertyRef Name="experienceId" />
     </Key>
+    <Property Name="experienceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userAccountID" Type="int" Nullable="false" />
     <Property Name="isCurrentJob" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="startDate" Type="date" Nullable="false" />
-    <Property Name="endDate" Type="date" Nullable="false" />
+    <Property Name="endDate" Type="date" />
     <Property Name="jobTitle" Type="varchar" MaxLength="1000" Nullable="false" />
     <Property Name="companyName" Type="varchar" MaxLength="1000" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="1000" Nullable="false" />
   </EntityType>
   <EntityType Name="user_language_skill">
     <Key>
-      <PropertyRef Name="userAccountID" />
+      <PropertyRef Name="skillId" />
     </Key>
+    <Property Name="skillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userAccountID" Type="int" Nullable="false" />
     <Property Name="languageID" Type="int" Nullable="false" />
     <Property Name="level" Type="varchar" MaxLength="1" Nullable="false" />
@@ -213,7 +224,7 @@
   </Association>
   <Association Name="job_post_activity_ibfk_1">
     <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
-    <End Role="job_post_activity" Type="Self.job_post_activity" Multiplicity="0..1" />
+    <End Role="job_post_activity" Type="Self.job_post_activity" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user_account">
         <PropertyRef Name="userAccountId" />
@@ -285,7 +296,7 @@
   </Association>
   <Association Name="user_education_ibfk_1">
     <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
-    <End Role="user_education" Type="Self.user_education" Multiplicity="0..1" />
+    <End Role="user_education" Type="Self.user_education" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user_account">
         <PropertyRef Name="userAccountId" />
@@ -297,7 +308,7 @@
   </Association>
   <Association Name="user_experinence_detail_ibfk_1">
     <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
-    <End Role="user_experinence_detail" Type="Self.user_experinence_detail" Multiplicity="0..1" />
+    <End Role="user_experinence_detail" Type="Self.user_experinence_detail" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user_account">
         <PropertyRef Name="userAccountId" />
@@ -321,7 +332,7 @@
   </Association>
   <Association Name="user_language_skill_ibfk_2">
     <End Role="user_account" Type="Self.user_account" Multiplicity="1" />
-    <End Role="user_language_skill" Type="Self.user_language_skill" Multiplicity="0..1" />
+    <End Role="user_language_skill" Type="Self.user_language_skill" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="user_account">
         <PropertyRef Name="userAccountId" />
@@ -393,6 +404,7 @@
     <EntitySet Name="job_post_activity" EntityType="Self.job_post_activity" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="job_type" EntityType="Self.job_type" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="languages" EntityType="Self.languages" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="universities" EntityType="Self.universities" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="user_account" EntityType="Self.user_account" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="user_admin" EntityType="Self.user_admin" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="user_education" EntityType="Self.user_education" Schema="akdenizjobfinding" store:Type="Tables" />

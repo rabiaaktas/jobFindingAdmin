@@ -14,6 +14,14 @@ namespace jobFindingAdmin.Models
     
     public partial class user_account
     {
+        public user_account()
+        {
+            this.job_post_activity = new HashSet<job_post_activity>();
+            this.user_education = new HashSet<user_education>();
+            this.user_experinence_detail = new HashSet<user_experinence_detail>();
+            this.user_language_skill = new HashSet<user_language_skill>();
+        }
+    
         public int userAccountId { get; set; }
         public int userTypeID { get; set; }
         public string userEmail { get; set; }
@@ -30,11 +38,11 @@ namespace jobFindingAdmin.Models
         public string resetPasswordCode { get; set; }
         public string mailActivationCode { get; set; }
     
-        public virtual job_post_activity job_post_activity { get; set; }
+        public virtual ICollection<job_post_activity> job_post_activity { get; set; }
         public virtual user_type user_type { get; set; }
-        public virtual user_education user_education { get; set; }
-        public virtual user_experinence_detail user_experinence_detail { get; set; }
-        public virtual user_language_skill user_language_skill { get; set; }
+        public virtual ICollection<user_education> user_education { get; set; }
+        public virtual ICollection<user_experinence_detail> user_experinence_detail { get; set; }
+        public virtual ICollection<user_language_skill> user_language_skill { get; set; }
         public virtual user_log user_log { get; set; }
         public virtual user_student user_student { get; set; }
         public virtual user_teacher user_teacher { get; set; }

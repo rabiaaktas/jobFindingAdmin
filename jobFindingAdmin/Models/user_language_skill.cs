@@ -14,6 +14,7 @@ namespace jobFindingAdmin.Models
     
     public partial class user_language_skill
     {
+        public int skillId { get; set; }
         public int userAccountID { get; set; }
         public int languageID { get; set; }
         public string level { get; set; }

@@ -8,11 +8,11 @@ using jobFindingAdmin.Models;
 
 namespace jobFindingAdmin.Controllers
 {
-    public class CountryController : Controller
+    public class UniversityController : Controller
     {
 
         private AdminEntities db = new AdminEntities();
-        // GET: Country
+        // GET: Universty
         [UserCheck]
         public ActionResult Index()
         {
@@ -35,8 +35,8 @@ namespace jobFindingAdmin.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
                 int recordsTotal = 0;
 
-                var custData = from co in db.countries
-                               select new { co.countryId, co.countryName };
+                var custData = from uni in db.universities
+                               select new { uni.universityId, uni.universityName };
 
                 if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                 {
@@ -46,7 +46,7 @@ namespace jobFindingAdmin.Controllers
                 if (!string.IsNullOrEmpty(searchValue))
                 {
                     var lengthofSearch = searchValue.Length;
-                    custData = custData.Where(x => x.countryName.Substring(0, lengthofSearch).Equals(searchValue));
+                    custData = custData.Where(x => x.universityName.Substring(0, lengthofSearch).Equals(searchValue));
                 }
 
                 recordsTotal = custData.Count();
@@ -65,20 +65,20 @@ namespace jobFindingAdmin.Controllers
         [UserCheck]
         public ActionResult Edit(int? id)
         {
-            return View(db.countries.FirstOrDefault(x => x.countryId == id));
+            return View(db.universities.FirstOrDefault(x => x.universityId == id));
         }
 
         [UserCheck]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(countries country)
+        public ActionResult Edit(universities uni)
         {
-            var bs = db.countries.FirstOrDefault(x => x.countryId == country.countryId);
-            if (bs != null)
+            var selectedUni = db.universities.FirstOrDefault(x => x.universityId == uni.universityId);
+            if (selectedUni != null)
             {
-                bs.countryName = country.countryName;
+                selectedUni.universityName = uni.universityName;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Country");
+                return RedirectToAction("Index", "University");
             }
             else
             {
@@ -96,16 +96,16 @@ namespace jobFindingAdmin.Controllers
         [UserCheck]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(countries cs)
+        public ActionResult Add(universities uni)
         {
-            if (cs.countryName != null)
+            if (uni.universityName != null)
             {
-                var newcs = new countries();
-                newcs.countryName = cs.countryName;
-                db.countries.Add(newcs);
+                var newUni = new universities();
+                newUni.universityName = uni.universityName;
+                db.universities.Add(newUni);
                 db.SaveChanges();
             }
-            return RedirectToAction("Index", "Country");
+            return RedirectToAction("Index", "University");
         }
     }
 }

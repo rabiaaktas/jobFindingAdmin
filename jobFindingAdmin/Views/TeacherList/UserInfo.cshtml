@@ -1,5 +1,10 @@
 ﻿
 @model jobFindingAdmin.Models.user_account
+@{
+    jobFindingAdmin.Models.AdminEntities db = new jobFindingAdmin.Models.AdminEntities();
+    var educationList = db.user_education.Where(x => x.userAccountId == Model.userAccountId).ToList();
+    var experienceList = db.user_experinence_detail.Where(x => x.userAccountID == Model.userAccountId).ToList();
+}
 
 <div class="col-md-12">
     <div>
@@ -8,7 +13,7 @@
         <label class="font-weight-bold" for="bs">İlgi alanları :</label>
         <p id="bs">@ViewBag.Interested</p>
         <label class="font-weight-bold" for="year">Ünvanı :</label>
-        <p id="year">@ViewBag.Degree</p>
+        <p id="year">@Model.user_teacher.degree</p>
         <label class="font-weight-bold" for="address">E-mail Adresi :</label>
         <p id="address">@Model.userEmail</p>
         <label class="font-weight-bold" for="web">Kayıt Tarihi :</label>
@@ -20,6 +25,49 @@
         <label class="font-weight-bold" for="phone">Adresi :</label>
         <p id="phone">@Model.userAddress</p>
 
+        @foreach (var item in educationList)
+        {
+            <hr />
+            <label class="font-weight-bold">Eğitim Seviyesi :</label>
+            <p>@item.degreeName</p>
+            <label class="font-weight-bold">Üniversite :</label>
+            <p>@item.universityName</p>
+            <label class="font-weight-bold">Başlama Yılı :</label>
+            <p>@item.startingDate</p>
+            <label class="font-weight-bold">Bitirme Yılı :</label>
+            <p>@item.endingDate</p>
+            <label class="font-weight-bold">Bölüm :</label>
+            <p>@item.department</p>
+            <label class="font-weight-bold">GANO(4'lük Sistem)/GANO(100'lük Sistem) :</label>
+            <p>@item.GANO/@item.GANOINT</p>
+
+        }
+        @foreach (var item in experienceList)
+        {
+            <hr />
+            <label class="font-weight-bold">Şirket Adı: :</label>
+            <p>@item.companyName</p>
+            <label class="font-weight-bold">Ünvanı :</label>
+            <p>@item.jobTitle</p>
+            <label class="font-weight-bold">İş Açıklaması :</label>
+            <p>@item.description</p>
+            <label class="font-weight-bold">Başlama Tarihi :</label>
+            <p>@item.startDate</p>
+            <label class="font-weight-bold">Ayrılma Tarihi :</label>
+            <p>@item.endDate</p>
+            <label class="font-weight-bold">Aktif İşi Mi ? </label>
+            if (item.isCurrentJob == "1")
+            {<p>
+                    Aktif olarak bu şirkette çalışmaktadır.
+                </p>}
+            if (item.isCurrentJob == "0")
+            { <p> Bu işyerinden ayrılmıştır.</p>}
+
+
+        }
+
     </div>
 </div>
+
+
 

@@ -14,6 +14,7 @@ namespace jobFindingAdmin.Models
     
     public partial class job_post_activity
     {
+        public int activityId { get; set; }
         public int userAccountID { get; set; }
         public int jobPostID { get; set; }
         public System.DateTime applyDate { get; set; }
