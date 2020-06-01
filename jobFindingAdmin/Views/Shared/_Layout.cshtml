@@ -40,13 +40,13 @@
         }
     }
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="/Home/Index">
+        <a class="navbar-brand" href="/Admin/Home/Index">
             Akdeniz Mühendislik Fakültesi
         </a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i>
         </button><!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"> 
             @*<div class="input-group">
                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
                     <div class="input-group-append">
@@ -59,8 +59,8 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="/Settings/PersonalInfo">Kullanıcı Bilgileri</a>
-                    <a class="dropdown-item" href="/Settings/ChangePass">Şifre Değiştirme</a>
+                    <a class="dropdown-item" href="/Admin/Settings/PersonalInfo">Kullanıcı Bilgileri</a>
+                    <a class="dropdown-item" href="/Admin/Settings/ChangePass">Şifre Değiştirme</a>
                     <div class="dropdown-divider"></div>
                     <a href="javascript:GoOut('@jobFindingAdmin.MvcApplication.FilePath')" class="dropdown-item">
                         Çıkış Yap
@@ -77,11 +77,6 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="index.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
-                        </a>
                         <div class="sb-sidenav-menu-heading">Kullanıcı İşlemleri</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
@@ -89,7 +84,7 @@
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="/StudentList/Index">Normal Kullanıcılar</a><a class="nav-link" href="/TeacherList/Index">Hocalar</a></nav>
+                            <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="/Admin/StudentList/Index">Normal Kullanıcılar</a><a class="nav-link" href="/Admin/TeacherList/Index">Hocalar</a></nav>
                         </div>
                         <div class="sb-sidenav-menu-heading">Firma İşlemleri</div>
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -99,7 +94,7 @@
                         </a>
                         <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link " href="/CompanyList/Index"> Firma Listesi</a>
+                                <a class="nav-link " href="/Admin/CompanyList/Index"> Firma Listesi</a>
                                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
                                     Error
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -110,7 +105,7 @@
                             </nav>
                         </div>
                         <div class="sb-sidenav-menu-heading">İş İlanları</div>
-                        <a class="nav-link" href="/PostList/Index">
+                        <a class="nav-link" href="/Admin/PostList/Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                             İş İlanları Listesi
                         </a>
@@ -122,17 +117,21 @@
                         </a>
                         <div class="collapse" id="collapseStatic" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link" href="/Country/Index">
+                                <a class="nav-link" href="/Admin/Country/Index">
                                     <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                     Şehir Listesi
                                 </a>
-                                <a class="nav-link" href="/BusinessArea/Index">
+                                <a class="nav-link" href="/Admin/BusinessArea/Index">
                                     <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                     Sektör Listesi
                                 </a>
-                                <a class="nav-link" href="/University/Index">
+                                <a class="nav-link" href="/Admin/University/Index">
                                     <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                     Üniversite Listesi
+                                </a>
+                                <a class="nav-link" href="/Admin/Department/Index">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                    Bölüm Listesi
                                 </a>
                             </nav>
                         </div>

@@ -168,7 +168,7 @@
             },
 
             "ajax": {
-                "url": "/StudentList/LoadTableData",
+                "url": "/Admin/StudentList/LoadTableData",
                 "type": "POST",
                 "datatype": "json",
                 "error": function (request, status, error) {
@@ -225,7 +225,7 @@
                         "searchable": false,
                         "render": function (data, type, row) {
                             var id = row.userAccountId;
-                            return '<a  href="/StudentList/Edit/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" ><i class="fas fa-user-edit"></i> Düzenle</a>';
+                            return '<a  href="/Admin/StudentList/Edit/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" ><i class="fas fa-user-edit"></i> Düzenle</a>';
                         }
                 },
                 ],
@@ -242,7 +242,7 @@
                 { "title": "Rolü", "data": "user_type_name", "name": "user_type_name", "autowidth": true },
                 {
                     "render": function (data, type, full, meta) {
-                        return '<a class="detailButton btn btn-info btn-sm float-center ml-1 text-white" data-target="/StudentList/UserInfo/' + full.userAccountId + '"><i class="fas fa-info-circle"></i> Kullanıcı Bilgileri</a>';
+                        return '<a class="detailButton btn btn-info btn-sm float-center ml-1 text-white" data-target="/Admin/StudentList/UserInfo/' + full.userAccountId + '"><i class="fas fa-info-circle"></i> Kullanıcı Bilgileri</a>';
                     }
                 },
             ]
@@ -282,7 +282,7 @@
         user.userAccountId = id;
         $.ajax({
             type: "POST",
-            url: "/StudentList/SendActivationEmail",
+            url: "/Admin/StudentList/SendActivationEmail",
             data: JSON.stringify(user),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -305,7 +305,7 @@
         console.log(id);
         $.ajax({
             type: "POST",
-            url: "/StudentList/userDeactivate",
+            url: "/Admin/StudentList/userDeactivate",
             data: JSON.stringify(user),
             contentType: "application/json; charset=utf-8",
             dataType: "json", 
@@ -328,7 +328,7 @@
         console.log(id);
         $.ajax({
             type: "POST",
-            url: "/StudentList/userActivate",
+            url: "/Admin/StudentList/userActivate",
             data: JSON.stringify(user),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -350,7 +350,7 @@
         console.log(user.userTypeID);
         $.ajax({
             type: "POST",
-            url: "/StudentList/changeUserRole",
+            url: "/Admin/StudentList/changeUserRole",
             data: JSON.stringify(user),
             contentType: "application/json; charset=utf-8",
             dataType: "json",

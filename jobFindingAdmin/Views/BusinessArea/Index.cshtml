@@ -5,7 +5,7 @@
 }
 
 
-<div class="container"><a class="btn btn-success mt-5" href="/BusinessArea/Add"><i class="far fa-plus-square"></i> Sektör Ekle</a></div>
+<div class="container"><a class="btn btn-success mt-5" href="/Admin/BusinessArea/Add"><i class="far fa-plus-square"></i> Sektör Ekle</a></div>
 <div class="container">
     <br />
     <div style="width:90%; margin:0 auto;">
@@ -77,7 +77,7 @@
             },
 
             "ajax": {
-                "url": "/BusinessArea/LoadData",
+                "url": "/Admin/BusinessArea/LoadData",
                 "type": "POST",
                 "datatype": "json"
             },
@@ -88,7 +88,7 @@
                     "searchable": false,
                     "render": function (data, type, row) {
                         var id = row.businessId;
-                        return '<a  href="/BusinessArea/Edit/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-info float-center ml-1" > Düzenle</a>';
+                        return '<a  href="/Admin/BusinessArea/Edit/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-info float-center ml-1" > Düzenle</a>';
                     }
                 },
                 {
@@ -96,7 +96,7 @@
                     "searchable": false,
                     "render": function (data, type, row) {
                         var id = row.businessId;
-                        return '<a  href="/CompanyList/BusinessCompanyList/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" > Firmaları Gör</a>';
+                        return '<a  href="/Admin/CompanyList/BusinessCompanyList/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" > Firmaları Gör</a>';
                     }
                 },
 

@@ -223,5 +223,13 @@
         <ComplexTypeMapping TypeName="akdenizjobfindingModel.Sp_Admin_Login_Result" />
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="departments">
+      <EntityTypeMapping TypeName="akdenizjobfindingModel.departments">
+        <MappingFragment StoreEntitySet="departments">
+          <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+          <ScalarProperty Name="departmentsId" ColumnName="departmentsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

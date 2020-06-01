@@ -15,6 +15,6 @@ namespace jobFindingAdmin
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
         //public const string FilePath = "/Admin";
-        public const string FilePath = "";
+        public const string FilePath = "/Admin";
     }
 }

@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container"><a class="btn btn-success mt-5" href="/Country/Add"><i class="far fa-plus-square"></i> Şehir Ekle</a></div>
+<div class="container"><a class="btn btn-success mt-5" href="/Admin/Country/Add"><i class="far fa-plus-square"></i> Şehir Ekle</a></div>
 <div class="container">
     <br />
     <div style="width:90%; margin:0 auto;">
@@ -57,7 +57,7 @@
             },
 
             "ajax": {
-                "url": "/Country/LoadData",
+                "url": "/Admin/Country/LoadData",
                 "type": "POST",
                 "datatype": "json"
             },
@@ -68,7 +68,7 @@
                         "searchable": false,
                         "render": function (data, type, row) {
                             var id = row.countryId;
-                            return '<a  href="/Country/Edit/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" > Düzenle</a>';
+                            return '<a  href="/Admin/Country/Edit/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" > Düzenle</a>';
                         }
                     },
                 ],

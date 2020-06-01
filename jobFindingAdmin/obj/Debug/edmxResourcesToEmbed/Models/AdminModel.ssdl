@@ -40,6 +40,13 @@
     <Property Name="countryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="countryName" Type="varchar" MaxLength="250" Nullable="false" />
   </EntityType>
+  <EntityType Name="departments">
+    <Key>
+      <PropertyRef Name="departmentsId" />
+    </Key>
+    <Property Name="departmentsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="departmentName" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
   <EntityType Name="job_location">
     <Key>
       <PropertyRef Name="jobLocationId" />
@@ -399,6 +406,7 @@
     <EntitySet Name="business_stream" EntityType="Self.business_stream" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="company" EntityType="Self.company" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="countries" EntityType="Self.countries" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="departments" EntityType="Self.departments" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="job_location" EntityType="Self.job_location" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="job_post" EntityType="Self.job_post" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="job_post_activity" EntityType="Self.job_post_activity" Schema="akdenizjobfinding" store:Type="Tables" />

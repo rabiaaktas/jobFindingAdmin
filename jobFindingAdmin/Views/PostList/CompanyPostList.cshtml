@@ -131,7 +131,7 @@
             },
 
             "ajax": {
-                "url": "/PostList/LoadCompanyPostList/" + @ViewContext.RouteData.Values["id"],
+                "url": "/Admin/PostList/LoadCompanyPostList/" + @ViewContext.RouteData.Values["id"],
                 "type": "POST",
                 "datatype": "json"
             },
@@ -171,7 +171,7 @@
                     "searchable": false,
                     "render": function (data, type, row) {
                         var id = row.jobPostId;
-                        return '<a class="detailButton btn btn-info btn-sm float-center ml-1 text-white" data-target="/PostList/Details/' + id + '"><i class="fas fa-info-circle"></i> Detaylar</a>';
+                        return '<a class="detailButton btn btn-info btn-sm float-center ml-1 text-white" data-target="/Admin/PostList/Details/' + id + '"><i class="fas fa-info-circle"></i> Detaylar</a>';
                     },
                 },
                 {
@@ -179,7 +179,7 @@
                     "searchable": false,
                     "render": function (data, type, row) {
                         var id = row.jobPostId;
-                        return '<a class="btn btn-info btn-sm float-center ml-1" href="/PostList/GetApplicants/' + id + '"> <i class="fas fa-clipboard-list"></i> Başvuranlar</a>';
+                        return '<a class="btn btn-info btn-sm float-center ml-1" href="/Admin/PostList/GetApplicants/' + id + '"> <i class="fas fa-clipboard-list"></i> Başvuranlar</a>';
                     },
                 },
                 {
@@ -187,7 +187,7 @@
                     "searchable": false,
                     "render": function (data, type, row) {
                         var id = row.jobPostId;
-                        return '<a  href="/PostList/Edit/' + id + '" data-id = "' + id + '" class="postEdit btn btn-sm btn-success float-center ml-1" ><i class="fas fa-edit"></i> Düzenle</a>';
+                        return '<a  href="/Admin/PostList/Edit/' + id + '" data-id = "' + id + '" class="postEdit btn btn-sm btn-success float-center ml-1" ><i class="fas fa-edit"></i> Düzenle</a>';
                     }
                 },
 
@@ -244,7 +244,7 @@
         post.isActivePost = "1";
         $.ajax({
             type: "POST",
-            url: "/PostList/postActivate",
+            url: "/Admin/PostList/postActivate",
             data: JSON.stringify(post),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
@@ -266,7 +266,7 @@
         post.isActivePost = "0";
         $.ajax({
             type: "POST",
-            url: "/PostList/postDeactivate",
+            url: "/Admin/PostList/postDeactivate",
             data: JSON.stringify(post),
             dataType: "json",
             contentType: "application/json; charset=utf-8",

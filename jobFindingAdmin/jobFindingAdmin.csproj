@@ -190,12 +190,14 @@
     <Compile Include="Controllers\ChangeController.cs" />
     <Compile Include="Controllers\CompanyListController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostListController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\StudentListController.cs" />
     <Compile Include="Controllers\TeacherListController.cs" />
     <Compile Include="Controllers\UniversityController.cs" />
+    <Compile Include="Controllers\VerifyController.cs" />
     <Compile Include="Crypt.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -226,6 +228,9 @@
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\countries.cs">
+      <DependentUpon>AdminModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\departments.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\HelperModel\resetPassword.cs" />
@@ -303,7 +308,7 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Change\ForgetPassword.cshtml" />
     <Content Include="Views\Change\ResetPassword.cshtml" />
-    <Content Include="Views\StudentList\Activate.cshtml" />
+    <Content Include="Views\Verify\Activate.cshtml" />
     <Content Include="Views\StudentList\UserInfo.cshtml" />
     <Content Include="Views\TeacherList\UserInfo.cshtml" />
     <Content Include="Views\BusinessArea\Index.cshtml" />
@@ -322,6 +327,9 @@
     <Content Include="Views\University\Edit.cshtml" />
     <Content Include="Views\Settings\PersonalInfo.cshtml" />
     <Content Include="Views\Settings\ChangePass.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -16,6 +16,7 @@ namespace jobFindingAdmin.Controllers
         private AdminEntities db = new AdminEntities();
         // GET: StudentList
         [UserCheck]
+
         public ActionResult Index()
         {
             return View();
@@ -130,7 +131,7 @@ namespace jobFindingAdmin.Controllers
         public JsonResult SendActivationEmail(user_account user)
         {
             var token = Guid.NewGuid().ToString();
-            var activationUrl = "StudentList/Activate/" + token;
+            var activationUrl = "Verify/" + token;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, activationUrl);
             var selected = db.user_account.FirstOrDefault(x => x.userAccountId == user.userAccountId);
             selected.mailActivationCode = token;
@@ -161,31 +162,6 @@ namespace jobFindingAdmin.Controllers
                 sc.Send(mail);
 
             }
-        }
-
-        public ActionResult Activate(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                ViewBag.Warning = "Geçersiz aktivasyon kodu.";
-            }
-            else
-            {
-                var user = db.user_account.Where(x => x.mailActivationCode == id).FirstOrDefault();
-                if (user != null)
-                {
-                    user.mailActivationCode = "";
-                    user.userIsConfirmed = "1";
-                    db.SaveChanges();
-                    ViewBag.Success = "Aktivasyon başarıyla tamamlandı";
-                }
-                else
-                {
-                    ViewBag.Warning = "Geçersiz aktivasyon kodu.";
-                }
-            }
-            return View();
-           
         }
 
         [UserCheck]

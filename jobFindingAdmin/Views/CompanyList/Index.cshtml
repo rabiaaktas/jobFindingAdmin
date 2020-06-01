@@ -123,7 +123,7 @@
             },
 
             "ajax": {
-                "url": "/CompanyList/LoadCompanyTable",
+                "url": "/Admin/CompanyList/LoadCompanyTable",
                 "type": "POST",
                 "datatype": "json"
             },
@@ -162,7 +162,7 @@
                         "searchable": false,
                         "render": function (data, type, row) {
                             var id = row.companyId;
-                            return '<a  href="/PostList/CompanyPostList/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-warning float-center ml-1 text-white" ><i class="fas fa-list-ol"></i> İlanları Gör</a>';
+                            return '<a  href="/Admin/PostList/CompanyPostList/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-warning float-center ml-1 text-white" ><i class="fas fa-list-ol"></i> İlanları Gör</a>';
                         }
                     },
                     {
@@ -170,7 +170,7 @@
                         "searchable": false,
                         "render": function (data, type, row) {
                             var id = row.companyId;
-                            return '<a  href="/CompanyList/Edit/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" ><i class="fas fa-edit"></i> Düzenle</a>';
+                            return '<a  href="/Admin/CompanyList/Edit/' + id + '" data-id = "' + id + '" class="companyPosts btn btn-sm btn-success float-center ml-1" ><i class="fas fa-edit"></i> Düzenle</a>';
                         }
                     },
                 ],
@@ -185,7 +185,7 @@
                 
                 {
                     "render": function (data, type, full, meta) {
-                        return '<a class="detailButton btn btn-info btn-sm float-center ml-1 text-white" data-target="/CompanyList/Details/' + full.companyId + '"><i class="fas fa-info-circle"></i> Detaylar</a>';
+                        return '<a class="detailButton btn btn-info btn-sm float-center ml-1 text-white" data-target="/Admin/CompanyList/Details/' + full.companyId + '"><i class="fas fa-info-circle"></i> Detaylar</a>';
                     }
                 },
                 
@@ -221,7 +221,7 @@
         company.isCompanyActive = "1";
         $.ajax({
             type: "POST",
-            url: "/CompanyList/companyActivate",
+            url: "/Admin/CompanyList/companyActivate",
             dataType: "json",
             data: JSON.stringify(company),
             contentType: "application/json; charset=utf-8",
@@ -243,7 +243,7 @@
         company.isCompanyActive = "0";
         $.ajax({
             type: "POST",
-            url: "/CompanyList/companyDeactivate",
+            url: "/Admin/CompanyList/companyDeactivate",
             dataType: "json",
             data: JSON.stringify(company),
             contentType: "application/json; charset=utf-8",

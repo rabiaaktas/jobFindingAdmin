@@ -47,6 +47,7 @@ namespace jobFindingAdmin.Models
         public DbSet<user_student> user_student { get; set; }
         public DbSet<user_teacher> user_teacher { get; set; }
         public DbSet<user_type> user_type { get; set; }
+        public DbSet<departments> departments { get; set; }
     
         public virtual ObjectResult<Sp_Admin_Login_Result> Sp_Admin_Login(string mail, string pass)
         {

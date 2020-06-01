@@ -510,6 +510,14 @@
       <Parameter Name="mail" Mode="In" Type="String" />
       <Parameter Name="pass" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="departments" EntityType="akdenizjobfindingModel.departments" />
   </EntityContainer>
   <ComplexType Name="Sp_Admin_Login_Result" />
+  <EntityType Name="departments">
+    <Key>
+      <PropertyRef Name="departmentsId" />
+    </Key>
+    <Property Name="departmentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="departmentName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>
