@@ -4,17 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c0036586621b4704a63f227cd73a8a7b" Name="Diagram1">
+      <Diagram DiagramId="18ea2911d26546f8a0a84e708fee02dd" Name="Diagram1">
         <EntityTypeShape EntityType="akdenizjobfindingModel.admin_log" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.business_stream" Width="1.5" PointX="1.5" PointY="28.5" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.company" Width="1.5" PointX="3.75" PointY="27.375" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.countries" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.departments" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.job_location" Width="1.5" PointX="3.75" PointY="32" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.job_post" Width="1.5" PointX="6" PointY="29.625" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.job_post_activity" Width="1.5" PointX="8.25" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.job_type" Width="1.5" PointX="3.75" PointY="34.75" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.languages" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.universities" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.universities" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.user_account" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.user_admin" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.user_education" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
@@ -40,7 +41,6 @@
         <AssociationConnector Association="akdenizjobfindingModel.user_log_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_student_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_teacher_ibfk_1" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.departments" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

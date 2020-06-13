@@ -45,6 +45,13 @@
     <Property Name="countryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="countryName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
+  <EntityType Name="departments">
+    <Key>
+      <PropertyRef Name="departmentsId" />
+    </Key>
+    <Property Name="departmentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="departmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
   <EntityType Name="job_location">
     <Key>
       <PropertyRef Name="jobLocationId" />
@@ -209,7 +216,7 @@
     </Key>
     <Property Name="userAccountID" Type="Int32" Nullable="false" />
     <Property Name="intrestedSectorId" Type="Int32" />
-    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="statusStd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="business_stream" Relationship="Self.user_student_ibfk_2" FromRole="user_student" ToRole="business_stream" />
     <NavigationProperty Name="user_account" Relationship="Self.user_student_ibfk_1" FromRole="user_student" ToRole="user_account" />
   </EntityType>
@@ -427,6 +434,7 @@
     <EntitySet Name="business_stream" EntityType="Self.business_stream" />
     <EntitySet Name="company" EntityType="Self.company" />
     <EntitySet Name="countries" EntityType="Self.countries" />
+    <EntitySet Name="departments" EntityType="Self.departments" />
     <EntitySet Name="job_location" EntityType="Self.job_location" />
     <EntitySet Name="job_post" EntityType="Self.job_post" />
     <EntitySet Name="job_post_activity" EntityType="Self.job_post_activity" />
@@ -510,14 +518,6 @@
       <Parameter Name="mail" Mode="In" Type="String" />
       <Parameter Name="pass" Mode="In" Type="String" />
     </FunctionImport>
-    <EntitySet Name="departments" EntityType="akdenizjobfindingModel.departments" />
   </EntityContainer>
   <ComplexType Name="Sp_Admin_Login_Result" />
-  <EntityType Name="departments">
-    <Key>
-      <PropertyRef Name="departmentsId" />
-    </Key>
-    <Property Name="departmentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="departmentName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-  </EntityType>
 </Schema>

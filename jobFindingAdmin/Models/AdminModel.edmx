@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="akdenizjobfindingModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="akdenizjobfindingModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="admin_log">
           <Key>
             <PropertyRef Name="adminAccountID" />
@@ -193,7 +193,7 @@
           </Key>
           <Property Name="userAccountID" Type="int" Nullable="false" />
           <Property Name="intrestedSectorId" Type="int" />
-          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="statusStd" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="user_teacher">
           <Key>
@@ -492,7 +492,8 @@
             <End Role="user_teacher" EntitySet="user_teacher" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="akdenizjobfindingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -540,6 +541,13 @@
           </Key>
           <Property Name="countryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="countryName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="departments">
+          <Key>
+            <PropertyRef Name="departmentsId" />
+          </Key>
+          <Property Name="departmentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="departmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="job_location">
           <Key>
@@ -705,7 +713,7 @@
           </Key>
           <Property Name="userAccountID" Type="Int32" Nullable="false" />
           <Property Name="intrestedSectorId" Type="Int32" />
-          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="statusStd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="business_stream" Relationship="Self.user_student_ibfk_2" FromRole="user_student" ToRole="business_stream" />
           <NavigationProperty Name="user_account" Relationship="Self.user_student_ibfk_1" FromRole="user_student" ToRole="user_account" />
         </EntityType>
@@ -923,6 +931,7 @@
           <EntitySet Name="business_stream" EntityType="Self.business_stream" />
           <EntitySet Name="company" EntityType="Self.company" />
           <EntitySet Name="countries" EntityType="Self.countries" />
+          <EntitySet Name="departments" EntityType="Self.departments" />
           <EntitySet Name="job_location" EntityType="Self.job_location" />
           <EntitySet Name="job_post" EntityType="Self.job_post" />
           <EntitySet Name="job_post_activity" EntityType="Self.job_post_activity" />
@@ -1006,16 +1015,8 @@
             <Parameter Name="mail" Mode="In" Type="String" />
             <Parameter Name="pass" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="departments" EntityType="akdenizjobfindingModel.departments" />
         </EntityContainer>
         <ComplexType Name="Sp_Admin_Login_Result" />
-        <EntityType Name="departments">
-          <Key>
-            <PropertyRef Name="departmentsId" />
-          </Key>
-          <Property Name="departmentsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="departmentName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1063,6 +1064,14 @@
               <MappingFragment StoreEntitySet="countries">
                 <ScalarProperty Name="countryId" ColumnName="countryId" />
                 <ScalarProperty Name="countryName" ColumnName="countryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="departments">
+            <EntityTypeMapping TypeName="akdenizjobfindingModel.departments">
+              <MappingFragment StoreEntitySet="departments">
+                <ScalarProperty Name="departmentsId" ColumnName="departmentsId" />
+                <ScalarProperty Name="departmentName" ColumnName="departmentName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1218,7 +1227,7 @@
               <MappingFragment StoreEntitySet="user_student">
                 <ScalarProperty Name="userAccountID" ColumnName="userAccountID" />
                 <ScalarProperty Name="intrestedSectorId" ColumnName="intrestedSectorId" />
-                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="statusStd" ColumnName="statusStd" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1244,14 +1253,6 @@
               <ComplexTypeMapping TypeName="akdenizjobfindingModel.Sp_Admin_Login_Result" />
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="departments">
-            <EntityTypeMapping TypeName="akdenizjobfindingModel.departments">
-              <MappingFragment StoreEntitySet="departments">
-                <ScalarProperty Name="departmentName" ColumnName="departmentName" />
-                <ScalarProperty Name="departmentsId" ColumnName="departmentsId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

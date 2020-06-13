@@ -32,6 +32,7 @@ namespace jobFindingAdmin.Models
         public DbSet<business_stream> business_stream { get; set; }
         public DbSet<company> company { get; set; }
         public DbSet<countries> countries { get; set; }
+        public DbSet<departments> departments { get; set; }
         public DbSet<job_location> job_location { get; set; }
         public DbSet<job_post> job_post { get; set; }
         public DbSet<job_post_activity> job_post_activity { get; set; }
@@ -47,7 +48,6 @@ namespace jobFindingAdmin.Models
         public DbSet<user_student> user_student { get; set; }
         public DbSet<user_teacher> user_teacher { get; set; }
         public DbSet<user_type> user_type { get; set; }
-        public DbSet<departments> departments { get; set; }
     
         public virtual ObjectResult<Sp_Admin_Login_Result> Sp_Admin_Login(string mail, string pass)
         {

@@ -43,7 +43,7 @@ namespace jobFindingAdmin.Controllers
                                join st in db.user_student on ua.userAccountId equals st.userAccountID
                                join ustype in db.user_type on ua.userTypeID equals ustype.userTypeId
                                where ua.userTypeID == 2
-                               select new { ua.userAccountId, ua.userEmail, ua.firstName, ua.lastName, st.status, ua.userIsActive, ua.userIsConfirmed, ustype.userTypeId, ustype.user_type_name };
+                               select new { ua.userAccountId, ua.userEmail, ua.firstName, ua.lastName, st.statusStd, ua.userIsActive, ua.userIsConfirmed, ustype.userTypeId, ustype.user_type_name };
                 if(!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
                 {
                     custData = custData.OrderBy(sortColumn + " " + sortColumnDir);
@@ -171,7 +171,7 @@ namespace jobFindingAdmin.Controllers
             var stu = db.user_student.FirstOrDefault(x => x.userAccountID == id);
             var sector = db.business_stream.FirstOrDefault(x => x.businessId == stu.intrestedSectorId);
             ViewBag.Interested = sector.businessName;
-            ViewBag.Status = stu.status;
+            ViewBag.Status = stu.statusStd;
             return PartialView(db.user_account.FirstOrDefault(x => x.userAccountId == id));
         }
 

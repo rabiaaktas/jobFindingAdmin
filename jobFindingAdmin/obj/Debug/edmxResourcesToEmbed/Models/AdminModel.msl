@@ -45,6 +45,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="departments">
+      <EntityTypeMapping TypeName="akdenizjobfindingModel.departments">
+        <MappingFragment StoreEntitySet="departments">
+          <ScalarProperty Name="departmentsId" ColumnName="departmentsId" />
+          <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="job_location">
       <EntityTypeMapping TypeName="akdenizjobfindingModel.job_location">
         <MappingFragment StoreEntitySet="job_location">
@@ -197,7 +205,7 @@
         <MappingFragment StoreEntitySet="user_student">
           <ScalarProperty Name="userAccountID" ColumnName="userAccountID" />
           <ScalarProperty Name="intrestedSectorId" ColumnName="intrestedSectorId" />
-          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="statusStd" ColumnName="statusStd" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -223,13 +231,5 @@
         <ComplexTypeMapping TypeName="akdenizjobfindingModel.Sp_Admin_Login_Result" />
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="departments">
-      <EntityTypeMapping TypeName="akdenizjobfindingModel.departments">
-        <MappingFragment StoreEntitySet="departments">
-          <ScalarProperty Name="departmentName" ColumnName="departmentName" />
-          <ScalarProperty Name="departmentsId" ColumnName="departmentsId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -188,7 +188,7 @@
     </Key>
     <Property Name="userAccountID" Type="int" Nullable="false" />
     <Property Name="intrestedSectorId" Type="int" />
-    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="statusStd" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="user_teacher">
     <Key>

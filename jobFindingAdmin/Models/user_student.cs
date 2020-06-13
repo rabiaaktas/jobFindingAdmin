@@ -16,7 +16,7 @@ namespace jobFindingAdmin.Models
     {
         public int userAccountID { get; set; }
         public Nullable<int> intrestedSectorId { get; set; }
-        public string status { get; set; }
+        public string statusStd { get; set; }
     
         public virtual business_stream business_stream { get; set; }
         public virtual user_account user_account { get; set; }
