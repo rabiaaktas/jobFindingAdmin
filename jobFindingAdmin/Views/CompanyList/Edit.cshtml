@@ -25,11 +25,11 @@
                         </div>
                         <div class="form-group">
                             <label class=" mb-1"> Adres:</label>
-                            @Html.TextBoxFor(x => x.companyAddress, new { @class = "form-control py-4", id = "inLastName", placeholder = @Model.companyAddress, required = "required", type = "text" })
+                            @Html.TextBoxFor(x => x.companyAddress, new { @class = "form-control py-4", id = "inLastName", placeholder = @Model.companyAddress })
                         </div>
                         <div class="form-group">
                             <label class=" mb-1"> Telefon:</label>
-                            @Html.TextBoxFor(x => x.companyPhone, new { @class = "form-control py-4", id = "inPhone", placeholder = @Model.companyPhone, required = "required", type = "text", maxlength = "11" })
+                            @Html.TextBoxFor(x => x.companyPhone, new { @class = "form-control py-4", id = "inPhone", placeholder = @Model.companyPhone, maxlength = "11" })
                         </div>
                         <div class="form-group">
                             <label for="roleSelect">Değiştirmek istediğiniz sektörü seçiniz : </label>

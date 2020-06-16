@@ -187,6 +187,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BusinessAreaController.cs" />
+    <Compile Include="Controllers\BusinessDepartmentController.cs" />
     <Compile Include="Controllers\ChangeController.cs" />
     <Compile Include="Controllers\CompanyListController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
@@ -221,10 +222,16 @@
     <Compile Include="Models\admin_log.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\business_departments.cs">
+      <DependentUpon>AdminModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\business_stream.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\company.cs">
+      <DependentUpon>AdminModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\company_log.cs">
       <DependentUpon>AdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\countries.cs">
@@ -330,6 +337,9 @@
     <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\Department\Edit.cshtml" />
     <Content Include="Views\Department\Add.cshtml" />
+    <Content Include="Views\BusinessDepartment\Index.cshtml" />
+    <Content Include="Views\BusinessDepartment\Edit.cshtml" />
+    <Content Include="Views\BusinessDepartment\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

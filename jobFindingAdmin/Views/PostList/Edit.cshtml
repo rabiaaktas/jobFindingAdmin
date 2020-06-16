@@ -22,7 +22,7 @@
                         @Html.HiddenFor(model => model.jobPostId)
                         <div class="form-group">
                             <label class=" mb-1"> Başlık:</label>
-                            @Html.TextBoxFor(x => x.jobPostTitle, new { @class = "form-control py-4", id = "inName", placeholder = @Model.jobPostTitle, required = "required", type = "text" })
+                            @Html.TextBoxFor(x => x.jobPostTitle, new { @class = "form-control py-4", id = "inName", placeholder = @Model.jobPostTitle, required = "required" })
                         </div>
                         <div class="form-group">
                             <label class=" mb-1"> Bitiş Tarihi:</label>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="form-group">
                             <label class=" mb-1"> Adres:</label>
-                            @Html.TextAreaFor(x => x.job_location.streetAddress, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.job_location.streetAddress, required = "required", type = "text" })
+                            @Html.TextAreaFor(x => x.job_location.streetAddress, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.job_location.streetAddress, required = "required" })
                         </div>
                         <div class="form-group">
                             <label for="typeSelect">Değiştirmek istediğiniz iş tipini seçiniz : </label>
@@ -60,15 +60,15 @@
                         </div>
                         <div class="form-group">
                             <label class=" mb-1"> Açıklama:</label>
-                            @Html.TextAreaFor(x => x.jobDescription, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.jobDescription, required = "required", type = "text" })
+                            @Html.TextAreaFor(x => x.jobDescription, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.jobDescription, type = "text" })
                         </div>
                         <div class="form-group">
                             <label class=" mb-1"> Eğitim Düzeyi:</label>
-                            @Html.TextAreaFor(x => x.educationInfo, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.educationInfo, required = "required", type = "text" })
+                            @Html.TextAreaFor(x => x.educationInfo, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.educationInfo, required = "required"})
                         </div>
                         <div class="form-group">
                             <label class=" mb-1"> Askerlik Durumu: </label>
-                            @Html.TextAreaFor(x => x.militaryStiation, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.militaryStiation, required = "required", type = "text" })
+                            @Html.TextAreaFor(x => x.militaryStiation, new { @class = "form-control py-4", id = "inAddress", placeholder = @Model.militaryStiation, required = "required" })
                         </div>
                         <div class="form-group">
                             <span style="color:red">

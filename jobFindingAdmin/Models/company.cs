@@ -35,5 +35,6 @@ namespace jobFindingAdmin.Models
     
         public virtual business_stream business_stream { get; set; }
         public virtual ICollection<job_post> job_post { get; set; }
+        public virtual company_log company_log { get; set; }
     }
 }

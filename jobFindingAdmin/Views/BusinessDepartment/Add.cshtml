@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            @model jobFindingAdmin.Models.business_departments
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <div class="card-header"><h3 class="text-center font-weight-light my-4">Departman Ekleme</h3></div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Add", "BusinessDepartment", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label class=" mb-1" for="inputEmailAddress">Departman Adı</label>
+                            @Html.TextBoxFor(x => x.businessDepName, new { @class = "form-control py-4", id = "inputEmail", placeholder = "", required = "required", type = "text" })
+                        </div>
+                        <span style="color:red">
+                            @ViewBag.Warning
+                        </span>
+                        <button class="btn btn-primary" type="submit">Ekle</button>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

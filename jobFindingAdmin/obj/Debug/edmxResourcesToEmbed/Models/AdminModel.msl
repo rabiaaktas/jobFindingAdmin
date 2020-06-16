@@ -231,5 +231,22 @@
         <ComplexTypeMapping TypeName="akdenizjobfindingModel.Sp_Admin_Login_Result" />
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="business_departments">
+      <EntityTypeMapping TypeName="akdenizjobfindingModel.business_departments">
+        <MappingFragment StoreEntitySet="business_departments">
+          <ScalarProperty Name="businessDepName" ColumnName="businessDepName" />
+          <ScalarProperty Name="businessDepId" ColumnName="businessDepId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="company_log">
+      <EntityTypeMapping TypeName="akdenizjobfindingModel.company_log">
+        <MappingFragment StoreEntitySet="company_log">
+          <ScalarProperty Name="loginIp" ColumnName="loginIp" />
+          <ScalarProperty Name="loginDate" ColumnName="loginDate" />
+          <ScalarProperty Name="companyID" ColumnName="companyID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
