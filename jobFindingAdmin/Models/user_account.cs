@@ -30,8 +30,8 @@ namespace jobFindingAdmin.Models
         public string userPassword { get; set; }
         public string userIsActive { get; set; }
         public string userIsConfirmed { get; set; }
-        public byte[] userImage { get; set; }
-        public System.DateTime userRegistrationDate { get; set; }
+        public Nullable<int> userImageID { get; set; }
+        public Nullable<System.DateTime> userRegistrationDate { get; set; }
         public Nullable<System.DateTime> userBday { get; set; }
         public string userPhone { get; set; }
         public string userAddress { get; set; }
@@ -40,6 +40,7 @@ namespace jobFindingAdmin.Models
     
         public virtual ICollection<job_post_activity> job_post_activity { get; set; }
         public virtual user_type user_type { get; set; }
+        public virtual user_image user_image { get; set; }
         public virtual ICollection<user_education> user_education { get; set; }
         public virtual ICollection<user_experinence_detail> user_experinence_detail { get; set; }
         public virtual ICollection<user_language_skill> user_language_skill { get; set; }

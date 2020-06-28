@@ -12,17 +12,16 @@ namespace jobFindingAdmin.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class user_experinence_detail
+    public partial class company_logo
     {
-        public int experienceId { get; set; }
-        public int userAccountID { get; set; }
-        public string isCurrentJob { get; set; }
-        public Nullable<System.DateTime> startDate { get; set; }
-        public Nullable<System.DateTime> endDate { get; set; }
-        public string jobTitle { get; set; }
-        public string companyName { get; set; }
-        public string description { get; set; }
+        public company_logo()
+        {
+            this.company = new HashSet<company>();
+        }
     
-        public virtual user_account user_account { get; set; }
+        public int companyLogoId { get; set; }
+        public byte[] companyLogo { get; set; }
+    
+        public virtual ICollection<company> company { get; set; }
     }
 }

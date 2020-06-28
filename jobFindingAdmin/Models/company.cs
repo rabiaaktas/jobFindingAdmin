@@ -29,12 +29,15 @@ namespace jobFindingAdmin.Models
         public string companyPassword { get; set; }
         public string companyInfo { get; set; }
         public string companyPhone { get; set; }
-        public byte[] companyLogo { get; set; }
+        public Nullable<int> companyLogoID { get; set; }
         public System.DateTime registrationCompanyDate { get; set; }
         public string isCompanyActive { get; set; }
+        public string resetPasswordCode { get; set; }
+        public string mailActivationCode { get; set; }
     
         public virtual business_stream business_stream { get; set; }
-        public virtual ICollection<job_post> job_post { get; set; }
+        public virtual company_logo company_logo { get; set; }
         public virtual company_log company_log { get; set; }
+        public virtual ICollection<job_post> job_post { get; set; }
     }
 }

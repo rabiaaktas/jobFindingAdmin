@@ -4,30 +4,36 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="18ea2911d26546f8a0a84e708fee02dd" Name="Diagram1">
+      <Diagram DiagramId="19451dc6c08846f092714b05075cf5e8" Name="Diagram1">
         <EntityTypeShape EntityType="akdenizjobfindingModel.admin_log" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.business_stream" Width="1.5" PointX="1.5" PointY="28.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.company" Width="1.5" PointX="3.75" PointY="27.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.countries" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.departments" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.job_location" Width="1.5" PointX="3.75" PointY="32" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.business_departments" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.business_stream" Width="1.5" PointX="1.5" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.company" Width="1.5" PointX="3.75" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.company_log" Width="1.5" PointX="6" PointY="35.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.company_logo" Width="1.5" PointX="1.5" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.countries" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.departments" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.job_location" Width="1.5" PointX="3.75" PointY="32.375" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.job_post" Width="1.5" PointX="6" PointY="29.625" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.job_post_activity" Width="1.5" PointX="8.25" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.job_type" Width="1.5" PointX="3.75" PointY="34.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.job_type" Width="1.5" PointX="3.75" PointY="35.125" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.languages" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.universities" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.user_account" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.universities" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_account" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.user_admin" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.user_education" Width="1.5" PointX="5.25" PointY="9" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.user_experinence_detail" Width="1.5" PointX="5.25" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_image" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.user_language_skill" Width="1.5" PointX="8.25" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.user_log" Width="1.5" PointX="5.25" PointY="19.125" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.user_student" Width="1.5" PointX="8.25" PointY="13.875" IsExpanded="true" />
         <EntityTypeShape EntityType="akdenizjobfindingModel.user_teacher" Width="1.5" PointX="5.25" PointY="24.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.user_type" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="akdenizjobfindingModel.user_type" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
         <AssociationConnector Association="akdenizjobfindingModel.admin_log_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.company_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_student_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.company_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.company_log_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.job_post_ibfk_3" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.job_post_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.job_post_activity_ibfk_2" ManuallyRouted="false" />
@@ -35,15 +41,13 @@
         <AssociationConnector Association="akdenizjobfindingModel.job_post_activity_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_language_skill_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_account_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="akdenizjobfindingModel.user_account_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_education_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_experinence_detail_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_language_skill_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_log_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_student_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="akdenizjobfindingModel.user_teacher_ibfk_1" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.business_departments" Width="1.5" PointX="5.375" PointY="3.75" />
-        <EntityTypeShape EntityType="akdenizjobfindingModel.company_log" Width="1.5" PointX="6" PointY="35.5" />
-        <AssociationConnector Association="akdenizjobfindingModel.company_log_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

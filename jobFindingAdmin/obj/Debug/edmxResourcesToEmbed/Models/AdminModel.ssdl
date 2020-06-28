@@ -36,9 +36,11 @@
     <Property Name="companyPassword" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="companyInfo" Type="varchar" MaxLength="1000" />
     <Property Name="companyPhone" Type="varchar" MaxLength="11" />
-    <Property Name="companyLogo" Type="blob" />
+    <Property Name="companyLogoID" Type="int" />
     <Property Name="registrationCompanyDate" Type="date" Nullable="false" />
     <Property Name="isCompanyActive" Type="varchar" MaxLength="1" Nullable="false" />
+    <Property Name="resetPasswordCode" Type="varchar" MaxLength="100" />
+    <Property Name="mailActivationCode" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="company_log">
     <Key>
@@ -47,6 +49,13 @@
     <Property Name="companyID" Type="int" Nullable="false" />
     <Property Name="loginDate" Type="date" Nullable="false" />
     <Property Name="loginIp" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="company_logo">
+    <Key>
+      <PropertyRef Name="companyLogoId" />
+    </Key>
+    <Property Name="companyLogoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="companyLogo" Type="longblob" />
   </EntityType>
   <EntityType Name="countries">
     <Key>
@@ -80,7 +89,7 @@
     <Property Name="companyID" Type="int" Nullable="false" />
     <Property Name="isCompanyNameHidden" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="postCreatedDate" Type="date" Nullable="false" />
-    <Property Name="postEndedDay" Type="date" Nullable="false" />
+    <Property Name="postEndedDay" Type="date" />
     <Property Name="jobDescription" Type="text" Nullable="false" />
     <Property Name="jobLocationID" Type="int" Nullable="false" />
     <Property Name="isActivePost" Type="varchar" MaxLength="1" Nullable="false" />
@@ -132,7 +141,7 @@
     <Property Name="userPassword" Type="varchar" MaxLength="500" Nullable="false" />
     <Property Name="userIsActive" Type="varchar" MaxLength="1" Nullable="false" />
     <Property Name="userIsConfirmed" Type="varchar" MaxLength="1" Nullable="false" />
-    <Property Name="userImage" Type="blob" />
+    <Property Name="userImageID" Type="int" />
     <Property Name="userRegistrationDate" Type="datetime" Precision="0" />
     <Property Name="userBday" Type="date" />
     <Property Name="userPhone" Type="varchar" MaxLength="11" />
@@ -178,7 +187,14 @@
     <Property Name="endDate" Type="date" />
     <Property Name="jobTitle" Type="varchar" MaxLength="1000" Nullable="false" />
     <Property Name="companyName" Type="varchar" MaxLength="1000" Nullable="false" />
-    <Property Name="description" Type="varchar" MaxLength="1000" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="user_image">
+    <Key>
+      <PropertyRef Name="userImageId" />
+    </Key>
+    <Property Name="userImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userImage" Type="longblob" />
   </EntityType>
   <EntityType Name="user_language_skill">
     <Key>
@@ -244,6 +260,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="company_ibfk_2">
+    <End Role="company_logo" Type="Self.company_logo" Multiplicity="0..1" />
+    <End Role="company" Type="Self.company" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="company_logo">
+        <PropertyRef Name="companyLogoId" />
+      </Principal>
+      <Dependent Role="company">
+        <PropertyRef Name="companyLogoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="company_log_ibfk_1">
     <End Role="company" Type="Self.company" Multiplicity="1" />
     <End Role="company_log" Type="Self.company_log" Multiplicity="0..1" />
@@ -281,7 +309,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="job_post_ibfk_1">
-    <End Role="job_type" Type="Self.job_type" Multiplicity="1" />
+    <End Role="job_type" Type="Self.job_type" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="job_post" Type="Self.job_post" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="job_type">
@@ -293,7 +323,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="job_post_ibfk_2">
-    <End Role="job_location" Type="Self.job_location" Multiplicity="1" />
+    <End Role="job_location" Type="Self.job_location" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="job_post" Type="Self.job_post" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="job_location">
@@ -305,7 +337,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="job_post_ibfk_3">
-    <End Role="company" Type="Self.company" Multiplicity="1" />
+    <End Role="company" Type="Self.company" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="job_post" Type="Self.job_post" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="company">
@@ -325,6 +359,18 @@
       </Principal>
       <Dependent Role="user_account">
         <PropertyRef Name="userTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="user_account_ibfk_2">
+    <End Role="user_image" Type="Self.user_image" Multiplicity="0..1" />
+    <End Role="user_account" Type="Self.user_account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="user_image">
+        <PropertyRef Name="userImageId" />
+      </Principal>
+      <Dependent Role="user_account">
+        <PropertyRef Name="userImageID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -424,16 +470,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Function Name="Sp_Admin_Login" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="akdenizjobfinding">
-    <Parameter Name="mail" Type="varchar" Mode="In" />
-    <Parameter Name="pass" Type="varchar" Mode="In" />
-  </Function>
   <EntityContainer Name="akdenizjobfindingModelStoreContainer">
     <EntitySet Name="admin_log" EntityType="Self.admin_log" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="business_departments" EntityType="Self.business_departments" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="business_stream" EntityType="Self.business_stream" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="company" EntityType="Self.company" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="company_log" EntityType="Self.company_log" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="company_logo" EntityType="Self.company_logo" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="countries" EntityType="Self.countries" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="departments" EntityType="Self.departments" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="job_location" EntityType="Self.job_location" Schema="akdenizjobfinding" store:Type="Tables" />
@@ -446,6 +489,7 @@
     <EntitySet Name="user_admin" EntityType="Self.user_admin" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="user_education" EntityType="Self.user_education" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="user_experinence_detail" EntityType="Self.user_experinence_detail" Schema="akdenizjobfinding" store:Type="Tables" />
+    <EntitySet Name="user_image" EntityType="Self.user_image" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="user_language_skill" EntityType="Self.user_language_skill" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="user_log" EntityType="Self.user_log" Schema="akdenizjobfinding" store:Type="Tables" />
     <EntitySet Name="user_student" EntityType="Self.user_student" Schema="akdenizjobfinding" store:Type="Tables" />
@@ -457,6 +501,10 @@
     </AssociationSet>
     <AssociationSet Name="company_ibfk_1" Association="Self.company_ibfk_1">
       <End Role="business_stream" EntitySet="business_stream" />
+      <End Role="company" EntitySet="company" />
+    </AssociationSet>
+    <AssociationSet Name="company_ibfk_2" Association="Self.company_ibfk_2">
+      <End Role="company_logo" EntitySet="company_logo" />
       <End Role="company" EntitySet="company" />
     </AssociationSet>
     <AssociationSet Name="company_log_ibfk_1" Association="Self.company_log_ibfk_1">
@@ -485,6 +533,10 @@
     </AssociationSet>
     <AssociationSet Name="user_account_ibfk_1" Association="Self.user_account_ibfk_1">
       <End Role="user_type" EntitySet="user_type" />
+      <End Role="user_account" EntitySet="user_account" />
+    </AssociationSet>
+    <AssociationSet Name="user_account_ibfk_2" Association="Self.user_account_ibfk_2">
+      <End Role="user_image" EntitySet="user_image" />
       <End Role="user_account" EntitySet="user_account" />
     </AssociationSet>
     <AssociationSet Name="user_education_ibfk_1" Association="Self.user_education_ibfk_1">

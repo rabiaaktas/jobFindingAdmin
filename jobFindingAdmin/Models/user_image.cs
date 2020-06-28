@@ -10,8 +10,18 @@
 namespace jobFindingAdmin.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class Sp_Admin_Login_Result
+    public partial class user_image
     {
+        public user_image()
+        {
+            this.user_account = new HashSet<user_account>();
+        }
+    
+        public int userImageId { get; set; }
+        public byte[] userImage { get; set; }
+    
+        public virtual ICollection<user_account> user_account { get; set; }
     }
 }

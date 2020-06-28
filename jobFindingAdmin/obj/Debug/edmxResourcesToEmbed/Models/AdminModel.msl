@@ -10,6 +10,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="business_departments">
+      <EntityTypeMapping TypeName="akdenizjobfindingModel.business_departments">
+        <MappingFragment StoreEntitySet="business_departments">
+          <ScalarProperty Name="businessDepId" ColumnName="businessDepId" />
+          <ScalarProperty Name="businessDepName" ColumnName="businessDepName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="business_stream">
       <EntityTypeMapping TypeName="akdenizjobfindingModel.business_stream">
         <MappingFragment StoreEntitySet="business_stream">
@@ -31,9 +39,28 @@
           <ScalarProperty Name="companyPassword" ColumnName="companyPassword" />
           <ScalarProperty Name="companyInfo" ColumnName="companyInfo" />
           <ScalarProperty Name="companyPhone" ColumnName="companyPhone" />
-          <ScalarProperty Name="companyLogo" ColumnName="companyLogo" />
+          <ScalarProperty Name="companyLogoID" ColumnName="companyLogoID" />
           <ScalarProperty Name="registrationCompanyDate" ColumnName="registrationCompanyDate" />
           <ScalarProperty Name="isCompanyActive" ColumnName="isCompanyActive" />
+          <ScalarProperty Name="resetPasswordCode" ColumnName="resetPasswordCode" />
+          <ScalarProperty Name="mailActivationCode" ColumnName="mailActivationCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="company_log">
+      <EntityTypeMapping TypeName="akdenizjobfindingModel.company_log">
+        <MappingFragment StoreEntitySet="company_log">
+          <ScalarProperty Name="companyID" ColumnName="companyID" />
+          <ScalarProperty Name="loginDate" ColumnName="loginDate" />
+          <ScalarProperty Name="loginIp" ColumnName="loginIp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="company_logo">
+      <EntityTypeMapping TypeName="akdenizjobfindingModel.company_logo">
+        <MappingFragment StoreEntitySet="company_logo">
+          <ScalarProperty Name="companyLogoId" ColumnName="companyLogoId" />
+          <ScalarProperty Name="companyLogo" ColumnName="companyLogo" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -128,7 +155,7 @@
           <ScalarProperty Name="userPassword" ColumnName="userPassword" />
           <ScalarProperty Name="userIsActive" ColumnName="userIsActive" />
           <ScalarProperty Name="userIsConfirmed" ColumnName="userIsConfirmed" />
-          <ScalarProperty Name="userImage" ColumnName="userImage" />
+          <ScalarProperty Name="userImageID" ColumnName="userImageID" />
           <ScalarProperty Name="userRegistrationDate" ColumnName="userRegistrationDate" />
           <ScalarProperty Name="userBday" ColumnName="userBday" />
           <ScalarProperty Name="userPhone" ColumnName="userPhone" />
@@ -181,6 +208,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="user_image">
+      <EntityTypeMapping TypeName="akdenizjobfindingModel.user_image">
+        <MappingFragment StoreEntitySet="user_image">
+          <ScalarProperty Name="userImageId" ColumnName="userImageId" />
+          <ScalarProperty Name="userImage" ColumnName="userImage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="user_language_skill">
       <EntityTypeMapping TypeName="akdenizjobfindingModel.user_language_skill">
         <MappingFragment StoreEntitySet="user_language_skill">
@@ -223,28 +258,6 @@
         <MappingFragment StoreEntitySet="user_type">
           <ScalarProperty Name="userTypeId" ColumnName="userTypeId" />
           <ScalarProperty Name="user_type_name" ColumnName="user_type_name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="Sp_Admin_Login" FunctionName="akdenizjobfindingModel.Store.Sp_Admin_Login">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="akdenizjobfindingModel.Sp_Admin_Login_Result" />
-      </ResultMapping>
-    </FunctionImportMapping>
-    <EntitySetMapping Name="business_departments">
-      <EntityTypeMapping TypeName="akdenizjobfindingModel.business_departments">
-        <MappingFragment StoreEntitySet="business_departments">
-          <ScalarProperty Name="businessDepName" ColumnName="businessDepName" />
-          <ScalarProperty Name="businessDepId" ColumnName="businessDepId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="company_log">
-      <EntityTypeMapping TypeName="akdenizjobfindingModel.company_log">
-        <MappingFragment StoreEntitySet="company_log">
-          <ScalarProperty Name="loginIp" ColumnName="loginIp" />
-          <ScalarProperty Name="loginDate" ColumnName="loginDate" />
-          <ScalarProperty Name="companyID" ColumnName="companyID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
