@@ -20,11 +20,6 @@ namespace jobFindingAdmin.Controllers
         [UserCheck]
         public ActionResult Index()
         {
-            string rb = "rbakt258.";
-            rb = Crypt.Encrypt(rb);
-            ViewBag.rb = rb;
-            string dc = Crypt.Decrypt(rb);
-            ViewBag.dc = dc;
             return View();
         }
 

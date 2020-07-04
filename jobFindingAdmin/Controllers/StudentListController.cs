@@ -146,7 +146,7 @@ namespace jobFindingAdmin.Controllers
         public void sendEmail(string email, string body, string subject)
         {
             MailMessage mail = new MailMessage();
-            mail.From = new MailAddress("aktasrabiaa@gmail.com");
+            mail.From = new MailAddress("mail-adddres");
             mail.To.Add(email);
             mail.Subject = subject;
             mail.IsBodyHtml = true;
@@ -156,7 +156,7 @@ namespace jobFindingAdmin.Controllers
                 sc.Port = 587;
                 sc.Host = "smtp.live.com";
                 sc.EnableSsl = true;
-                sc.Credentials = new NetworkCredential("rabia-aktas-98@hotmail.com", "rbakt258.");
+                sc.Credentials = new NetworkCredential("mail-address", "password");
                 sc.UseDefaultCredentials = false;
                 sc.DeliveryMethod = SmtpDeliveryMethod.Network;
                 sc.Send(mail);
